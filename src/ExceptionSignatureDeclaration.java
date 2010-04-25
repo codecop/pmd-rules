@@ -1,5 +1,4 @@
-// net.sourceforge.pmd.rules.strictexception;
-
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,15 +8,17 @@ import net.sourceforge.pmd.ast.ASTConstructorDeclaration;
 import net.sourceforge.pmd.ast.ASTImportDeclaration;
 import net.sourceforge.pmd.ast.ASTMethodDeclaration;
 import net.sourceforge.pmd.ast.ASTName;
+import net.sourceforge.pmd.ast.ASTPackageDeclaration;
 import net.sourceforge.pmd.ast.Node;
-
 /**
- * @author <a mailto:trondandersen@c2i.net>Trond Andersen</a>
- * @version 1.0
- * @since 1.2
+ * Changed Exception Signature rule to allow everything in .junit and .httpunit packages 
+ * for setup, teardown and test methods.
+ * Copied from PMD 3.1 Source Edition in package <code>net.sourceforge.pmd.rules.strictexception</code>.
+ * @author PMD 3.7
  */
 public class ExceptionSignatureDeclaration extends AbstractRule
 {
+   private final List allowedMethods = Arrays.asList(new String[] { "setUp", "oneTimeSetUp", "tearDown" });
 
    private boolean junitImported;
 
@@ -27,9 +28,21 @@ public class ExceptionSignatureDeclaration extends AbstractRule
       return super.visit(node, o);
    }
 
+   public Object visit(ASTPackageDeclaration node, Object o)
+   {
+      // allow any classes which reside in  a .junit. or .httpunit package too
+      ASTName packageName = (ASTName) node.getFirstChildOfType(ASTName.class);
+      if (packageName != null && (packageName.getImage().endsWith(".junit") || packageName.getImage().endsWith(".httpunit")))
+      {
+         junitImported = true;
+      }
+      return super.visit(node, o);
+   }
+
    public Object visit(ASTImportDeclaration node, Object o)
    {
-      if (node.getImportedName().indexOf("junit") != -1)
+      final String importName = node.getImportedName();
+      if (importName.indexOf(".junit.") != -1 || importName.indexOf(".httpunit.") != -1)
       {
          junitImported = true;
       }
@@ -38,7 +51,8 @@ public class ExceptionSignatureDeclaration extends AbstractRule
 
    public Object visit(ASTMethodDeclaration methodDeclaration, Object o)
    {
-      if ((methodDeclaration.getMethodName().equals("setUp") || methodDeclaration.getMethodName().equals("tearDown")) && junitImported)
+      final String methodName = methodDeclaration.getMethodName();
+      if ((allowedMethods.contains(methodName) || methodName.startsWith("test")) && junitImported)
       {
          return super.visit(methodDeclaration, o);
       }
@@ -79,6 +93,9 @@ public class ExceptionSignatureDeclaration extends AbstractRule
          exception = (ASTName) iter.next();
          if (hasDeclaredExceptionInSignature(exception))
          {
+            // PMD 3.1
+            // context.getReport().addRuleViolation(createRuleViolation(context, exception));
+            // PMD 3.7
             addViolation(context, exception);
          }
       }
@@ -110,4 +127,5 @@ public class ExceptionSignatureDeclaration extends AbstractRule
    {
       return nameList != null && nameList.size() > 0;
    }
+
 }

@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+
+<ruleset name="HBD Package Rules">
+   <description>The HBD Ruleset contains the package rules for HBD.</description>
+
+   <!-- Rule for all packages just using util and hbd. -->
+   <rule name="HBDPackagesLowLevel"
+         message="Package must not use classes except from util, hbd (form)."
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>
+      Packages must not use classes from other packages except util, hbd (waf.hbd), subpackages and packages from its non-waf sibling. An import of a class from a forbidden package was found. Remove dependencies.
+      </description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//ImportDeclaration/Name[
+  starts-with(@Image,'at.herold') and (
+  (
+     (not (starts-with(@Image,'at.herold.util'))) and
+     //PackageDeclaration/Name[ starts-with(@Image,'at.herold.util') ]
+   )
+   or
+
+  (
+     (not (starts-with(@Image,'at.herold.util') or starts-with(@Image,'at.herold.hbd'))) and
+     //PackageDeclaration/Name[ starts-with(@Image,'at.herold.hbd') ]
+   )
+   or
+   (
+      (not (starts-with(@Image,'at.herold.util') or starts-with(@Image,'at.herold.hbd') or starts-with(@Image,'at.herold.billing'))) and
+      //PackageDeclaration/Name[ starts-with(@Image,'at.herold.billing') ]
+   )
+   or
+   (
+      (not (starts-with(@Image,'at.herold.util') or starts-with(@Image,'at.herold.hbd') or starts-with(@Image,'at.herold.sms'))) and
+      //PackageDeclaration/Name[ starts-with(@Image,'at.herold.sms') ]
+   )
+   or
+   (
+      (not (starts-with(@Image,'at.herold.util') or starts-with(@Image,'at.herold.hbd') or starts-with(@Image,'at.herold.hbur'))) and
+      //PackageDeclaration/Name[ starts-with(@Image,'at.herold.hbur') ]
+   )
+   or
+   (
+      (not (starts-with(@Image,'at.herold.util') or starts-with(@Image,'at.herold.hbd') or starts-with(@Image,'at.herold.hru'))) and
+      //PackageDeclaration/Name[ starts-with(@Image,'at.herold.hru') ]
+   )
+   or
+   (
+      (not (starts-with(@Image,'at.herold.util') or starts-with(@Image,'at.herold.hbd') or starts-with(@Image,'at.herold.hbo'))) and
+      //PackageDeclaration/Name[ starts-with(@Image,'at.herold.hbo') ]
+   )
+   or
+
+   (
+     (not (starts-with(@Image,'at.herold.util') or starts-with(@Image,'at.herold.hbd') or starts-with(@Image,'at.herold.waf.hbd'))) and
+     //PackageDeclaration/Name[ starts-with(@Image,'at.herold.waf.hbd') ]
+   )
+   or
+   (
+      (not (starts-with(@Image,'at.herold.util') or starts-with(@Image,'at.herold.hbd') or starts-with(@Image,'at.herold.waf.hbd') or
+               starts-with(@Image,'at.herold.billing') or starts-with(@Image,'at.herold.waf.billing'))) and
+      //PackageDeclaration/Name[ starts-with(@Image,'at.herold.waf.billing') ]
+   )
+   or
+   (
+      (not (starts-with(@Image,'at.herold.util') or starts-with(@Image,'at.herold.hbd') or starts-with(@Image,'at.herold.waf.hbd') or
+               starts-with(@Image,'at.herold.waf.admin'))) and
+      //PackageDeclaration/Name[ starts-with(@Image,'at.herold.waf.admin') ]
+   )
+   or
+   (
+      (not (starts-with(@Image,'at.herold.util') or starts-with(@Image,'at.herold.hbd') or starts-with(@Image,'at.herold.waf.hbd') or
+               starts-with(@Image,'at.herold.waf.form'))) and
+      //PackageDeclaration/Name[ starts-with(@Image,'at.herold.waf.form') ]
+   )
+   or
+   (
+      (not (starts-with(@Image,'at.herold.util') or starts-with(@Image,'at.herold.hbd') or starts-with(@Image,'at.herold.waf.hbd') or
+               starts-with(@Image,'at.herold.waf.form') or starts-with(@Image,'at.herold.hbo') or starts-with(@Image,'at.herold.waf.hbo'))) and
+      //PackageDeclaration/Name[ starts-with(@Image,'at.herold.waf.hbo') ]
+   )
+   or
+   (
+      (not (starts-with(@Image,'at.herold.util') or starts-with(@Image,'at.herold.hbd') or starts-with(@Image,'at.herold.waf.hbd') or
+               starts-with(@Image,'at.herold.waf.form') or starts-with(@Image,'at.herold.hru') or starts-with(@Image,'at.herold.waf.hru'))) and
+      //PackageDeclaration/Name[ starts-with(@Image,'at.herold.waf.hru') ]
+   )
+   or
+   (
+      (not (starts-with(@Image,'at.herold.util') or starts-with(@Image,'at.herold.hbd') or starts-with(@Image,'at.herold.waf.hbd') or
+               starts-with(@Image,'at.herold.waf.form') or starts-with(@Image,'at.herold.hbur') or starts-with(@Image,'at.herold.waf.hbur'))) and
+      //PackageDeclaration/Name[ starts-with(@Image,'at.herold.waf.hbur') ]
+   )
+) ]
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>Peter Kofler</author>
+      <example>
+<![CDATA[
+package at.herold.hbd;
+import at.herold.gso.db.DataObject;
+// gso is 'higher' than hbd - layer violation.
+
+public class Foo { }
+]]>
+      </example>
+   </rule>
+
+
+   <!-- Rules for higher layer, services on business objects. -->
+   <rule name="HBDPackagesHighLevel"
+         message="Package must not use classes from other high level packages."
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>
+      High level packages must not use classes from other high level packages. Allowed dependencies are hbd, hbur, hbo, hru and the waf-siblings. An import of a class from a forbidden package was found. Remove dependencies.
+      </description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//ImportDeclaration/Name[
+  starts-with(@Image,'at.herold') and (
+  (
+      (not (starts-with(@Image,'at.herold.util') or starts-with(@Image,'at.herold.hbd') or starts-with(@Image,'at.herold.hbur') or
+               starts-with(@Image,'at.herold.hbo') or starts-with(@Image,'at.herold.sup'))) and
+      //PackageDeclaration/Name[ starts-with(@Image,'at.herold.sup') ]
+   )
+   or
+  (
+      (not (starts-with(@Image,'at.herold.util') or starts-with(@Image,'at.herold.hbd') or starts-with(@Image,'at.herold.waf.hbd') or
+               starts-with(@Image,'at.herold.waf.form') or starts-with(@Image,'at.herold.hbur') or starts-with(@Image,'at.herold.waf.hbur') or
+               starts-with(@Image,'at.herold.hbo') or starts-with(@Image,'at.herold.waf.hbo') or starts-with(@Image,'at.herold.epr'))) and
+      //PackageDeclaration/Name[ starts-with(@Image,'at.herold.epr') ]
+   )
+) ]
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>Peter Kofler</author>
+      <example></example>
+   </rule>
+
+
+</ruleset>

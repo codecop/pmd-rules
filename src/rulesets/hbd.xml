@@ -1,0 +1,796 @@
+<?xml version="1.0"?>
+
+<ruleset name="HBD Rules">
+   <description>The HBD Ruleset contains a collection of rules special for HBD.</description>
+
+
+
+   <rule name="unused-SuspiciousEqualsMethodName"
+         message="The method signatur is suspiciously close to equals(Object)."
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>
+      The method name and parameter number are suspiciously close to equals(Object), which may mean you are trying (and failing) to override the equals(Object) method.
+      </description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//ClassDeclaration//MethodDeclarator
+  [@Image = 'equals']
+  [count(FormalParameters/*) = 1 ]
+  [not (FormalParameters//Type/Name[@Image = 'Object' or @Image = 'java.lang.Object'])]
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>Peter Kofler, submitted to PMD</author>
+      <example>
+<![CDATA[
+public class Foo {
+ public boolean equals(String s) {
+ // oops, this probably was supposed to be equals(Object)
+ }
+}
+]]>
+      </example>
+   </rule>
+
+
+
+   <rule name="HBDEmptyFunction"
+         message="The given method must be implemented and not just return null."
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>
+      Some abstract methods, e.g. getActionShortName() in subclasses of HBDAction, must not return null. If they will never be called, throw a OperationNotSupportedException.
+      </description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//ClassDeclaration//MethodDeclaration
+  [MethodDeclarator [@Image = 'getActionShortName' or @Image = 'toDom' or @Image = 'toString' ] ]
+  [Block//ReturnStatement//NullLiteral]
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>Peter Kofler</author>
+      <example>
+<![CDATA[
+public class FooAction {
+ public String getActionShortName()
+ {
+   // should return some string for the statistic
+   return null;
+ }
+}
+]]>
+      </example>
+   </rule>
+   <!-- rule v1: check for no parameters
+//ClassDeclaration//MethodDeclaration
+  [MethodDeclarator [@Image = 'getActionShortName'] [count(FormalParameters/*) = 0] ]
+  [Block//ReturnStatement//NullLiteral]
+   -->
+
+
+
+   <rule name="HBDLibraryRuleForSOAP"
+         message="SOAP must only be used inside at.herold.sup.soap."
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>
+      The SOAP library must only be used inside the package at.herold.sup.soap. Other packages must not import it.
+      </description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//ImportDeclaration/Name[
+  starts-with(@Image,'org.apache.axis') and
+  //PackageDeclaration/Name[(not (starts-with(@Image,'at.herold.sup.soap')))]
+]
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>Peter Kofler</author>
+      <example>
+<![CDATA[
+package at.herold.a; // other than at.herold.sup.soap
+import org.apache.axis.abc.Call;
+
+public class Foo { }
+]]>
+      </example>
+   </rule>
+
+
+
+   <rule name="HBDCommitInDBLayer"
+         message="Classes in DB layer must not call Connection.commit."
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>
+      HBDActions are responsible for maintaining transactions, so classes in the DB layer are not allowed to call
+      Connection.commit. commit is reserved word and should also not be used as identifier.
+      </description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//PrimaryExpression[
+   ( PrimaryPrefix/Name[ends-with(@Image, '.commit')] or PrimarySuffix[@Image = 'commit'] ) and
+   //PackageDeclaration[Name[ends-with(@Image, '.resultlist') ]]
+]
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>Martina Stoiber</author>
+      <example>
+<![CDATA[
+package at.herold.sp.resultlist;
+
+public class BadGuy {
+
+   public void method() {
+      System.out.println("bubu");
+
+      Connection con = getConnection();
+      con.commit(); // 9
+      System.out.println("we did it");
+
+      getConnection().commit(); // 12
+      System.out.println("we did it again");
+
+      // would be ok, but may warn as well
+      int commit;
+      commit = 3;
+      long commit = 3L;
+      other.commit(bla); // 19
+      other.commitIt(bla);
+      other.commit2();
+      other.Somecommit();
+
+   }
+}
+]]>
+      </example>
+   </rule>
+
+
+
+   <rule name="JumbledIterator"
+         message="Non matching iterator identifier found in for loop."
+         class="net.sourceforge.pmd.rules.XPathRule">
+     <description>
+      Iterator for 'exit expression' in for loop does not match the declaration, maybe not intended.
+     </description>
+      <properties>
+         <property name="xpath">
+             <value>
+<![CDATA[
+//ForStatement[
+  ( ForInit//Type/Name/@Image = 'Iterator' or ForInit//Type/Name/@Image = 'Enumeration'
+  ) and
+  ( ends-with(Expression//Name/@Image, '.hasNext') or
+    ends-with(Expression//Name/@Image, '.hasMoreElements')
+  ) and not(starts-with(Expression//Name/@Image, concat(ForInit//VariableDeclaratorId/@Image,'.'))) ]
+]]>
+             </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>Richard Beitelmair</author>
+      <example>
+<![CDATA[
+public class JumbledIteratorRule
+{
+   public void test()
+   {
+
+      for (int i = 0; i < ab.size(); i++) {
+         // this is ok
+      }
+
+      for (Enumeration en = getEnum(); en2.hasMoreElements(); )  {
+         // maybe wrong, line 10
+      }
+
+      for (Enumeration en2 = getEnum(); en.hasMoreElements(); )  {
+         // maybe wrong, line 14
+      }
+
+      ArrayList al = new ArrayList();
+      for (Iterator it2 = al.iterator(); it.hasNext(); )   {
+         // maybe wrong, line 19
+      }
+
+      for (Iterator it = al.iterator(); it2.hasNext(); )   {
+         // maybe wrong, line 24
+      }
+
+      for (int i = 0; i < MAX && clauses.hasNext(); i++) {
+         // this is ok
+      }
+
+   }
+}
+]]>
+      </example>
+   </rule>
+
+
+
+   <rule name="HBDCall4TestNotInJunit"
+         message="Only Classes in junit packages may call *4Test() methods."
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>
+      Only test classes in .junit packages are allowed to call special test methods on objects, which are called *4Test.
+      </description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//PrimaryExpression[
+   ( PrimaryPrefix/Name[ends-with(@Image, '4Test')] or PrimarySuffix[ends-with(@Image, '4Test')] ) and
+   //PackageDeclaration[Name[(not(ends-with(@Image, '.junit'))) ]]
+]
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>Peter Kofler</author>
+      <example>
+<![CDATA[
+package at.herold.sp.db.notjunit;
+
+public class BadGuy {
+
+   public void method() {
+      System.out.println("bubu");
+
+      Object con = getObject();
+      con.run4Test(); // 9
+      int result = con.run4Test(params); // 10
+      System.out.println("we did it");
+
+      getObject().run4Test(); // 13
+      int res = getObject().run4Test(params); // 14
+      System.out.println("we did it again");
+   }
+
+   public void method4Test() {
+      // is allowed
+   }
+}
+]]>
+      </example>
+   </rule>
+
+
+
+   <rule name="HBDMoreThanOneLogger"
+         message="Class contains more than one Logger"
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>Normally only one HBD logger is used in each class.</description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//ClassBody[ count(//VariableDeclarator[../Type/Name[@Image='LoggerImpl']]) >1 ]
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>PMD/Peter Kofler</author>
+      <example>
+<![CDATA[
+class Foo{
+   LoggerImpl logger = LoggerUtil.getLogger(Foo.class);
+   // It is very rare to see two loggers on a class, normally
+   // log information is multiplexed by levels
+   LoggerImpl log2 = LoggerUtil.getLogger(Foo.class.getName());
+}
+]]>
+      </example>
+   </rule>
+
+
+
+   <rule name="HBDLoggerIsNotStaticFinal"
+         message="The HBD Logger variable declaration does not contain the static and final modifiers"
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>In most cases, the Logger can be declared private static and final.</description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//VariableDeclarator[../Type/Name[@Image='LoggerImpl'] and (..[@Final='false'] or ..[@Static = 'false'] or .. [@Private = 'false']) ]
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>PMD/Peter Kofler</author>
+      <example>
+ <![CDATA[
+class Foo{
+    LoggerImpl logger = LoggerUtil.getLogger(Foo.class);
+    // It is much better to declare the logger as follows
+    // static final LoggerImpl logger = LoggerUtil.getLogger(Foo.class);
+}
+]]>
+      </example>
+   </rule>
+
+
+
+   <rule name="HBDActionHasNoShortName"
+         message="All concrete (not abstract) actions must implement the getActionShortName method."
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>In most cases, the Logger can be declared static and final.</description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//ClassDeclaration[@Abstract='false' and
+  //UnmodifiedClassDeclaration[ends-with(@Image,'Action') and (not(ends-with(@Image,'HelperAction')))] and
+  count(//MethodDeclarator[@Image = 'getActionShortName']) =0 ]
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>Peter Kofler</author>
+      <example>
+ <![CDATA[
+public class FooAction {
+   // typo occured
+   public String getXActionShortName() {...}
+}
+]]>
+      </example>
+   </rule>
+
+
+
+   <rule name="HBDJUnitTestHasWrongName"
+         message="All concrete JUnit tests must be named ending with *Test or *TestManuell."
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>All concrete JUnit tests must be named to the sheme of ending with *Test or *TestManuell to be identified and run automatically.</description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//ClassOrInterfaceDeclaration[
+   (not(ends-with(@Image, 'Test'))) and (not(ends-with(@Image, 'TestManuell')) and (not(@Image='TCInit')) and (not(@Image='TCShutdown'))) and
+   (@Abstract='false') and
+   (count(ClassOrInterfaceBody/ClassOrInterfaceBodyDeclaration/MethodDeclaration/MethodDeclarator[ starts-with(@Image, 'test') ])>0) and
+   //PackageDeclaration[Name[(ends-with(@Image, '.junit')) or (ends-with(@Image, '.httpunit'))] ]
+]   
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>Peter Kofler</author>
+      <example>
+ <![CDATA[
+package at.herold.sp.db.junit;
+
+class BadTestClass {
+   // this does not end with Test
+   public void testMethod() {
+   }
+}
+
+abstract class GoodAbstract {
+   // is abstract, name as it likes
+   public void testMethod() {
+   }
+}
+
+class GoodTest {
+   public void testMethod() {
+   }
+}
+
+class OtherClass {
+   // other class in package, ok
+   public void noTestMethod() {
+   }
+}
+]]>
+      </example>
+   </rule>
+
+
+
+   <rule name="HBDNewEnumOnlyInside"
+         message="Enums must only be instantiated inside its Enum class itself."
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>Enums are special instances and not meant to be created by other classes, instead use a getEnumFor(value) on the Enum itself.</description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//AllocationExpression[
+   (ends-with(ClassOrInterfaceType/@Image, 'Enum')) and (count(ArrayDimsAndInits)=0) and
+   (not(//ClassOrInterfaceDeclaration/@Image=ClassOrInterfaceType/@Image)) ]
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>Peter Kofler</author>
+      <example>
+ <![CDATA[
+class MyEnum
+{
+   public void foo()
+   {
+      new MyEnum(); // is ok
+   }
+}
+class OtherEnum
+{
+   public void foo()
+   {
+      new MyEnum(); // is forbidden
+   }
+}
+class OtherClass
+{
+   public void foo()
+   {
+      new MyEnum[0]; // array is ok
+   }
+}
+]]>
+      </example>
+   </rule>
+
+
+
+   <rule name="HBDParameterNameWithP"
+         message="Method parameter names must start with 'p'."
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>All parameters to methods and constructors are required to be named like pXyz. Use Ctrl-1 to local rename it.</description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//FormalParameters/FormalParameter/VariableDeclaratorId[(not(starts-with(@Image,'p')))]
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>Peter Kofler</author>
+      <example>
+ <![CDATA[
+class MyClass
+{
+   MyClass(String newNo) { }
+   MyClass(int pYes) { }
+   public void setNo(String newNo)
+   {
+      no = newNo;
+   }
+   public void setYes(String pYes)
+   {
+      yes = pYes;
+   }
+}
+]]>
+      </example>
+   </rule>
+
+
+
+   <rule name="HBDUnintendedEnvUsage"
+         message="getBoolean,getInteger,getLong read from System Properties and do not parse."
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>The methods getBoolean,getInteger,getLong read from environment (System Properties) and do not parse. Use Integer.parseInt instead.</description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//PrimaryExpression/PrimaryPrefix/Name[@Image='Boolean.getBoolean' or @Image='Integer.getInteger' or @Image='Long.getLong']
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>Peter Kofler</author>
+      <example>
+ <![CDATA[
+class BadUsage
+{
+   public void method()
+   {
+      Boolean a = Boolean.getBoolean("bla"); // bad
+      Boolean b  = new Boolean("true"); // ok
+      Long.getLong("abc"); // bad
+   }
+}
+]]>
+      </example>
+   </rule>
+
+
+
+   <rule name="SuspiciousConstantFieldName"
+         message="The field name indicates a constants but its modifiers don't."
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>A field name is all in uppercase characters, which in sun's java naming conventions indicate a constant. However, the field is not final. Make it final or rename it.</description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//ClassOrInterfaceDeclaration[@Interface='false' and (not(ends-with(@Image,'ServletParameterResourceConstants')))]
+ /ClassOrInterfaceBody/ClassOrInterfaceBodyDeclaration/FieldDeclaration[@Final='false']
+  [VariableDeclarator/VariableDeclaratorId[upper-case(@Image)=@Image]]
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>PMD/Peter Kofler</author>
+      <example>
+<![CDATA[
+public class Foo {
+   // this is bad, since someone could accidentally
+   // do PI = 2.71828; which is actualy e
+   // final double PI = 3.16; is ok
+   double PI = 3.16;
+}
+public class FooServletParameterResourceConstants {
+   // in *ServletParameterResourceConstants we allow
+   public static String PAR_VALUE = null;
+}
+]]>
+      </example>
+   </rule>
+
+
+
+   <rule name="HBDJunitSetupDoesNotCallSuper"
+         message="Methods setUp and tearDown in JUnit tests must call super.setUp/tearDown."
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>The framework methods setUp() and tearDown() of JUnit's Testcase must always call super.setUp() and super.tearDown() to enable proper preparing and cleaning of resources.</description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//MethodDeclarator[ 
+ (@Image='setUp' and count(FormalParameters/*) = 0 and count(../Block//PrimaryPrefix[@Image='setUp']) = 0) or
+ (@Image='tearDown' and count(FormalParameters/*) = 0 and count(../Block//PrimaryPrefix[@Image='tearDown']) = 0) ]
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>Peter Kofler</author>
+      <example>
+<![CDATA[
+class BadTestCase extends TestCase
+{
+   protected void setUp() throws Exception
+   {
+      // super.setUp(); <- is missing
+      doSomething();
+   }
+   protected void tearDown() throws Exception
+   {
+      doSomething();
+      // super.tearDown(); <- is missing
+   }
+}
+]]>
+      </example>
+   </rule>
+
+
+
+   <rule name="HBDNoAttrInPolicyAndPlugOn"
+         message="Avoid non final attributes in policies and plugons."
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>
+      Policies (Navigation) and Plugons (Adworx) are not threadsafe, therefore we do not allow non final members.
+      </description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//FieldDeclaration[@Final='false' and ../../..[ends-with(@Image,'PlugOn') or ends-with(@Image,'Policy')]]
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>Richard Beitelmair</author>
+      <example>
+<![CDATA[
+public class SPAdWorxChannelPlugOn
+{
+   private final String channel; // ok
+   private boolean showIfSearchedInRegion; // not ok
+}
+public class SPAdWorxChannelPlugOnKey
+{
+   private final String channel;  // ok
+   private boolean showIfSearchedInRegion; // ok
+}
+public class SPPolicy
+{
+   private final String channel; // ok
+   private boolean showIfSearchedInRegion; // not ok
+}
+public class SPPolitesse
+{
+   private final String channel;  // ok
+   private boolean showIfSearchedInRegion; // ok
+}
+]]>
+      </example>
+   </rule>
+
+
+
+   <rule name="HBDInterfaceNamesEndWithIF"
+         message="Interface names should end with 'IF'."
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>
+      For better recognition interface names should end with 'IF'. Rename the interface!
+      </description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//ClassOrInterfaceDeclaration[@Interface='true' and not (ends-with(@Image, 'IF'))]
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>Richard Beitelmair</author>
+      <example>
+<![CDATA[
+public class HuabaBuamAmLimit  // ok
+{}
+public interface Alf     //nok
+{}
+public interface AlF     //nok 
+{}
+public interface AlfredENeumannIF  //ok
+{}
+public class FakeIF      // ok
+{}
+]]>
+      </example>
+   </rule>
+   
+   
+   
+   <rule name="HBDAtomWrapperInstantiation"
+         message="Better use Type.valueOf() for instantiation instead of new Type()."
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>
+       In JDK 1.5, calling new Type() causes memory allocation. Type.valueOf() is more memory friendly.
+      </description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//PrimaryPrefix/AllocationExpression
+  [not (ArrayDimsAndInits) and (
+    ClassOrInterfaceType/@Image='Byte' or ClassOrInterfaceType/@Image='java.lang.Byte' or
+    ClassOrInterfaceType/@Image='Short' or ClassOrInterfaceType/@Image='java.lang.Short' or
+    ClassOrInterfaceType/@Image='Integer' or ClassOrInterfaceType/@Image='java.lang.Integer' or
+    ClassOrInterfaceType/@Image='Long' or ClassOrInterfaceType/@Image='java.lang.Long' or
+    ClassOrInterfaceType/@Image='Character' or ClassOrInterfaceType/@Image='java.lang.Character'
+  )]
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>PMD/Richard Beitelmair</author>
+      <example>
+<![CDATA[
+public class Test
+{
+    Byte myByte = new Byte(1);    // bad
+    Byte byte2 = Byte.valueOf(1); // ok
+    Short myshort = new Short(20);       // bad
+    Short myshort2 = Short.valueOf(20);  // ok 
+    Integer integer = new Integer(4);      // bad
+    Integer integer2 = Integer.valueOf(4); // ok
+    Long myLong = new Long(10000000);       // bad
+    Long myLong2 = Long.valueOf(10000000);  // ok
+    Character myChar = new Character('x');    // bad
+    Character char2 = Character.valueOf('x'); // ok
+}
+]]>
+      </example>
+   </rule>
+
+
+
+   <rule name="HBDExceptionNotAllowed"
+         message="The use of HBDException is not allowed anymore."
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>The framework is only using RunntimeExceptions. Checked Exceptions are not allowed anymore.</description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//ClassOrInterfaceType[@Image = 'HBDException']
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>Manuel Tichy</author>
+      <example>
+<![CDATA[
+class MyClass extends OtherClass
+{
+	public void myMethod()	throws HBDException	// "throws HBDException" is not allowed!
+	{
+		try
+		{
+			...
+			throw new HBDException("...");	// "throw new HBDException" is not allowed!
+		}
+		catch(final HBDException e)	// "catch HBDException" is not allowed!
+		{
+			...
+		}
+	}
+}
+]]>
+      </example>
+   </rule>
+   
+   
+      <rule name="AvoidNonFinalFieldsInExceptions"
+         message="Exceptions must be immutable."
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>Exceptions must be immutable, so the fields of an Exception must be declared as final.</description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//FieldDeclaration [@Final='false' and ../../../../ClassOrInterfaceDeclaration [ends-with(@Image, 'Exception')]]
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>Manuel Tichy</author>
+      <example>
+<![CDATA[
+public class BlaBlaException extends Exception {
+    private long serialVersionUID = 1900926677490660714L;	// Not ok -> must be final!
+
+    public BlaBlaException() {}
+
+    public BlaBlaException(String message) {
+        super(message);
+    }
+}
+]]>
+      </example>
+   </rule>
+   
+   
+   
+</ruleset>
