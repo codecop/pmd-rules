@@ -791,6 +791,86 @@ public class BlaBlaException extends Exception {
       </example>
    </rule>
    
+    <rule name="AvoidPrivateGetterAndSetter"
+          message="Private getter/setter are forbidden."
+          class="net.sourceforge.pmd.rules.XPathRule">
+      <description>Instead of using private getter or setter, we use the member variable instead. (It safes lines of code)</description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//MethodDeclaration [ ( @Private='true' and @Synchronized='false' and count(Block/BlockStatement)=1 ) and 
+      (
+         (
+            MethodDeclarator[starts-with(@Image,'set')] 
+            and MethodDeclarator/FormalParameters[count(FormalParameter) = 1]
+            and ResultType[count(Type) = 0]
+            and Block/BlockStatement/Statement/StatementExpression/Expression/PrimaryExpression[count(PrimarySuffix/Arguments) = 0]
+            and //AssignmentOperator[@Image='=']
+         )
+         or
+         (
+            MethodDeclarator[starts-with(@Image,'get') or starts-with(@Image,'is')] 
+            and MethodDeclarator/FormalParameters[count(FormalParameter) = 0]
+            and ResultType/Type[count(ReferenceType) = 1]
+            and Block/BlockStatement/Statement/ReturnStatement/Expression/PrimaryExpression[count(PrimarySuffix) = 0]
+            and count(//ReturnStatement)=1
+         )
+      )
+   ] 
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>Mista Manuel Tichy</author>
+      <example>
+         <![CDATA[class MyClass extends OtherClass
+            {
+               String myVariable;
+               private setMyVariable(String pMyVariable)    // not allowed (when setter/getter is private!)
+               {
+                  myVarialbe = pMyVariable;
+               }
+               myVariable = "asdfasdf";      // OK!! use the member variable instead of
+            }
+         ]]>
+      </example>
+   </rule>
+      
+      
+       <rule name="MembersMustBePrivate"
+          message="Members must be private except they are static and final"
+          class="net.sourceforge.pmd.rules.XPathRule">
+      <description>Members must be private. Change Member to private and create getter and/or setter to access value/s.</description>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+   //FieldDeclaration[@Private = 'false' and (@Static = 'false' or @Final = 'false')] 
+]]>
+            </value>
+         </property>
+      </properties>
+      <priority>2</priority>
+      <author>Mista Manuel Tichy</author>
+      <example>
+         <![CDATA[
+         public class Testclass 
+         {
+            public int zahl1 = 1;      WRONG must be private
+            private int zahl2 = 2;     OK its private (without static and final)
+            protected int zahl3;       WRONG must be private
    
-   
+            public static int zahl1 = 1;     WRONG final is missing
+            private static int zahl2 = 2;    OK its private (with static)
+            protected static int zahl3 = 3;  WRONG final is missing
+            
+            public static final int zahl1 = 1;     OK because static + final
+            private static final int zahl2 = 2;    OK its private (with static + final)
+            protected static final int zahl3 = 3;  OK because static + final
+^        }
+         ]]>
+      </example>
+   </rule>
 </ruleset>
