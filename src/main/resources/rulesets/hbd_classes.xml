@@ -7,9 +7,9 @@
    <!-- Rule from PMD and allow exceptions for methods "setUp", "oneTimeSetUp", "tearDown" -->
    <rule name="SignatureDeclareThrowsException"
          message="A signature (constructor or method) shouldn't have Exception in throws declaration"
-         class="ExceptionSignatureDeclaration">
+         class="org.codecop.pmd.rule.ExceptionSignatureDeclaration">
       <description>
-      It is unclear which exceptions that can be thrown from the methods. It might be difficult to document and understand the vague interfaces. Use either a class derived from RuntimeException or a checked exception.
+         It is unclear which exceptions that can be thrown from the methods. It might be difficult to document and understand the vague interfaces. Use either a class derived from RuntimeException or a checked exception.
       </description>
       <priority>2</priority>
       <author>PMD/Peter Kofler</author>
@@ -24,9 +24,9 @@ public void methodThrowingException() throws Exception { }
    <!-- Rule from PMD and make it a bit more strict -->
    <rule name="ClassNamingConventions"
          message="Class names should begin with uppercase, not include underscores or dollar signs."
-         class="ClassNamingConventions">
+         class="org.codecop.pmd.rule.ClassNamingConventions">
       <description>
-      Class names should always begin with an upper case character, and should not contain underscores (but _Stub or _Core) or dollar signs. Class names should not be uppercase only.
+         Class names should always begin with an upper case character, and should not contain underscores (but _Stub or _Core) or dollar signs. Class names should not be uppercase only.
       </description>
       <priority>2</priority>
       <author>PMD/Peter Kofler</author>
