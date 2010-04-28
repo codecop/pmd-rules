@@ -42,7 +42,8 @@ public abstract class RuleTst {
     /**
      * Find a rule in a certain ruleset by name
      */
-    public Rule findRule(String ruleSet, String ruleName) {
+    @SuppressWarnings("null")
+   public Rule findRule(String ruleSet, String ruleName) {
         try {
             String rules = new SimpleRuleSetNameMapper(ruleSet).getRuleSets();
             Rule rule = new RuleSetFactory().createRuleSets(rules).getRuleByName(ruleName);
@@ -125,9 +126,8 @@ public abstract class RuleTst {
             //We got the full class name, so we'll use the stripped name instead
             String packageName = rule.getClass().getPackage().getName();
             return fullClassName.substring(packageName.length()+1);
-        } else {
-            return rule.getName();  //Test is using findRule, smart!
         }
+      return rule.getName();  //Test is using findRule, smart!
     }
 
     /**
@@ -258,9 +258,8 @@ public abstract class RuleTst {
         if (nodes == null || nodes.getLength() == 0) {
             if (required) {
                 throw new RuntimeException("Required tag is missing from the test-xml: " + nodeName);
-            } else {
-                return null;
             }
+            return null;
         }
         Node node = nodes.item(0);
         return parseTextNode(node);
