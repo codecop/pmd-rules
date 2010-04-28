@@ -41,7 +41,7 @@ public class ExceptionSignatureDeclaration extends AbstractJavaRule {
    @Override
    public Object visit(ASTImportDeclaration node, Object o) {
       final String importName = node.getImportedName();
-      if (importName.indexOf(".junit.") != -1 || importName.indexOf(".httpunit.") != -1 || importName.indexOf("org.springframework.test.") != -1) {
+      if (importName.indexOf("junit.") != -1 || importName.indexOf(".httpunit.") != -1 || importName.indexOf("org.springframework.test.") != -1) {
          junitImported = true;
       }
       return super.visit(node, o);
