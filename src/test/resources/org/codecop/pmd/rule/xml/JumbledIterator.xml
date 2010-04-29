@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+Non matching iterator identifier found in for loop
+     ]]></description>
+        <expected-problems>4</expected-problems>
+        <code><![CDATA[
+public class JumbledIteratorExample {
+   public void someMethod() {
+      for (Enumeration en = getEnum(); en2.hasMoreElements(); ) { } 
+      for (Enumeration en2 = getEnum(); en.hasMoreElements(); ) { } 
+      List al = new ArrayList();
+      for (Iterator it2 = al.iterator(); it.hasNext(); ) { } 
+      for (Iterator it = al.iterator(); it2.hasNext(); ) { } 
+   }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+all is well
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class JumbledIteratorExample {
+   public void someMethod() {
+      for (int i = 0; i < ab.size(); i++) { } 
+      for (int i = 0; i < MAX && clauses.hasNext(); i++) { } 
+   }
+}
+     ]]></code>
+    </test-code>
+</test-data>
+
+

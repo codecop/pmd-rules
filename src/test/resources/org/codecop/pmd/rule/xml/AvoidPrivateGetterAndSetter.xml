@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+private setter
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+class MyClass extends OtherClass {
+   String myVariable;
+   private void setMyVariable(String pMyVariable) { myVarialbe = pMyVariable; }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+private getter
+     ]]></description>
+        <expected-problems>2</expected-problems>
+        <code><![CDATA[
+class MyClass extends OtherClass {
+   String myVariable;
+   private String getMyVariable() { return myVariable; }
+   private String isMyVariable() { return myVariable; }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+all is well
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class MyClass extends OtherClass {
+   String myVariable;
+   public void setMyVariable(String pMyVariable) { myVarialbe = pMyVariable; }
+   protected String getMyVariable() { return myVariable; }
+   private String isMyVariable() { myVariable += 'A'; return myVariable; }
+   private String isMyVariable(char c) { return myVariable + c; }
+}
+     ]]></code>
+    </test-code>
+</test-data>
+
+

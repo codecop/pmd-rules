@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+non final serialVersionUID
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class BadException extends Exception {
+    private long serialVersionUID = 1900926677490660714L;   
+
+    public BadException(String message) {
+        super(message);
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+non final static serialVersionUID
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class BadException extends Exception {
+    private static long serialVersionUID = 1900926677490660714L;   
+
+    public BadException(String message) {
+        super(message);
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+all is well
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class GoodException extends Exception {
+    private static final long serialVersionUID = 1900926677490660714L;   
+    private final String msg;
+
+    public BadException(String message) {
+        super(message);
+        msg = message;
+    }
+}
+     ]]></code>
+    </test-code>
+</test-data>
+
+

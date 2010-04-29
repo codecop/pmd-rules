@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+wrong name
+     ]]></description>
+        <expected-problems>5</expected-problems>
+        <code><![CDATA[
+public interface SomeInterface { }     
+
+public interface SomeInterfaceF { }    
+
+public interface SomeInterfaceiF { }    
+
+public interface SomeInterfaceif { }    
+
+public interface SomeInterfaceIf { }    
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+all is well
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public interface SomeInterfaceIF { }
+
+public class SomeClass { }   
+     ]]></code>
+    </test-code>
+</test-data>
+
+

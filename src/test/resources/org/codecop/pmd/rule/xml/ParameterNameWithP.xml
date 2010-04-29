@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+no p in name in ctor 
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+class SomeClass {
+   public SomeClass(String newNo) { } 
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+no p in name in method
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+class SomeClass {
+   public void setNo(String newNo) { 
+      no = newNo;
+   }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+all is well
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class SomeClass {
+   public SomeClass(int pYes) { }
+   public void setYes(String pYes) {
+      yes = pYes;
+   }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+short is ok
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class SomeClass {
+   public SomeClass(int p) { }
+   public void setYes(String p) { }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+no upper letter after p 
+     ]]></description>
+        <expected-problems>2</expected-problems>
+        <code><![CDATA[
+class SomeClass {
+   public SomeClass(String pnewNo) { } 
+   public void setNo(String pnewNo) { } 
+}
+     ]]></code>
+    </test-code>
+</test-data>
