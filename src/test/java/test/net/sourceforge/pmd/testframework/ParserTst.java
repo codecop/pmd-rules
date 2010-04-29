@@ -39,7 +39,7 @@ public abstract class ParserTst {
             return collection;
         }
 
-        @SuppressWarnings("unchecked")
+      @SuppressWarnings("unchecked")
       public Object invoke(Object proxy, Method method, Object params[]) throws Throwable {
             if (method.getName().equals("visit")) {
                 if (clazz.isInstance(params[0])) {
@@ -89,3 +89,4 @@ public abstract class ParserTst {
         return cu;
     }
 }
+

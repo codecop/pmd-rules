@@ -42,7 +42,7 @@ public abstract class RuleTst {
     /**
      * Find a rule in a certain ruleset by name
      */
-    @SuppressWarnings("null")
+   @SuppressWarnings("null")
    public Rule findRule(String ruleSet, String ruleName) {
         try {
             String rules = new SimpleRuleSetNameMapper(ruleSet).getRuleSets();

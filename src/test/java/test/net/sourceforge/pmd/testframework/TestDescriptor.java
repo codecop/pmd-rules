@@ -88,3 +88,4 @@ public class TestDescriptor {
         this.isRegressionTest = isRegressionTest;
     }
 }
+
