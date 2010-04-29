@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <test-data>
+    <!-- original PMD test cases -->
     <test-code>
         <description><![CDATA[
 method throws Exception
@@ -69,6 +70,7 @@ public class Foo {
      ]]></code>
         <source-type>java 1.5</source-type>
     </test-code>
+    <!-- added test cases -->
     <test-code>
         <description><![CDATA[
 don't skip any method starting with 'test'
@@ -77,6 +79,18 @@ don't skip any method starting with 'test'
         <code><![CDATA[
 public class FooTest {
  void testFoo() throws Exception {}
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+skip Spring onSetUp method
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
+public class DaoTest extends AbstractDependencyInjectionSpringContextTests {
+    protected void onSetUp() throws Exception { }
 }
      ]]></code>
     </test-code>

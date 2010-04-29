@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <test-data>
+    <!-- original PMD test cases -->
     <test-code>
         <description><![CDATA[
 class names should not start with lowercase character
@@ -18,4 +19,52 @@ all is well
 public class FooBar {};
      ]]></code>
     </test-code>
+    <!-- added test cases -->
+    <test-code>
+        <description><![CDATA[
+uppercase is ok for short abbrevs
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class URI {}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+must not be uppercase only
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class FOOBAR {}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+must not contain $
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class Foo$Bar {}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+must not contain underscore
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class Foo_Bar {}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+must not contain underscore but RMI stubs
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Foo_Stub {}
+     ]]></code>
+    </test-code>
 </test-data>
+
+
