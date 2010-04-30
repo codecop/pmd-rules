@@ -21,8 +21,8 @@
     </prerequisites>
 
     <scm>
-        <connection>scm:hg:http://pmd-rules.code-cop-code.googlecode.com/hg</connection>
-        <developerConnection>scm:hg:https://pmd-rules.code-cop-code.googlecode.com/hg</developerConnection>
+        <connection>scm:hg:https://pmd-rules.code-cop-code.googlecode.com/hg/</connection>
+        <developerConnection>scm:hg:https://pmd-rules.code-cop-code.googlecode.com/hg/</developerConnection>
     </scm>
 
     <developers>
