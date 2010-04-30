@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import net.sourceforge.pmd.AbstractJavaRule;
+import net.sourceforge.pmd.AbstractRule;
 import net.sourceforge.pmd.PropertyDescriptor;
 import net.sourceforge.pmd.ast.ASTCompilationUnit;
 import net.sourceforge.pmd.ast.ASTConstructorDeclaration;
@@ -20,7 +20,7 @@ import net.sourceforge.pmd.properties.BooleanProperty;
  * @author PMD 3.7 - updated
  * @author Peter Kofler
  */
-public class ExceptionSignatureDeclaration extends AbstractJavaRule {
+public class ExceptionSignatureDeclaration extends AbstractRule {
 
    private static final List<String> allowedMethods = Arrays.asList(new String[] { "setUp", "tearDown", "onSetUp", "onTearDown", });
 

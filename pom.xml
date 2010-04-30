@@ -1,107 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.codecop</groupId>
-  <artifactId>pmd-rules</artifactId>
-  <name>Code Cop PMD Rules</name>
-  <version>1.0-SNAPSHOT</version>
-  <!-- url>http://blog.code-cop.org/TODO</url> -->
-  <inceptionYear>2004</inceptionYear>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.codecop</groupId>
+    <artifactId>pmd-rules</artifactId>
+    <name>Code Cop PMD Rules</name>
+    <version>1.0-SNAPSHOT</version>
+    <description>Code Cop PMD rules are a mixed set of PMD rules created since 2004 regarding basic bugs, design principles, junit test, naming and other rule groups.</description>
+    <url>http://blog.code-cop.org/search/label/PMD</url>
+    <inceptionYear>2004</inceptionYear>
 
-  <organization>
-    <name>Code Cop</name>
-    <url>http://www.code-cop.org</url>
-  </organization>
+    <organization>
+        <name>Code Cop</name>
+        <url>http://www.code-cop.org</url>
+    </organization>
 
-  <prerequisites>
-    <maven>2.0</maven>
-  </prerequisites>
+    <prerequisites>
+        <maven>2.0</maven>
+    </prerequisites>
 
-  <scm>
-    <connection>scm:hg:http://pmd-rules.code-cop-code.googlecode.com/hg</connection>
-    <developerConnection>scm:hg:http://pmd-rules.code-cop-code.googlecode.com/hg</developerConnection>
-  </scm>
+    <scm>
+        <connection>scm:hg:http://pmd-rules.code-cop-code.googlecode.com/hg</connection>
+        <developerConnection>scm:hg:http://pmd-rules.code-cop-code.googlecode.com/hg</developerConnection>
+    </scm>
 
-  <developers>
-    <developer>
-      <id>peter.codecop.kofler</id>
-      <name>Peter Kofler</name>
-      <email>peter dot kofler at code-cop dot org</email>
-      <url>http://www.code-cop.org</url>
-      <organization>Code Cop</organization>
-      <roles>
-        <role>Java Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-  </developers>
+    <developers>
+        <developer>
+            <id>peter.codecop.kofler</id>
+            <name>Peter Kofler</name>
+            <email>peter dot kofler at code-cop dot org</email>
+            <url>http://www.code-cop.org</url>
+            <organization>Code Cop</organization>
+            <roles>
+                <role>Java Developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
 
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-          <compilerArguments>
-            <encoding>UTF-8</encoding>
-          </compilerArguments>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <configuration>
-          <encoding>UTF-8</encoding>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <phase>install</phase>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <!-- Come on surefire ! be smart, the following class is not a test to run ! -->
-            <exclude>test/net/sourceforge/pmd/testframework/TestDescriptor.java</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-eclipse-plugin</artifactId>
-        <version>2.7</version>
-        <!-- 2.8 does not provide M2Eclipse support :-( -->
-        <configuration>
-          <downloadSources>true</downloadSources>
-          <downloadJavadocs>true</downloadJavadocs>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+    <contributors>
+        <contributor>
+            <name>Tom Copeland</name>
+            <email>tom at infoether dot com</email>
+            <organization>InfoEther</organization>
+            <roles>
+                <role>PMD Creator</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>Richard Beitelmair</name>
+            <roles>
+                <role>Rule Creator</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>Manuel Tichy</name>
+            <roles>
+                <role>Rule Creator</role>
+            </roles>
+        </contributor>
+    </contributors>
 
-  <dependencies>
-    <dependency>
-      <groupId>pmd</groupId>
-      <artifactId>pmd</artifactId>
-      <version>4.2.5</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.4</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                    <compilerArguments>
+                        <encoding>UTF-8</encoding>
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <!-- Come on surefire ! be smart, the following class is not a test to run ! -->
+                        <exclude>test/net/sourceforge/pmd/testframework/TestDescriptor.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.7</version>
+                <!-- 2.8 does not provide M2Eclipse support :-( -->
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>true</downloadJavadocs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>pmd</groupId>
+            <artifactId>pmd</artifactId>
+            <version>4.1</version>
+            <scope>provided</scope>
+            <!-- will work with 3.9 too but tests need 4.1 -->
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.4</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 </project>

@@ -2,7 +2,7 @@ package org.codecop.pmd.rule;
 
 import java.util.Map;
 
-import net.sourceforge.pmd.AbstractJavaRule;
+import net.sourceforge.pmd.AbstractRule;
 import net.sourceforge.pmd.PropertyDescriptor;
 import net.sourceforge.pmd.ast.ASTClassOrInterfaceDeclaration;
 import net.sourceforge.pmd.properties.IntegerProperty;
@@ -13,7 +13,7 @@ import net.sourceforge.pmd.properties.IntegerProperty;
  * @author PMD 3.7 - updated
  * @author Peter Kofler
  */
-public class ClassNamingConventions extends AbstractJavaRule {
+public class ClassNamingConventions extends AbstractRule {
 
    private int upperCaseLen;
 
