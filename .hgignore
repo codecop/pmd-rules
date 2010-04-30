@@ -1,0 +1,13 @@
+
+syntax: regexp
+^classes$
+syntax: regexp
+^target$
+syntax: regexp
+^\.classpath$
+syntax: regexp
+^\.project$
+syntax: regexp
+^\.settings$
+syntax: regexp
+^merge_test_framework$
