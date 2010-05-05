@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<ruleset name="Prototype Rules"
+    xmlns="http://pmd.sf.net/ruleset/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+    xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+
+   <description>
+      These rules are very specific and not useable on general code. But they serve as examples and prototypes to copy from.
+   </description>
+
+   <!-- typeresolution.xml -->
+   <rule name="EntityWithReferences"
+         since="3.9"
+         message="Entities must define all attributes with RelationShips"
+         class="org.codecop.pmd.prototype.EntityWithReferences"
+         typeResolution="true">
+      <description>
+         In a specific Rich Domain Model all Entities (subclasses of Entity) must define their attributes as (subclasses of) RelationShips.
+         Simple attributes are not allowed. To fix this rule, wrap all simple attributes with a RelationShip of proper type accordingly.
+      </description>
+      <priority>2</priority>
+      <example>
+<![CDATA[
+public class BadEntity extends BetterEntity {
+   private RelationShip<MyString> astring; // ok
+   private MyString bstring; // wrong
+   private int bint; // wrong
+}
+]]>
+      </example>
+   </rule>
+
+   <!-- typeresolution.xml -->
+   <rule name="ImmutableValueObject"
+         since="3.9"
+         message="ValueObjects must not define RelationShips and be immutable"
+         class="org.codecop.pmd.prototype.ImmutableValueObject"
+         typeResolution="true">
+      <description>
+         In a specific Rich Domain Model all Value Objects (subclasses of ValueObjects) must not define their attributes as (subclasses of) 
+         RelationShips. Just simple attributes are allowed. 
+      </description>
+      <priority>2</priority>
+      <example>
+<![CDATA[
+public class BadValueObject extends ValueObject {
+   private MyString astring;
+   private BetterRelationShip<MyString> bstring; // wrong
+   public void changeAstring(MyString string) { // wrong
+      astring = string;
+   }
+}
+]]>
+      </example>
+   </rule>
+   
+</ruleset>

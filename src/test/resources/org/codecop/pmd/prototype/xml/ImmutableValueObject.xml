@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+ok, a class which is no ValueObject
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+package org.codecop.pmd.prototype.domain.use;
+
+import org.codecop.pmd.prototype.domain.base.MyString;
+import org.codecop.pmd.prototype.domain.base.RelationShip;
+
+public class SomeGuy {
+   private RelationShip<MyString> astring;
+   private MyString bstring;
+}
+     ]]></code>
+    </test-code>
+    <test-code reinitializeRule="true">
+        <description><![CDATA[
+ok, an ValueObject with fields
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+package org.codecop.pmd.prototype.domain.use;
+
+import org.codecop.pmd.prototype.domain.base.MyString;
+import org.codecop.pmd.prototype.domain.base.ValueObject;
+
+public class GoodGuy2 extends ValueObject {
+   private MyString astring;
+   private int bint;
+}
+     ]]></code>
+    </test-code>
+    <test-code reinitializeRule="true">
+        <description><![CDATA[
+bad, a ValueObject which contains setter and RelationShip.
+     ]]></description>
+        <expected-problems>2</expected-problems>
+        <code><![CDATA[
+package org.codecop.pmd.prototype.domain.use;
+
+import org.codecop.pmd.prototype.domain.base.MyString;
+import org.codecop.pmd.prototype.domain.base.ValueObject;
+import org.codecop.pmd.prototype.domain.refine.BetterRelationShip;
+
+public class BadGuy2 extends ValueObject {
+
+   private MyString astring;
+   private BetterRelationShip<MyString> bstring;
+
+   public void changeAstring(MyString string) {
+      astring = string;
+   }
+}
+     ]]></code>
+    </test-code>
+</test-data>

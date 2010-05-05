@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+ok, a class which is no Entity
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+package org.codecop.pmd.prototype.domain.use;
+
+import org.codecop.pmd.prototype.domain.base.MyString;
+import org.codecop.pmd.prototype.domain.base.RelationShip;
+
+public class SomeGuy {
+   private RelationShip<MyString> astring;
+   private MyString bstring;
+}
+     ]]></code>
+    </test-code>
+    <test-code reinitializeRule="true">
+        <description><![CDATA[
+ok, an Entity with RelationShips
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+package org.codecop.pmd.prototype.domain.use;
+
+import org.codecop.pmd.prototype.domain.base.MyString;
+import org.codecop.pmd.prototype.domain.base.RelationShip;
+import org.codecop.pmd.prototype.domain.refine.BetterEntity;
+import org.codecop.pmd.prototype.domain.refine.BetterRelationShip;
+
+public class GoodGuy extends BetterEntity {
+   private RelationShip<MyString> astring;
+   private BetterRelationShip<MyString> bstring;
+}
+     ]]></code>
+    </test-code>
+    <test-code reinitializeRule="true">
+        <description><![CDATA[
+bad, an Entity which contains MyString
+     ]]></description>
+        <expected-problems>3</expected-problems>
+        <code><![CDATA[
+package org.codecop.pmd.prototype.domain.use;
+
+import org.codecop.pmd.prototype.domain.base.MyString;
+import org.codecop.pmd.prototype.domain.base.RelationShip;
+import org.codecop.pmd.prototype.domain.refine.BetterEntity;
+
+public class BadGuy extends BetterEntity {
+   private RelationShip<MyString> astring;
+   private MyString bstring;
+   public RelationShip<MyString> cstring; 
+   private int bint; 
+}
+     ]]></code>
+    </test-code>
+</test-data>
