@@ -17,17 +17,17 @@ public class ClassNamingConventions extends AbstractRule {
 
    private int upperCaseLen;
 
-   private static final PropertyDescriptor upperCaseLenDescriptor = new IntegerProperty("upperCaseLen", "Allowed length of upper case only names", 3, 1.0f);
-   private static final Map<String, PropertyDescriptor> propertyDescriptorsByName = asFixedMap(new PropertyDescriptor[] { upperCaseLenDescriptor });
+   private static final PropertyDescriptor UPPERCASE_LEN_DESCRIPTOR = new IntegerProperty("upperCaseLen", "Allowed length of upper case only names", 3, 1.0f);
+   private static final Map<String, PropertyDescriptor> PROPERTY_DESCRIPTORS_BY_NAME = asFixedMap(new PropertyDescriptor[] { UPPERCASE_LEN_DESCRIPTOR });
 
    @Override
    protected Map<String, PropertyDescriptor> propertiesByName() {
-      return propertyDescriptorsByName;
+      return PROPERTY_DESCRIPTORS_BY_NAME;
    }
 
    @Override
    public Object visit(ASTClassOrInterfaceDeclaration node, Object data) {
-      upperCaseLen = getIntProperty(upperCaseLenDescriptor);
+      upperCaseLen = getIntProperty(UPPERCASE_LEN_DESCRIPTOR);
 
       final String className = node.getImage();
 

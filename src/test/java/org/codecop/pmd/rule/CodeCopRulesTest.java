@@ -25,4 +25,5 @@ public class CodeCopRulesTest extends SimpleAggregatorTst {
    public static junit.framework.Test suite() {
       return new junit.framework.JUnit4TestAdapter(CodeCopRulesTest.class);
    }
+
 }

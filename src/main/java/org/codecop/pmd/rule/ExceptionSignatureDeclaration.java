@@ -22,24 +22,24 @@ import net.sourceforge.pmd.properties.BooleanProperty;
  */
 public class ExceptionSignatureDeclaration extends AbstractRule {
 
-   private static final List<String> allowedMethods = Arrays.asList(new String[] { "setUp", "tearDown", "onSetUp", "onTearDown", });
+   private static final List<String> ALLOWED_METHODS = Arrays.asList(new String[] { "setUp", "tearDown", "onSetUp", "onTearDown", });
 
    private boolean ignoreTests;
    private boolean junitImported;
 
-   private static final PropertyDescriptor ignoreTestsDescriptor = new BooleanProperty("ignoreTests", "Ignore test methods", false, 1.0f);
+   private static final PropertyDescriptor IGNORE_TESTS_DESCRIPTOR = new BooleanProperty("ignoreTests", "Ignore test methods", false, 1.0f);
 
-   private static final Map<String, PropertyDescriptor> propertyDescriptorsByName = asFixedMap(new PropertyDescriptor[] { ignoreTestsDescriptor });
+   private static final Map<String, PropertyDescriptor> PROPERTY_DESCRIPTORS_BY_NAME = asFixedMap(new PropertyDescriptor[] { IGNORE_TESTS_DESCRIPTOR });
 
    @Override
    protected Map<String, PropertyDescriptor> propertiesByName() {
-      return propertyDescriptorsByName;
+      return PROPERTY_DESCRIPTORS_BY_NAME;
    }
 
    @Override
    public Object visit(ASTCompilationUnit node, Object o) {
       junitImported = false;
-      ignoreTests = getBooleanProperty(ignoreTestsDescriptor);
+      ignoreTests = getBooleanProperty(IGNORE_TESTS_DESCRIPTOR);
       return super.visit(node, o);
    }
 
@@ -58,7 +58,7 @@ public class ExceptionSignatureDeclaration extends AbstractRule {
       final String importName = node.getImportedName();
       if (importName.startsWith("junit.") || // JUnit 3.x
             importName.startsWith("org.junit.") || // JUnit 4.x
-            importName.indexOf(".httpunit.") != -1 || // 
+            importName.indexOf(".httpunit.") != -1 || //
             importName.startsWith("org.springframework.test.")) { // Spring Mock
          junitImported = true;
       }
@@ -68,7 +68,7 @@ public class ExceptionSignatureDeclaration extends AbstractRule {
    @Override
    public Object visit(ASTMethodDeclaration methodDeclaration, Object o) {
       final String methodName = methodDeclaration.getMethodName();
-      if (allowedMethods.contains(methodName) && junitImported) {
+      if (ALLOWED_METHODS.contains(methodName) && junitImported) {
          return super.visit(methodDeclaration, o);
       }
       if (ignoreTests && methodName.startsWith("test")) {
@@ -93,7 +93,6 @@ public class ExceptionSignatureDeclaration extends AbstractRule {
 
    /**
     * Checks all exceptions for possible violation on the exception declaration.
-    * 
     * @param exceptionList containing all exception for declaration
     * @param context
     */
@@ -111,7 +110,6 @@ public class ExceptionSignatureDeclaration extends AbstractRule {
    /**
     * Checks if the given value is defined as <code>Exception</code> and the parent is either a method or constructor
     * declaration.
-    * 
     * @param exception to evaluate
     * @return true if <code>Exception</code> is declared and has proper parents
     */
