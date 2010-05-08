@@ -6,131 +6,15 @@
     xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
 
    <description>
-      The CodeCop Ruleset contains a mixture of rules.
+      The CodeCop ruleset contains a mixture of rules for various bugs and conventions.
    </description>
-
-
-   <!-- TODO -->
-   <rule name="EmptyFunction"
-         message="The given method must be implemented and not just return null."
-         class="net.sourceforge.pmd.rules.XPathRule">
-      <description>
-         Some abstract methods, e.g. getActionShortName() in subclasses of HBDAction, must not return null. If they will never be called, throw a OperationNotSupportedException.
-      </description>
-      <priority>2</priority>
-      <properties>
-         <property name="xpath">
-            <value>
-<![CDATA[
-//ClassDeclaration//MethodDeclaration
-  [MethodDeclarator [@Image='getActionShortName' or @Image='toDom' or @Image='toString' ] ]
-  [Block//ReturnStatement//NullLiteral]
-]]>
-            </value>
-         </property>
-      </properties>
-      <example>
-<![CDATA[
-public class FooAction {
- public String getActionShortName() {
-   // should return some string for the statistic
-   return null;
- }
-}
-]]>
-      </example>
-   </rule>
-
-
-   <!-- TODO -->
-   <rule name="HBDLibraryRuleForSOAP"
-         message="SOAP must only be used inside at.herold.sup.soap."
-         class="net.sourceforge.pmd.rules.XPathRule">
-      <description>
-         The SOAP library must only be used inside the package at.herold.sup.soap. Other packages must not import it.
-      </description>
-      <priority>2</priority>
-      <properties>
-         <property name="xpath">
-            <value>
-<![CDATA[
-//ImportDeclaration/Name[
-  starts-with(@Image,'org.apache.axis') and
-  //PackageDeclaration/Name[(not (starts-with(@Image,'at.herold.sup.soap')))]
-]
-]]>
-            </value>
-         </property>
-      </properties>
-      <example>
-<![CDATA[
-package at.herold.a; // other than at.herold.sup.soap
-import org.apache.axis.abc.Call;
-
-public class Foo { }
-]]>
-      </example>
-   </rule>
-
-
-   <!-- TODO -->
-   <rule name="HBDCommitInDBLayer"
-         message="Classes in DB layer must not call Connection.commit."
-         class="net.sourceforge.pmd.rules.XPathRule">
-      <description>
-         HBDActions are responsible for maintaining transactions, so classes in the DB layer are not allowed to call
-         Connection.commit. commit is reserved word and should also not be used as identifier.
-      </description>
-      <priority>2</priority>
-      <!-- author>Martina Stoiber</author -->
-      <properties>
-         <property name="xpath">
-            <value>
-<![CDATA[
-//PrimaryExpression[
-   ( PrimaryPrefix/Name[ends-with(@Image, '.commit')] or PrimarySuffix[@Image='commit'] ) and
-   //PackageDeclaration[Name[ends-with(@Image, '.resultlist') ]]
-]
-]]>
-            </value>
-         </property>
-      </properties>
-      <example>
-<![CDATA[
-package at.herold.sp.resultlist;
-
-public class BadGuy {
-
-   public void method() {
-      System.out.println("bubu");
-
-      Connection con = getConnection();
-      con.commit(); // 9
-      System.out.println("we did it");
-
-      getConnection().commit(); // 12
-      System.out.println("we did it again");
-
-      // would be ok, but may warn as well
-      int commit;
-      commit = 3;
-      long commit = 3L;
-      other.commit(bla); // 19
-      other.commitIt(bla);
-      other.commit2();
-      other.Somecommit();
-   }
-}
-]]>
-      </example>
-   </rule>
 
 
    <!-- basic.xml, by Richard Beitelmair -->
    <rule name="JumbledIterator"
          message="Non matching iterator identifier found in for loop."
          class="net.sourceforge.pmd.rules.XPathRule"
-         externalInfoUrl="http://blog.code-cop.org/TODO">
+         externalInfoUrl="http://blog.code-cop.org/2010/05/custom-pmd-rules.html">
       <description>
          The used Iterator for the 'exit expression' in a for loop does not match the 'declaration expression', maybe not intended.
       </description>
@@ -171,178 +55,6 @@ public class JumbledIteratorExample {
    </rule>
 
 
-   <!-- TODO -->
-   <rule name="HBDCall4TestNotInJunit"
-         message="Only Classes in junit packages may call *4Test() methods."
-         class="net.sourceforge.pmd.rules.XPathRule">
-      <description>
-         Only test classes in .junit packages are allowed to call special test methods on objects, which are called *4Test.
-      </description>
-      <priority>2</priority>
-      <properties>
-         <property name="xpath">
-            <value>
-<![CDATA[
-//PrimaryExpression[
-   ( PrimaryPrefix/Name[ends-with(@Image, '4Test')] or PrimarySuffix[ends-with(@Image, '4Test')] ) and
-   //PackageDeclaration[Name[(not(ends-with(@Image, '.junit'))) ]]
-]
-]]>
-            </value>
-         </property>
-      </properties>
-      <example>
-<![CDATA[
-package at.herold.sp.db.notjunit;
-
-public class BadGuy {
-
-   public void method() {
-      System.out.println("bubu");
-
-      Object con = getObject();
-      con.run4Test(); // 9
-      int result = con.run4Test(params); // 10
-      System.out.println("we did it");
-
-      getObject().run4Test(); // 13
-      int res = getObject().run4Test(params); // 14
-      System.out.println("we did it again");
-   }
-
-   public void method4Test() {
-      // is allowed
-   }
-}
-]]>
-      </example>
-   </rule>
-
-
-   <!-- TODO -->
-   <rule name="HBDActionHasNoShortName"
-         message="All concrete (not abstract) actions must implement the getActionShortName method."
-         class="net.sourceforge.pmd.rules.XPathRule">
-      <description>
-         In most cases, the Logger can be declared static and final.
-      </description>
-      <priority>2</priority>
-      <properties>
-         <property name="xpath">
-            <value>
-<![CDATA[
-//ClassDeclaration[@Abstract='false' and
-  //UnmodifiedClassDeclaration[ends-with(@Image,'Action') and (not(ends-with(@Image,'HelperAction')))] and
-  count(//MethodDeclarator[@Image='getActionShortName']) =0 ]
-]]>
-            </value>
-         </property>
-      </properties>
-      <example>
- <![CDATA[
-public class FooAction {
-   // typo occured
-   public String getXActionShortName() {...}
-}
-]]>
-      </example>
-   </rule>
-
-
-   <!-- TODO -->
-   <rule name="HBDJUnitTestHasWrongName"
-         message="All concrete JUnit tests must be named ending with *Test or *TestManuell."
-         class="net.sourceforge.pmd.rules.XPathRule">
-      <description>
-         All concrete JUnit tests must be named to the sheme of ending with *Test or *TestManuell to be identified and run automatically.
-      </description>
-      <priority>2</priority>
-      <properties>
-         <property name="xpath">
-            <value>
-<![CDATA[
-//ClassOrInterfaceDeclaration[
-   (not(ends-with(@Image, 'Test'))) and (not(ends-with(@Image, 'TestManuell')) and (not(@Image='TCInit')) and (not(@Image='TCShutdown'))) and
-   (@Abstract='false') and
-   (count(ClassOrInterfaceBody/ClassOrInterfaceBodyDeclaration/MethodDeclaration/MethodDeclarator[ starts-with(@Image, 'test') ])>0) and
-   //PackageDeclaration[Name[(ends-with(@Image, '.junit')) or (ends-with(@Image, '.httpunit'))] ]
-]   
-]]>
-            </value>
-         </property>
-      </properties>
-      <example>
- <![CDATA[
-package at.herold.sp.db.junit;
-
-class BadTestClass {
-   // this does not end with Test
-   public void testMethod() {
-   }
-}
-
-abstract class GoodAbstract {
-   // is abstract, name as it likes
-   public void testMethod() {
-   }
-}
-
-class GoodTest {
-   public void testMethod() {
-   }
-}
-
-class OtherClass {
-   // other class in package, ok
-   public void noTestMethod() {
-   }
-}
-]]>
-      </example>
-   </rule>
-
-
-   <!-- TODO -->
-   <rule name="HBDNewEnumOnlyInside"
-         message="Enums must only be instantiated inside its Enum class itself."
-         class="net.sourceforge.pmd.rules.XPathRule">
-      <description>
-         Enums are special instances and not meant to be created by other classes, instead use a getEnumFor(value) on the Enum itself.
-      </description>
-      <priority>2</priority>
-      <properties>
-         <property name="xpath">
-            <value>
-<![CDATA[
-//AllocationExpression[
-   (ends-with(ClassOrInterfaceType/@Image, 'Enum')) and (count(ArrayDimsAndInits)=0) and
-   (not(//ClassOrInterfaceDeclaration/@Image=ClassOrInterfaceType/@Image)) ]
-]]>
-            </value>
-         </property>
-      </properties>
-      <example>
- <![CDATA[
-class MyEnum {
-   public void foo() {
-      new MyEnum(); // is ok
-   }
-}
-class OtherEnum {
-   public void foo() {
-      new MyEnum(); // is forbidden
-   }
-}
-class OtherClass {
-   public void foo() {
-      new MyEnum[0]; // array is ok
-   }
-}
-]]>
-      </example>
-   </rule>
-
-
   <!-- naming.xml/controversial.xml -->
    <rule name="ParameterNameWithP"
          message="Method parameter names must start with 'p'."
@@ -352,11 +64,12 @@ class OtherClass {
       </description>
       <priority>2</priority>
       <properties>
+         <property name="prefix" description="Mandatory prefix to variables" value="p" />
          <property name="xpath">
             <value>
 <![CDATA[
 //FormalParameters/FormalParameter/VariableDeclaratorId[
-  (not (starts-with(@Image, 'p')) ) or 
+  (not (starts-with(@Image, $prefix)) ) or 
   (not (substring(@Image, 2, 1)=upper-case(substring(@Image, 2, 1))) )
 ]
 ]]>
@@ -365,7 +78,7 @@ class OtherClass {
       </properties>
       <example>
  <![CDATA[
-class SomeClass {
+class ParameterNameWithPExample {
    public SomeClass(String newNo) { } // wrong
    public SomeClass(int pYes) { }
    public void setNo(String newNo) { // wrong
@@ -384,7 +97,7 @@ class SomeClass {
    <rule name="UnintendedEnvUsage"
          message="getBoolean, getInteger, getLong read from System Properties and do not parse."
          class="net.sourceforge.pmd.rules.XPathRule"
-         externalInfoUrl="http://blog.code-cop.org/TODO">
+         externalInfoUrl="http://blog.code-cop.org/2010/05/custom-pmd-rules.html">
       <description>
          The methods getBoolean, getInteger and getLong read from environment (System Properties) and do not parse. Use Integer.parseInt() instead.
       </description>
@@ -421,7 +134,7 @@ class UnintendedEnvUsageExample {
    <rule name="JunitSetupDoesNotCallSuper"
          message="Methods setUp and tearDown in JUnit tests must call super.setUp/tearDown."
          class="net.sourceforge.pmd.rules.XPathRule"
-         externalInfoUrl="http://blog.code-cop.org/TODO">
+         externalInfoUrl="http://blog.code-cop.org/2010/05/custom-pmd-rules.html">
       <description>
          The framework methods setUp() and tearDown() of JUnit's Testcase must always call super.setUp() and super.tearDown() to enable proper preparing and cleaning of resources.
       </description>
@@ -465,46 +178,6 @@ class BadTestCase extends TestCase {
    </rule>
 
 
-   <!-- TODO --> <!-- by Richard Beitelmair -->
-   <rule name="HBDNoAttrInPolicyAndPlugOn"
-         message="Avoid non final attributes in policies and plugons."
-         class="net.sourceforge.pmd.rules.XPathRule">
-      <description>
-         Policies (Navigation) and Plugons (Adworx) are not threadsafe, therefore we do not allow non final members.
-      </description>
-      <priority>2</priority>
-      <properties>
-         <property name="xpath">
-            <value>
-<![CDATA[
-//FieldDeclaration[@Final='false' and ../../..[ends-with(@Image,'PlugOn') or ends-with(@Image,'Policy')]]
-]]>
-            </value>
-         </property>
-      </properties>
-      <example>
-<![CDATA[
-public class SPAdWorxChannelPlugOn {
-   private final String channel; // ok
-   private boolean showIfSearchedInRegion; // not ok
-}
-public class SPAdWorxChannelPlugOnKey {
-   private final String channel;  // ok
-   private boolean showIfSearchedInRegion; // ok
-}
-public class SPPolicy {
-   private final String channel; // ok
-   private boolean showIfSearchedInRegion; // not ok
-}
-public class SPPolitesse {
-   private final String channel;  // ok
-   private boolean showIfSearchedInRegion; // ok
-}
-]]>
-      </example>
-   </rule>
-
-
    <!-- naming.xml/controversial.xml --> <!-- by Richard Beitelmair -->
    <rule name="InterfaceNamesEndWithIF"
          message="Interface names should end with 'IF'."
@@ -514,10 +187,11 @@ public class SPPolitesse {
       </description>
       <priority>2</priority>
       <properties>
+         <property name="suffix" description="Mandatory suffix to interfaces" value="IF" />
          <property name="xpath">
             <value>
 <![CDATA[
-//ClassOrInterfaceDeclaration[@Interface='true' and not (ends-with(@Image, 'IF'))]
+//ClassOrInterfaceDeclaration[@Interface='true' and not (ends-with(@Image, $suffix))]
 ]]>
             </value>
          </property>
@@ -531,41 +205,48 @@ public class SomeClass { }             // ok
 ]]>
       </example>
    </rule>
-   
-   
-   <!-- TODO --> <!-- by Manuel Tichy -->
-   <rule name="HBDExceptionNotAllowed"
-         message="The use of HBDException is not allowed anymore."
+
+
+   <!-- TODO --> <!-- by Richard Beitelmair -->
+   <rule name="AtomWrapperInstantiation"
+         message="Better use Type.valueOf() for instantiation instead of new Type()."
          class="net.sourceforge.pmd.rules.XPathRule">
       <description>
-         The framework is only using RunntimeExceptions. Checked Exceptions are not allowed anymore.
+         In JDK 1.5, calling new Type() causes memory allocation. Type.valueOf() is more memory friendly.
       </description>
+      <!-- Rule copied from PMD, but for all types at once -->
       <priority>2</priority>
       <properties>
          <property name="xpath">
             <value>
 <![CDATA[
-//ClassOrInterfaceType[@Image='HBDException']
+//PrimaryPrefix/AllocationExpression[
+  (not (ArrayDimsAndInits)) and 
+  (
+    ClassOrInterfaceType/@Image='Byte' or ClassOrInterfaceType/@Image='java.lang.Byte' or
+    ClassOrInterfaceType/@Image='Short' or ClassOrInterfaceType/@Image='java.lang.Short' or
+    ClassOrInterfaceType/@Image='Integer' or ClassOrInterfaceType/@Image='java.lang.Integer' or
+    ClassOrInterfaceType/@Image='Long' or ClassOrInterfaceType/@Image='java.lang.Long' or
+    ClassOrInterfaceType/@Image='Character' or ClassOrInterfaceType/@Image='java.lang.Character'
+  )
+]
 ]]>
             </value>
          </property>
       </properties>
       <example>
 <![CDATA[
-class MyClass extends OtherClass
-{
-	public void myMethod()	throws HBDException	// "throws HBDException" is not allowed!
-	{
-		try
-		{
-			...
-			throw new HBDException("...");	// "throw new HBDException" is not allowed!
-		}
-		catch(final HBDException e)	// "catch HBDException" is not allowed!
-		{
-			...
-		}
-	}
+public class AtomWrapperInstantiationExample {
+    Byte myByte = new Byte(1);    // bad
+    Byte byte2 = Byte.valueOf(1); // ok
+    Short myshort = new Short(20);       // bad
+    Short myshort2 = Short.valueOf(20);  // ok 
+    Integer integer = new Integer(4);      // bad
+    Integer integer2 = Integer.valueOf(4); // ok
+    Long myLong = new Long(10000000);       // bad
+    Long myLong2 = Long.valueOf(10000000);  // ok
+    Character myChar = new Character('x');    // bad
+    Character char2 = Character.valueOf('x'); // ok
 }
 ]]>
       </example>
@@ -592,8 +273,8 @@ class MyClass extends OtherClass
       <example>
 <![CDATA[
 public class BadException extends Exception {
-    private long serialVersionUID = 1900926677490660714L;   // Not ok - must be final!
-
+    private static long serialVersionUID = 1900926677490660714L; // Not ok - must be final!
+    private String state;                                        // Not ok - must be final!
     public BadException(String message) {
         super(message);
     }
@@ -699,7 +380,7 @@ public class MembersMustBePrivateExample {
       <description>
          It is unclear which exceptions that can be thrown from the methods. It might be difficult to document and understand the vague interfaces. Use either a class derived from RuntimeException or a checked exception.
       </description>
-      <!-- Rule from PMD, only allow exceptions for methods "setUp", "tearDown" -->
+      <!-- Rule copied from PMD 3.1 (no type inference), but only allow exceptions for methods "setUp", "tearDown" -->
       <priority>2</priority>
       <properties>
          <property name="ignoreTests" description="Ignore test methods" value="false"/>
@@ -721,7 +402,7 @@ public void methodThrowingException() throws Exception { }
       <description>
          Class names should always begin with an upper case character, and should not contain underscores (but _Stub or _Core) or dollar signs. Class names should not be uppercase only.
       </description>
-      <!-- Rule from PMD and made it a bit more strict -->
+      <!-- Rule copied from PMD 3.1 and made it a bit more strict -->
       <priority>2</priority>
       <properties>
          <property name="upperCaseLen" description="Allowed length of upper case only names" value="3" />
