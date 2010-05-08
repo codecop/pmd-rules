@@ -11,3 +11,5 @@ syntax: regexp
 ^\.settings$
 syntax: regexp
 ^merge_test_framework$
+syntax: regexp
+^\.checkstyle$
