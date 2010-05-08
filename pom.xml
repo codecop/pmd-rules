@@ -4,9 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.codecop</groupId>
     <artifactId>pmd-rules</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <name>Code Cop PMD Rules</name>
     <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
 
     <description>Code Cop PMD rules are a mixed set of PMD rules created since 2004 regarding basic bugs, design principles, junit test, naming and other rule groups.</description>
     <url>http://blog.code-cop.org/search/label/PMD</url>
