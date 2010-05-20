@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+ok
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Foo {
+ private static final LoggerImpl log;
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+two bad loggers
+     ]]></description>
+        <expected-problems>2</expected-problems>
+        <code><![CDATA[
+public class Foo {
+ private static final LoggerImpl log;
+ LoggerImpl log1;
+ LoggerImpl log2;
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+ok with internal class
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Foo {
+ private static final LoggerImpl log;
+ static class c { 
+  private static final LoggerImpl log;
+ } 
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+ok with local var
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Foo {
+ void bar() {
+ LoggerImpl log1;
+ }
+}
+     ]]></code>
+    </test-code>
+</test-data>

@@ -12,6 +12,9 @@ public class PrototypeRulesTest extends SimpleAggregatorTst {
    public void setUp() {
       addRule(RULESET, "EntityWithReferences");
       addRule(RULESET, "ImmutableValueObject");
+      addRule(RULESET, "EmptyFunction");
+      addRule(RULESET, "MoreThanOneCustomLogger");
+      addRule(RULESET, "CustomLoggerIsNotStaticFinal");
    }
 
    public static junit.framework.Test suite() {

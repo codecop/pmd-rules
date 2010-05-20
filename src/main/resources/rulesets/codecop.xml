@@ -6,7 +6,7 @@
     xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
 
    <description>
-      The CodeCop ruleset contains a mixture of rules for various bugs and conventions.
+      The CodeCop ruleset contains a mixture of general rules for various bugs and conventions.
    </description>
 
 
@@ -16,7 +16,7 @@
          class="net.sourceforge.pmd.rules.XPathRule"
          externalInfoUrl="http://blog.code-cop.org/2010/05/custom-pmd-rules.html">
       <description>
-         The used Iterator for the 'exit expression' in a for loop does not match the 'declaration expression', maybe not intended.
+         The used Iterator for the 'exit expression' in a for loop does not match the 'declaration expression', most likely this is not intended.
       </description>
       <priority>2</priority>
       <properties>
@@ -55,16 +55,16 @@ public class JumbledIteratorExample {
    </rule>
 
 
-  <!-- naming.xml/controversial.xml -->
+   <!-- naming.xml/controversial.xml -->
    <rule name="ParameterNameWithP"
          message="Method parameter names must start with 'p'."
          class="net.sourceforge.pmd.rules.XPathRule">
       <description>
-         All parameters to methods and constructors are required to be named like pXyz. Use Ctrl-1 to local rename it.
+         All parameters of methods and constructors are required to be named like pXyz. Use Ctrl-1 to local rename it.
       </description>
       <priority>2</priority>
       <properties>
-         <property name="prefix" description="Mandatory prefix to variables" value="p" />
+         <property name="prefix" description="Mandatory prefix to parameter names" value="p" />
          <property name="xpath">
             <value>
 <![CDATA[
@@ -187,7 +187,7 @@ class BadTestCase extends TestCase {
       </description>
       <priority>2</priority>
       <properties>
-         <property name="suffix" description="Mandatory suffix to interfaces" value="IF" />
+         <property name="suffix" description="Mandatory suffix to interface names" value="IF" />
          <property name="xpath">
             <value>
 <![CDATA[
@@ -207,21 +207,52 @@ public class SomeClass { }             // ok
    </rule>
 
 
-   <!-- TODO --> <!-- by Richard Beitelmair -->
-   <rule name="AtomWrapperInstantiation"
-         message="Better use Type.valueOf() for instantiation instead of new Type()."
+   <!-- naming.xml/controversial.xml --> 
+   <rule name="InterfaceNamesStartWithI"
+         message="Interface names should start with 'I'."
          class="net.sourceforge.pmd.rules.XPathRule">
+      <description>
+         For better recognition interface names should start with 'I'. Rename the interface!
+      </description>
+      <priority>2</priority>
+      <properties>
+         <property name="prefix" description="Mandatory prefix to interface names" value="I" />
+         <property name="xpath">
+            <value>
+<![CDATA[
+//ClassOrInterfaceDeclaration[@Interface='true' and not (starts-with(@Image, $prefix))]
+]]>
+            </value>
+         </property>
+      </properties>
+      <example>
+<![CDATA[
+public interface SomeInterface { }     // nok
+public interface SomeInterface { }     // nok
+public interface ISomeInterface { }    // ok
+public class SomeClass { }             // ok
+]]>
+      </example>
+   </rule>
+
+
+   <!-- migrating.xml --> <!-- by Richard Beitelmair -->
+   <rule name="AtomWrapperInstantiation"
+         since="3.5"
+         message="Avoid instantiating Wrapper Type objects. Call Type.valueOf() instead."
+         class="net.sourceforge.pmd.rules.XPathRule"
+         externalInfoUrl="http://pmd.sourceforge.net/rules/migrating.html#IntegerInstantiation">
       <description>
          In JDK 1.5, calling new Type() causes memory allocation. Type.valueOf() is more memory friendly.
       </description>
-      <!-- Rule copied from PMD, but for all types at once -->
+      <!-- Rule copied from PMD's migrating.xml/IntegerInstantiation, but for all types at once -->
       <priority>2</priority>
       <properties>
          <property name="xpath">
             <value>
 <![CDATA[
 //PrimaryPrefix/AllocationExpression[
-  (not (ArrayDimsAndInits)) and 
+  not (ArrayDimsAndInits) and 
   (
     ClassOrInterfaceType/@Image='Byte' or ClassOrInterfaceType/@Image='java.lang.Byte' or
     ClassOrInterfaceType/@Image='Short' or ClassOrInterfaceType/@Image='java.lang.Short' or
@@ -251,7 +282,41 @@ public class AtomWrapperInstantiationExample {
 ]]>
       </example>
    </rule>
-   
+
+
+   <!-- migrating.xml --> 
+   <rule name="CharInstantiation"
+         since="4.0"
+         message="Avoid instantiating Character objects. Call Character.valueOf() instead."
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>
+         In JDK 1.5, calling new Character() causes memory allocation. Character.valueOf() is more memory friendly.
+      </description>
+      <priority>2</priority>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//PrimaryPrefix/AllocationExpression[ 
+  not (ArrayDimsAndInits) and 
+  (
+    ClassOrInterfaceType/@Image='Character' or ClassOrInterfaceType/@Image='java.lang.Character'
+  )
+]
+]]>
+            </value>
+         </property>
+      </properties>
+      <example>
+<![CDATA[
+public class CharInstantiationExample {
+    Character char1 = new Character('x');     // bad
+    Character char2 = Character.valueOf('x'); // ok
+}
+]]>
+      </example>
+   </rule>
+
    
    <!-- strictexception.xml --> <!-- by Manuel Tichy -->
    <rule name="NonFinalFieldInException"
@@ -378,7 +443,8 @@ public class MembersMustBePrivateExample {
          class="org.codecop.pmd.rule.ExceptionSignatureDeclaration"
          externalInfoUrl="http://pmd.sourceforge.net/rules/strictexception.html#SignatureDeclareThrowsException">
       <description>
-         It is unclear which exceptions that can be thrown from the methods. It might be difficult to document and understand the vague interfaces. Use either a class derived from RuntimeException or a checked exception.
+         It is unclear which exceptions that can be thrown from the methods. It might be difficult to document and 
+         understand the vague interfaces. Use either a class derived from RuntimeException or a checked exception.
       </description>
       <!-- Rule copied from PMD 3.1 (no type inference), but only allow exceptions for methods "setUp", "tearDown" -->
       <priority>2</priority>
@@ -400,7 +466,8 @@ public void methodThrowingException() throws Exception { }
          class="org.codecop.pmd.rule.ClassNamingConventions"
          externalInfoUrl="http://pmd.sourceforge.net/rules/naming.html#ClassNamingConventions">
       <description>
-         Class names should always begin with an upper case character, and should not contain underscores (but _Stub or _Core) or dollar signs. Class names should not be uppercase only.
+         Class names should always begin with an upper case character, and should not contain underscores 
+         (but _Stub or _Core) or dollar signs. Class names should not be uppercase only.
       </description>
       <!-- Rule copied from PMD 3.1 and made it a bit more strict -->
       <priority>2</priority>

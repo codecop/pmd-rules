@@ -17,9 +17,12 @@ public class CodeCopRulesTest extends SimpleAggregatorTst {
       addRule(RULESET, "JunitSetupDoesNotCallSuper");
       addRule(RULESET, "ParameterNameWithP");
       addRule(RULESET, "InterfaceNamesEndWithIF");
+      addRule(RULESET, "InterfaceNamesStartWithI");
       addRule(RULESET, "NonFinalFieldInException");
       addRule(RULESET, "AvoidPrivateGetterAndSetter");
       addRule(RULESET, "MembersMustBePrivate");
+      addRule(RULESET, "CharInstantiation");
+      addRule(RULESET, "AtomWrapperInstantiation");
    }
 
    public static junit.framework.Test suite() {

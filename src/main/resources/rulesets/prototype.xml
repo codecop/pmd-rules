@@ -6,7 +6,7 @@
     xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
 
    <description>
-      These rules are very specific and not useable on general code. But they serve as examples and prototypes to copy from.
+      These rules are very specific and useless on general code. But they serve as examples and prototypes to copy from.
    </description>
 
 
@@ -63,21 +63,23 @@ public class BadValueObject extends ValueObject {
    </rule>
 
 
-   <!-- TODO -->
+   <!-- design.xml -->
    <rule name="EmptyFunction"
          message="The given method must be implemented and not just return null."
          class="net.sourceforge.pmd.rules.XPathRule">
       <description>
-         Some abstract methods, e.g. getActionShortName() in subclasses of HBDAction, must not return null. If they will never be called, throw a OperationNotSupportedException.
+         Some methods, e.g. toString or getName() in subclasses of Action, must not just return null. 
+         If they will never be called, throw a OperationNotSupportedException.
       </description>
       <priority>2</priority>
       <properties>
+         <property name="method" description="Name of the method to check" value="getName" />
          <property name="xpath">
             <value>
 <![CDATA[
-//ClassDeclaration//MethodDeclaration
-  [MethodDeclarator [@Image='getActionShortName' or @Image='toDom' or @Image='toString' ] ]
-  [Block//ReturnStatement//NullLiteral]
+//MethodDeclaration
+  [MethodDeclarator[@Image=$method or @Image='toString']]
+    [Block//ReturnStatement//NullLiteral]
 ]]>
             </value>
          </property>
@@ -85,42 +87,10 @@ public class BadValueObject extends ValueObject {
       <example>
 <![CDATA[
 public class FooAction {
- public String getActionShortName() {
-   // should return some string for the statistic
-   return null;
- }
+  public String getName() {
+    return null; // should return some string for statistics.
+  }
 }
-]]>
-      </example>
-   </rule>
-
-
-   <!-- TODO -->
-   <rule name="HBDLibraryRuleForSOAP"
-         message="SOAP must only be used inside at.herold.sup.soap."
-         class="net.sourceforge.pmd.rules.XPathRule">
-      <description>
-         The SOAP library must only be used inside the package at.herold.sup.soap. Other packages must not import it.
-      </description>
-      <priority>2</priority>
-      <properties>
-         <property name="xpath">
-            <value>
-<![CDATA[
-//ImportDeclaration/Name[
-  starts-with(@Image,'org.apache.axis') and
-  //PackageDeclaration/Name[(not (starts-with(@Image,'at.herold.sup.soap')))]
-]
-]]>
-            </value>
-         </property>
-      </properties>
-      <example>
-<![CDATA[
-package at.herold.a; // other than at.herold.sup.soap
-import org.apache.axis.abc.Call;
-
-public class Foo { }
 ]]>
       </example>
    </rule>
@@ -227,20 +197,25 @@ public class BadGuy {
    </rule>
 
 
-   <!-- TODO -->
-   <rule name="HBDMoreThanOneLogger"
-         message="Class contains more than one Logger"
-         class="net.sourceforge.pmd.rules.XPathRule">
+   <!-- logging-java.xml -->
+   <rule name="MoreThanOneCustomLogger"
+         since="2.0"
+         message="Class contains more than one logger."
+         class="net.sourceforge.pmd.rules.XPathRule"
+         externalInfoUrl="http://pmd.sourceforge.net/rules/logging-java.html#MoreThanOneLogger">
       <description>
-         Normally only one HBD logger is used in each class.
+         Normally only one logger is used in each class.
       </description>
-      <!-- Rule copied from PMD, but changed name of Logger -->
+      <!-- Rule copied from PMD's MoreThanOneLogger, but changed name of Logger -->
       <priority>2</priority>
       <properties>
+         <property name="logger" description="Name of the logger type" value="LoggerImpl" />
          <property name="xpath">
             <value>
 <![CDATA[
-//ClassBody[ count(//VariableDeclarator[../Type/Name[@Image='LoggerImpl']]) >1 ]
+//ClassOrInterfaceBody[ 
+  count(//VariableDeclarator[parent::FieldDeclaration][../Type/ReferenceType/ClassOrInterfaceType[@Image=$logger]]) > 1 
+]
 ]]>
             </value>
          </property>
@@ -258,20 +233,26 @@ class Foo {
    </rule>
 
 
-   <!-- TODO -->
-   <rule name="HBDLoggerIsNotStaticFinal"
-         message="The HBD Logger variable declaration does not contain the static and final modifiers"
-         class="net.sourceforge.pmd.rules.XPathRule">
+   <!-- logging-java.xml -->
+   <rule name="CustomLoggerIsNotStaticFinal"
+         since="2.0"
+         message="The Logger variable declaration does not contain the static and final modifiers"
+         class="net.sourceforge.pmd.rules.XPathRule"
+         externalInfoUrl="http://pmd.sourceforge.net/rules/logging-java.html#LoggerIsNotStaticFinal">
       <description>
          In most cases, the Logger can be declared private static and final.
       </description>
       <!-- Rule copied from PMD, but changed name of Logger -->
       <priority>2</priority>
       <properties>
+         <property name="logger" description="Name of the logger type" value="LoggerImpl" />
          <property name="xpath">
             <value>
 <![CDATA[
-//VariableDeclarator[../Type/Name[@Image='LoggerImpl'] and (..[@Final='false'] or ..[@Static = 'false'] or .. [@Private = 'false']) ]
+//VariableDeclarator[parent::FieldDeclaration][
+  ../Type/ReferenceType/ClassOrInterfaceType[@Image=$logger] and 
+  (..[@Final='false'] or ..[@Static = 'false'] or .. [@Private = 'false']) 
+]
 ]]>
             </value>
          </property>
@@ -288,15 +269,17 @@ class Foo {
    </rule>
 
 
-   <!-- TODO --> <!-- by Richard Beitelmair -->
-   <rule name="HBDNoAttrInPolicyAndPlugOn"
-         message="Avoid non final attributes in policies and plugons."
+   <!-- TODO -->
+   <!-- design.xml --> <!-- by Richard Beitelmair -->
+   <rule name="NoAttrInClass"
+         message="Avoid non final attributes in this class."
          class="net.sourceforge.pmd.rules.XPathRule">
       <description>
-         Policies (Navigation) and Plugons (Adworx) are not threadsafe, therefore we do not allow non final members.
+         This class is shared by threads but not threadsafe. Therefore it must only have final members.
       </description>
       <priority>2</priority>
       <properties>
+         <property name="logger" description="Name of the logger type" value="LoggerImpl" />
          <property name="xpath">
             <value>
 <![CDATA[
