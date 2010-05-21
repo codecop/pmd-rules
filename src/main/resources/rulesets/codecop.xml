@@ -485,4 +485,59 @@ public class Foo_Core {} // ok - Generation Gap Pattern
       </example>
    </rule>
    
+   
+   <!-- logging-java.xml -->
+   <rule name="LoggerHasWrongCategory"
+         message="Logger has wrong category"
+         class="net.sourceforge.pmd.rules.XPathRule">
+      <description>
+         Logger is created for another category than the enclosing class. This is a typical copy-paste error.
+      </description>
+      <priority>2</priority>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//ClassOrInterfaceDeclaration[not (
+  //PrimaryExpression[//PrimaryPrefix/Name/@Image='Logger.getLogger']
+  //PrimarySuffix//ClassOrInterfaceType/@Image=@Image
+  )
+]
+]]>
+            </value>
+         </property>
+      </properties>
+      <example>
+<![CDATA[
+class GoodExample {
+   private final Logger log = Logger.getLogger(GoodExample.class);
+}
+class BadExample {
+   private final Logger log = Logger.getLogger(GoodExample.class);
+}
+]]>
+      </example>
+   </rule>
+   
+   
+   <!-- strictexception.xml/controversial.xml/typeresolution.xml -->
+   <rule name="AvoidThrowingCheckedException"
+         message="Avoid throwing checked exceptions."
+         class="org.codecop.pmd.rule.AvoidThrowingCheckedException"
+         typeResolution="true">
+      <description>
+         Avoid throwing checked Exceptions - it's considered noise.
+      </description>
+      <priority>2</priority>
+      <example>
+<![CDATA[
+public class Foo {
+  void bar() throws IOException {
+    throw new IOException();
+  }
+}
+]]>
+      </example>
+   </rule>
+   
 </ruleset>

@@ -23,6 +23,8 @@ public class CodeCopRulesTest extends SimpleAggregatorTst {
       addRule(RULESET, "MembersMustBePrivate");
       addRule(RULESET, "CharInstantiation");
       addRule(RULESET, "AtomWrapperInstantiation");
+      addRule(RULESET, "LoggerHasWrongCategory");
+      addRule(RULESET, "AvoidThrowingCheckedException");
    }
 
    public static junit.framework.Test suite() {

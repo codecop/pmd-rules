@@ -1,0 +1,6 @@
+---
+
+logging.xml
+* log.error(ex) is wrong, use log.error(msg, ex)
+
+---

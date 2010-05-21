@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+throw checked Exception, bad
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+import java.io.IOException;
+
+public class Foo {
+  void bar() throws IOException {
+    throw new IOException();
+  }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+unchecked Exception, ok
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Foo {
+  void bar() {
+    throw new IllegalArgumentException();
+  }
+}
+     ]]></code>
+    </test-code>
+</test-data>

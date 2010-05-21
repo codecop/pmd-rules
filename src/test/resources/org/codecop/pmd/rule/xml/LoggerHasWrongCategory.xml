@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+wrong class
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+class BadExample {
+   private final Logger log = Logger.getLogger(GoodExample.class);
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+wrong class directly used
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+class BadExample {
+   private void method() {
+      Logger.getLogger(GoodExample.class).log("abc");
+   }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+all is well
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class GoodExample {
+   private final Logger log = Logger.getLogger(GoodExample.class);
+   
+   private void method() {
+      Logger.getLogger(GoodExample.class).log("abc");
+   }
+}
+     ]]></code>
+    </test-code>
+</test-data>
+
+
