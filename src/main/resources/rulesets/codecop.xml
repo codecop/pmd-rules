@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
-<ruleset name="CodeCop Rules"
+<ruleset name="Codecop Rules"
     xmlns="http://pmd.sf.net/ruleset/1.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
     xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
 
    <description>
-      The CodeCop ruleset contains a mixture of general rules for various bugs and conventions.
+      Mix of rules for various bugs and conventions. Some of these should really be in the core of PMD. 
+      Others are likely to be controversial.
    </description>
 
 
@@ -14,7 +15,7 @@
    <rule name="JumbledIterator"
          message="Non matching iterator identifier found in for loop."
          class="net.sourceforge.pmd.rules.XPathRule"
-         externalInfoUrl="http://blog.code-cop.org/2010/05/custom-pmd-rules.html">
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#JumbledIterator">
       <description>
          The used Iterator for the 'exit expression' in a for loop does not match the 'declaration expression', most likely this is not intended.
       </description>
@@ -58,7 +59,8 @@ public class JumbledIteratorExample {
    <!-- naming.xml/controversial.xml -->
    <rule name="ParameterNameWithP"
          message="Method parameter names must start with 'p'."
-         class="net.sourceforge.pmd.rules.XPathRule">
+         class="net.sourceforge.pmd.rules.XPathRule"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#ParameterNameWithP">
       <description>
          All parameters of methods and constructors are required to be named like pXyz. Use Ctrl-1 to local rename it.
       </description>
@@ -97,7 +99,7 @@ class ParameterNameWithPExample {
    <rule name="UnintendedEnvUsage"
          message="getBoolean, getInteger, getLong read from System Properties and do not parse."
          class="net.sourceforge.pmd.rules.XPathRule"
-         externalInfoUrl="http://blog.code-cop.org/2010/05/custom-pmd-rules.html">
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#UnintendedEnvUsage">
       <description>
          The methods getBoolean, getInteger and getLong read from environment (System Properties) and do not parse. Use Integer.parseInt() instead.
       </description>
@@ -134,7 +136,7 @@ class UnintendedEnvUsageExample {
    <rule name="JunitSetupDoesNotCallSuper"
          message="Methods setUp and tearDown in JUnit tests must call super.setUp/tearDown."
          class="net.sourceforge.pmd.rules.XPathRule"
-         externalInfoUrl="http://blog.code-cop.org/2010/05/custom-pmd-rules.html">
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#JunitSetupDoesNotCallSuper">
       <description>
          The framework methods setUp() and tearDown() of JUnit's Testcase must always call super.setUp() and super.tearDown() to enable proper preparing and cleaning of resources.
       </description>
@@ -181,7 +183,8 @@ class BadTestCase extends TestCase {
    <!-- naming.xml/controversial.xml --> <!-- by Richard Beitelmair -->
    <rule name="InterfaceNamesEndWithIF"
          message="Interface names should end with 'IF'."
-         class="net.sourceforge.pmd.rules.XPathRule">
+         class="net.sourceforge.pmd.rules.XPathRule"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#InterfaceNamesEndWithIF">
       <description>
          For better recognition interface names should end with 'IF'. Rename the interface!
       </description>
@@ -210,7 +213,8 @@ public class SomeClass { }             // ok
    <!-- naming.xml/controversial.xml --> 
    <rule name="InterfaceNamesStartWithI"
          message="Interface names should start with 'I'."
-         class="net.sourceforge.pmd.rules.XPathRule">
+         class="net.sourceforge.pmd.rules.XPathRule"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#InterfaceNamesStartWithI">
       <description>
          For better recognition interface names should start with 'I'. Rename the interface!
       </description>
@@ -241,7 +245,7 @@ public class SomeClass { }             // ok
          since="3.5"
          message="Avoid instantiating Wrapper Type objects. Call Type.valueOf() instead."
          class="net.sourceforge.pmd.rules.XPathRule"
-         externalInfoUrl="http://pmd.sourceforge.net/rules/migrating.html#IntegerInstantiation">
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#AtomWrapperInstantiation">
       <description>
          In JDK 1.5, calling new Type() causes memory allocation. Type.valueOf() is more memory friendly.
       </description>
@@ -288,7 +292,8 @@ public class AtomWrapperInstantiationExample {
    <rule name="CharInstantiation"
          since="4.0"
          message="Avoid instantiating Character objects. Call Character.valueOf() instead."
-         class="net.sourceforge.pmd.rules.XPathRule">
+         class="net.sourceforge.pmd.rules.XPathRule"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#CharInstantiation">
       <description>
          In JDK 1.5, calling new Character() causes memory allocation. Character.valueOf() is more memory friendly.
       </description>
@@ -319,7 +324,8 @@ public class CharInstantiationExample {
    <!-- strictexception.xml --> <!-- by Manuel Tichy -->
    <rule name="NonFinalFieldInException"
          message="Exceptions must be immutable."
-         class="net.sourceforge.pmd.rules.XPathRule">
+         class="net.sourceforge.pmd.rules.XPathRule"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#NonFinalFieldInException">
       <description>
          Exceptions must be immutable, so the fields of an Exception must be declared as final.
       </description>
@@ -350,7 +356,8 @@ public class BadException extends Exception {
    <!-- design.xml --> <!-- by Manuel Tichy -->
    <rule name="AvoidPrivateGetterAndSetter"
          message="Don't use private getters/setters."
-         class="net.sourceforge.pmd.rules.XPathRule">
+         class="net.sourceforge.pmd.rules.XPathRule"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#AvoidPrivateGetterAndSetter">
       <description>
          Instead of using private getter or setter, we use the member variable instead. It's easier to read and saves lines of code.
       </description>
@@ -401,7 +408,8 @@ class AvoidPrivateGetterAndSetterExample {
    <!-- design.xml --> <!-- by Manuel Tichy -->
    <rule name="MembersMustBePrivate"
          message="Members must be private except they are static and final"
-         class="net.sourceforge.pmd.rules.XPathRule">
+         class="net.sourceforge.pmd.rules.XPathRule"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#MembersMustBePrivate">
       <description>
          Members must be private, except static final constants. Change Member to private and create getter and/or setter to access value/s.
       </description>
@@ -439,7 +447,7 @@ public class MembersMustBePrivateExample {
          since="3.1"
          message="A method/constructor shouldn't explicitly throw java.lang.Exception"
          class="org.codecop.pmd.rule.ExceptionSignatureDeclaration"
-         externalInfoUrl="http://pmd.sourceforge.net/rules/strictexception.html#SignatureDeclareThrowsException">
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#SignatureDeclareThrowsException">
       <description>
          It is unclear which exceptions that can be thrown from the methods. It might be difficult to document and 
          understand the vague interfaces. Use either a class derived from RuntimeException or a checked exception.
@@ -462,7 +470,7 @@ public void methodThrowingException() throws Exception { }
          since="3.1"
          message="Class names should begin with an uppercase character, not include underscores or dollar signs."
          class="org.codecop.pmd.rule.ClassNamingConventions"
-         externalInfoUrl="http://pmd.sourceforge.net/rules/naming.html#ClassNamingConventions">
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#ClassNamingConventions">
       <description>
          Class names should always begin with an upper case character, and should not contain underscores 
          (but _Stub or _Core) or dollar signs. Class names should not be uppercase only.
@@ -489,7 +497,8 @@ public class Foo_Core {} // ok - Generation Gap Pattern
    <!-- logging-java.xml -->
    <rule name="LoggerHasWrongCategory"
          message="Logger has wrong category"
-         class="net.sourceforge.pmd.rules.XPathRule">
+         class="net.sourceforge.pmd.rules.XPathRule"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#LoggerHasWrongCategory">
       <description>
          Logger is created for another category than the enclosing class. This is a typical copy-paste error.
       </description>
@@ -524,7 +533,8 @@ class BadExample {
    <rule name="AvoidThrowingCheckedException"
          message="Avoid throwing checked exceptions."
          class="org.codecop.pmd.rule.AvoidThrowingCheckedException"
-         typeResolution="true">
+         typeResolution="true"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#AvoidThrowingCheckedException">
       <description>
          Avoid throwing checked Exceptions - it's considered noise.
       </description>

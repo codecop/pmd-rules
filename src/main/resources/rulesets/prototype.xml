@@ -6,7 +6,7 @@
     xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
 
    <description>
-      These rules are very specific and useless on general code. But they serve as examples and prototypes to copy from.
+      Very specific rules but useless on general code. They serve as examples and prototypes to copy from.
    </description>
 
 
@@ -15,7 +15,8 @@
          since="3.9"
          message="Entities must define all attributes with RelationShips"
          class="org.codecop.pmd.prototype.EntityWithReferences"
-         typeResolution="true">
+         typeResolution="true"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#EntityWithReferences">
       <description>
          In a specific Rich Domain Model all Entities (subclasses of Entity) must define their attributes as (subclasses of) RelationShips.
          Simple attributes are not allowed. To fix this rule, wrap all simple attributes with a RelationShip of proper type accordingly.
@@ -42,7 +43,8 @@ public class BadEntity extends BetterEntity {
          since="3.9"
          message="ValueObjects must not define RelationShips and be immutable"
          class="org.codecop.pmd.prototype.ImmutableValueObject"
-         typeResolution="true">
+         typeResolution="true"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#ImmutableValueObject">
       <description>
          In a specific Rich Domain Model all Value Objects (subclasses of ValueObjects) must not define their attributes as (subclasses of) 
          RelationShips. Just simple attributes are allowed. 
@@ -66,7 +68,8 @@ public class BadValueObject extends ValueObject {
    <!-- design.xml -->
    <rule name="EmptyFunction"
          message="The given method must be implemented and not just return null."
-         class="net.sourceforge.pmd.rules.XPathRule">
+         class="net.sourceforge.pmd.rules.XPathRule"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#EmptyFunction">
       <description>
          Some methods, e.g. toString or getName() in subclasses of Action, must not just return null. 
          If they will never be called, throw a OperationNotSupportedException.
@@ -99,7 +102,8 @@ public class FooAction {
    <!-- design.xml --> <!-- by Martina Stoiber -->
    <rule name="CommitInDBLayer"
          message="Classes in DB layer must not call Connection.commit."
-         class="net.sourceforge.pmd.rules.XPathRule">
+         class="net.sourceforge.pmd.rules.XPathRule"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#CommitInDBLayer">
       <description>
          Services are responsible for maintaining transactions, so classes in the DB layer are not allowed to call
          Connection.commit. commit is a reserved word and should also not be used as identifier.
@@ -157,9 +161,10 @@ public class CommitInDBLayerExample {
    <!-- coupling.xml --> 
    <rule name="Call4MethodNotInPackage"
          message="Only Classes in $package packages may call *$method() methods."
-         class="net.sourceforge.pmd.rules.XPathRule">
+         class="net.sourceforge.pmd.rules.XPathRule"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#Call4MethodNotInPackage">
       <description>
-         Only certain classes in $package packages are allowed to call special methods on objects, which are called *$method.
+         Only certain classes in $package packages are allowed to call special methods on objects, which are suffixed by $method.
       </description>
       <priority>2</priority>
       <properties>
@@ -206,7 +211,7 @@ public class BadGuy {
          since="2.0"
          message="Class contains more than one logger."
          class="net.sourceforge.pmd.rules.XPathRule"
-         externalInfoUrl="http://pmd.sourceforge.net/rules/logging-java.html#MoreThanOneLogger">
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#MoreThanOneCustomLogger">
       <description>
          Normally only one logger is used in each class.
       </description>
@@ -242,7 +247,7 @@ class Foo {
          since="2.0"
          message="The Logger variable declaration does not contain the static and final modifiers"
          class="net.sourceforge.pmd.rules.XPathRule"
-         externalInfoUrl="http://pmd.sourceforge.net/rules/logging-java.html#LoggerIsNotStaticFinal">
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#CustomLoggerIsNotStaticFinal">
       <description>
          In most cases, the Logger can be declared private, static and final.
       </description>
@@ -277,7 +282,8 @@ class Foo {
    <!-- design.xml --> <!-- by Richard Beitelmair -->
    <rule name="NoAttrInClass"
          message="Avoid non final attributes in this class."
-         class="net.sourceforge.pmd.rules.XPathRule">
+         class="net.sourceforge.pmd.rules.XPathRule"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#NoAttrInClass">
       <description>
          This class is shared by threads but not threadsafe. Therefore it must only have final members.
       </description>
@@ -311,7 +317,8 @@ public class AdWorxChannelPolicyKey {
    <!-- coupling.xml --> <!-- by Manuel Tichy -->
    <rule name="TypeNotAllowed"
          message="The use of this type is not allowed."
-         class="net.sourceforge.pmd.rules.XPathRule">
+         class="net.sourceforge.pmd.rules.XPathRule"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#TypeNotAllowed">
       <description>
          The use of this type is not allowed.
       </description>
@@ -347,7 +354,8 @@ class MyClass extends OtherClass {
    <!-- design.xml -->
    <rule name="ActionHasNoShortName"
          message="All concrete (not abstract) actions must implement the $method method."
-         class="net.sourceforge.pmd.rules.XPathRule">
+         class="net.sourceforge.pmd.rules.XPathRule"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#ActionHasNoShortName">
       <description>
          Certain classes need to define and redefine a method on their own regardless of superclasses have provided it or not.
       </description>
@@ -383,10 +391,11 @@ public class FooAction {
 
    <!-- junit.xml -->
    <rule name="JUnitTestHasWrongName"
-         message="All concrete JUnit tests must be named ending with *Test or *TestManuell."
-         class="net.sourceforge.pmd.rules.XPathRule">
+         message="All concrete JUnit tests must be named ending with Test."
+         class="net.sourceforge.pmd.rules.XPathRule"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#JUnitTestHasWrongName">
       <description>
-         All concrete JUnit tests must be named to the sheme of ending with *Test or *TestManuell to be identified and run automatically.
+         All concrete JUnit tests must be named to the sheme of ending with Test to be identified and run automatically.
       </description>
       <priority>2</priority>
       <properties>
@@ -429,7 +438,8 @@ class GoodTest {
    <!-- coupling.xml -->
    <rule name="NewEnumOnlyInside"
          message="Enums must only be instantiated inside its own Enum class."
-         class="net.sourceforge.pmd.rules.XPathRule">
+         class="net.sourceforge.pmd.rules.XPathRule"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#NewEnumOnlyInside">
       <description>
          Enums are special instances and not meant to be created by other classes, instead use a getEnumFor(value) on the Enum itself.
       </description>
