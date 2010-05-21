@@ -96,23 +96,24 @@ public class FooAction {
    </rule>
 
 
-   <!-- TODO -->
-   <rule name="HBDCommitInDBLayer"
+   <!-- design.xml --> <!-- by Martina Stoiber -->
+   <rule name="CommitInDBLayer"
          message="Classes in DB layer must not call Connection.commit."
          class="net.sourceforge.pmd.rules.XPathRule">
       <description>
-         HBDActions are responsible for maintaining transactions, so classes in the DB layer are not allowed to call
-         Connection.commit. commit is reserved word and should also not be used as identifier.
+         Services are responsible for maintaining transactions, so classes in the DB layer are not allowed to call
+         Connection.commit. commit is a reserved word and should also not be used as identifier.
       </description>
       <priority>2</priority>
-      <!-- author>Martina Stoiber</author -->
       <properties>
+         <property name="method" description="Name of the commit method" value="commit" />
+         <property name="package" description="Suffix of the db layer package name" value=".resultlist" />
          <property name="xpath">
             <value>
 <![CDATA[
 //PrimaryExpression[
-   ( PrimaryPrefix/Name[ends-with(@Image, '.commit')] or PrimarySuffix[@Image='commit'] ) and
-   //PackageDeclaration[Name[ends-with(@Image, '.resultlist') ]]
+   ( PrimaryPrefix/Name[ends-with(@Image, $method)] or PrimarySuffix[@Image=$method] ) and
+   //PackageDeclaration[Name[ends-with(@Image, $package) ]]
 ]
 ]]>
             </value>
@@ -120,28 +121,32 @@ public class FooAction {
       </properties>
       <example>
 <![CDATA[
-package at.herold.sp.resultlist;
+package some.resultlist;
 
-public class BadGuy {
+public class CommitInDBLayerExample {
 
-   public void method() {
-      System.out.println("bubu");
-
+   public void methodOne() {
       Connection con = getConnection();
-      con.commit(); // 9
+      con.commit(); 
       System.out.println("we did it");
-
-      getConnection().commit(); // 12
+   }
+   public void methodTwo() {
+      getConnection().commit();
       System.out.println("we did it again");
-
+   }
+   public void methodThree() {
       // would be ok, but may warn as well
+      other.commit(bla); 
+   }
+   public void okOne() {
       int commit;
-      commit = 3;
+      // commit = 3; - false positive
+      // other.Somecommit(); - false positive
+   }
+   public void okTwo() {
       long commit = 3L;
-      other.commit(bla); // 19
       other.commitIt(bla);
       other.commit2();
-      other.Somecommit();
    }
 }
 ]]>
@@ -149,21 +154,24 @@ public class BadGuy {
    </rule>
 
 
-   <!-- TODO -->
-   <rule name="HBDCall4TestNotInJunit"
-         message="Only Classes in junit packages may call *4Test() methods."
+   <!-- coupling.xml --> 
+   <rule name="Call4MethodNotInPackage"
+         message="Only Classes in $package packages may call *$method() methods."
          class="net.sourceforge.pmd.rules.XPathRule">
       <description>
-         Only test classes in .junit packages are allowed to call special test methods on objects, which are called *4Test.
+         Only certain classes in $package packages are allowed to call special methods on objects, which are called *$method.
       </description>
       <priority>2</priority>
       <properties>
+         <property name="method" description="Suffix of the method name" value="4Test" />
+         <property name="package" description="Suffix of the allowed package name" value=".junit" />
          <property name="xpath">
             <value>
 <![CDATA[
 //PrimaryExpression[
-   ( PrimaryPrefix/Name[ends-with(@Image, '4Test')] or PrimarySuffix[ends-with(@Image, '4Test')] ) and
-   //PackageDeclaration[Name[(not(ends-with(@Image, '.junit'))) ]]
+   ( PrimaryPrefix/Name[ends-with(@Image, $method)] or PrimarySuffix[ends-with(@Image, $method)] ) 
+   and
+   //PackageDeclaration[Name[ not (ends-with(@Image, $package)) ]]
 ]
 ]]>
             </value>
@@ -171,26 +179,22 @@ public class BadGuy {
       </properties>
       <example>
 <![CDATA[
-package at.herold.sp.db.notjunit;
+package some.notjunit;
 
 public class BadGuy {
 
    public void method() {
-      System.out.println("bubu");
-
       Object con = getObject();
-      con.run4Test(); // 9
-      int result = con.run4Test(params); // 10
+      con.run4Test(); 
+      int result = con.run4Test(params); 
       System.out.println("we did it");
 
-      getObject().run4Test(); // 13
-      int res = getObject().run4Test(params); // 14
+      getObject().run4Test();
+      int res = getObject().run4Test(params); 
       System.out.println("we did it again");
    }
 
-   public void method4Test() {
-      // is allowed
-   }
+   public void method4Test() { } // is allowed
 }
 ]]>
       </example>
@@ -240,9 +244,9 @@ class Foo {
          class="net.sourceforge.pmd.rules.XPathRule"
          externalInfoUrl="http://pmd.sourceforge.net/rules/logging-java.html#LoggerIsNotStaticFinal">
       <description>
-         In most cases, the Logger can be declared private static and final.
+         In most cases, the Logger can be declared private, static and final.
       </description>
-      <!-- Rule copied from PMD, but changed name of Logger -->
+      <!-- Rule copied from PMD's LoggerIsNotStaticFinal, but changed name of Logger -->
       <priority>2</priority>
       <properties>
          <property name="logger" description="Name of the logger type" value="LoggerImpl" />
@@ -251,10 +255,11 @@ class Foo {
 <![CDATA[
 //VariableDeclarator[parent::FieldDeclaration][
   ../Type/ReferenceType/ClassOrInterfaceType[@Image=$logger] and 
-  (..[@Final='false'] or ..[@Static = 'false'] or .. [@Private = 'false']) 
+  ( ..[@Final='false'] or ..[@Static='false'] or .. [@Private='false'] ) 
 ]
 ]]>
             </value>
+            <!-- maybe not static? -->
          </property>
       </properties>
       <example>
@@ -269,7 +274,6 @@ class Foo {
    </rule>
 
 
-   <!-- TODO -->
    <!-- design.xml --> <!-- by Richard Beitelmair -->
    <rule name="NoAttrInClass"
          message="Avoid non final attributes in this class."
@@ -279,69 +283,59 @@ class Foo {
       </description>
       <priority>2</priority>
       <properties>
-         <property name="logger" description="Name of the logger type" value="LoggerImpl" />
+         <property name="suffix" description="Class name suffix" value="Policy" />
          <property name="xpath">
             <value>
 <![CDATA[
-//FieldDeclaration[@Final='false' and ../../..[ends-with(@Image,'PlugOn') or ends-with(@Image,'Policy')]]
+//FieldDeclaration[@Final='false' and ../../..[ends-with(@Image,$suffix)]]
 ]]>
             </value>
          </property>
       </properties>
       <example>
 <![CDATA[
-public class SPAdWorxChannelPlugOn {
+public class AdWorxChannelPolicy {
    private final String channel; // ok
    private boolean showIfSearchedInRegion; // not ok
 }
-public class SPAdWorxChannelPlugOnKey {
-   private final String channel;  // ok
-   private boolean showIfSearchedInRegion; // ok
-}
-public class SPPolicy {
-   private final String channel; // ok
-   private boolean showIfSearchedInRegion; // not ok
-}
-public class SPPolitesse {
+public class AdWorxChannelPolicyKey {
    private final String channel;  // ok
    private boolean showIfSearchedInRegion; // ok
 }
 ]]>
       </example>
    </rule>
+   <!-- might use Typeresolution to find super class instead of relying on class name -->
 
 
-   <!-- TODO --> <!-- by Manuel Tichy -->
-   <rule name="HBDExceptionNotAllowed"
-         message="The use of HBDException is not allowed anymore."
+   <!-- coupling.xml --> <!-- by Manuel Tichy -->
+   <rule name="TypeNotAllowed"
+         message="The use of this type is not allowed."
          class="net.sourceforge.pmd.rules.XPathRule">
       <description>
-         The framework is only using RunntimeExceptions. Checked Exceptions are not allowed anymore.
+         The use of this type is not allowed.
       </description>
       <priority>2</priority>
       <properties>
+         <property name="simple" description="Forbidden type simple name" value="HBDException" />
+         <property name="full" description="Forbidden type full name" value="org.codecop.HBDException" />
          <property name="xpath">
             <value>
 <![CDATA[
-//ClassOrInterfaceType[@Image='HBDException']
+//ClassOrInterfaceType[@Image=$simple or @Image=$full]
 ]]>
             </value>
          </property>
       </properties>
       <example>
 <![CDATA[
-class MyClass extends OtherClass
-{
-   public void myMethod()  throws HBDException  // "throws HBDException" is not allowed!
-   {
-      try
-      {
-         ...
-         throw new HBDException("...");   // "throw new HBDException" is not allowed!
-      }
-      catch(final HBDException e)   // "catch HBDException" is not allowed!
-      {
-         ...
+class MyClass extends OtherClass {
+   public void myMethod() { 
+      try {
+         // ...
+         throw new org.codecop.HBDException("..."); // "throw new HBDException" is not allowed!
+      } catch(HBDException e) { // "catch HBDException" is not allowed!
+         // ...
       }
    }
 }
@@ -350,21 +344,26 @@ class MyClass extends OtherClass
    </rule>
 
 
-   <!-- TODO -->
-   <rule name="HBDActionHasNoShortName"
-         message="All concrete (not abstract) actions must implement the getActionShortName method."
+   <!-- design.xml -->
+   <rule name="ActionHasNoShortName"
+         message="All concrete (not abstract) actions must implement the $method method."
          class="net.sourceforge.pmd.rules.XPathRule">
       <description>
-         In most cases, the Logger can be declared static and final.
+         Certain classes need to define and redefine a method on their own regardless of superclasses have provided it or not.
       </description>
       <priority>2</priority>
       <properties>
+         <property name="suffix" description="Class name suffix" value="Action" />
+         <property name="method" description="Name of the method to implement" value="getActionShortName" />
          <property name="xpath">
             <value>
 <![CDATA[
-//ClassDeclaration[@Abstract='false' and
-  //UnmodifiedClassDeclaration[ends-with(@Image,'Action') and (not(ends-with(@Image,'HelperAction')))] and
-  count(//MethodDeclarator[@Image='getActionShortName']) =0 ]
+//ClassOrInterfaceDeclaration[
+  ends-with(@Image, $suffix) and 
+  not (ends-with(@Image,'HelperAction')) and
+  @Abstract='false' and
+  count(//MethodDeclarator[@Image=$method])=0 
+]
 ]]>
             </value>
          </property>
@@ -372,16 +371,18 @@ class MyClass extends OtherClass
       <example>
  <![CDATA[
 public class FooAction {
-   // typo occured
-   public String getXActionShortName() {...}
+   public String getXActionShortName() { // typo occured
+      return "abc";
+   }
 }
 ]]>
       </example>
    </rule>
+   <!-- might use Typeresolution to find super class instead of relying on class name -->
 
 
-   <!-- TODO -->
-   <rule name="HBDJUnitTestHasWrongName"
+   <!-- junit.xml -->
+   <rule name="JUnitTestHasWrongName"
          message="All concrete JUnit tests must be named ending with *Test or *TestManuell."
          class="net.sourceforge.pmd.rules.XPathRule">
       <description>
@@ -389,14 +390,17 @@ public class FooAction {
       </description>
       <priority>2</priority>
       <properties>
+         <property name="package" description="Suffix of the package name" value=".junit" />
+         <property name="suffix" description="Mandatory suffix of the class name" value="Test" />
          <property name="xpath">
             <value>
 <![CDATA[
 //ClassOrInterfaceDeclaration[
-   (not(ends-with(@Image, 'Test'))) and (not(ends-with(@Image, 'TestManuell')) and (not(@Image='TCInit')) and (not(@Image='TCShutdown'))) and
-   (@Abstract='false') and
-   (count(ClassOrInterfaceBody/ClassOrInterfaceBodyDeclaration/MethodDeclaration/MethodDeclarator[ starts-with(@Image, 'test') ])>0) and
-   //PackageDeclaration[Name[(ends-with(@Image, '.junit')) or (ends-with(@Image, '.httpunit'))] ]
+   not (ends-with(@Image, $suffix)) and 
+   not (ends-with(@Image, 'TestManuell')) and 
+   not (@Image='TCInit') and 
+   @Abstract='false' and
+   //PackageDeclaration[Name[ ends-with(@Image, $package) ]]
 ]   
 ]]>
             </value>
@@ -404,50 +408,42 @@ public class FooAction {
       </properties>
       <example>
  <![CDATA[
-package at.herold.sp.db.junit;
+package some.junit;
 
-class BadTestClass {
-   // this does not end with Test
-   public void testMethod() {
-   }
+class BadTestClass { 
+  // this does not end with Test
 }
 
 abstract class GoodAbstract {
    // is abstract, name as it likes
-   public void testMethod() {
-   }
 }
 
 class GoodTest {
-   public void testMethod() {
-   }
-}
-
-class OtherClass {
-   // other class in package, ok
-   public void noTestMethod() {
-   }
+   // ok
 }
 ]]>
       </example>
    </rule>
 
 
-   <!-- TODO -->
-   <rule name="HBDNewEnumOnlyInside"
-         message="Enums must only be instantiated inside its Enum class itself."
+   <!-- coupling.xml -->
+   <rule name="NewEnumOnlyInside"
+         message="Enums must only be instantiated inside its own Enum class."
          class="net.sourceforge.pmd.rules.XPathRule">
       <description>
          Enums are special instances and not meant to be created by other classes, instead use a getEnumFor(value) on the Enum itself.
       </description>
       <priority>2</priority>
       <properties>
+         <property name="suffix" description="Enum type name suffix" value="Enum" />
          <property name="xpath">
             <value>
 <![CDATA[
 //AllocationExpression[
-   (ends-with(ClassOrInterfaceType/@Image, 'Enum')) and (count(ArrayDimsAndInits)=0) and
-   (not(//ClassOrInterfaceDeclaration/@Image=ClassOrInterfaceType/@Image)) ]
+   ends-with(ClassOrInterfaceType/@Image, $suffix) and 
+   (count(ArrayDimsAndInits)=0) and
+   not (//ClassOrInterfaceDeclaration/@Image=ClassOrInterfaceType/@Image) 
+]
 ]]>
             </value>
          </property>
@@ -472,5 +468,6 @@ class OtherClass {
 ]]>
       </example>
    </rule>
+   <!-- might use Typeresolution to find super class instead of relying on class name -->
    
 </ruleset>

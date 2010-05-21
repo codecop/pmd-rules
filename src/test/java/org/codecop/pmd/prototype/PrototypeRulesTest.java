@@ -15,6 +15,13 @@ public class PrototypeRulesTest extends SimpleAggregatorTst {
       addRule(RULESET, "EmptyFunction");
       addRule(RULESET, "MoreThanOneCustomLogger");
       addRule(RULESET, "CustomLoggerIsNotStaticFinal");
+      addRule(RULESET, "NoAttrInClass");
+      addRule(RULESET, "TypeNotAllowed");
+      addRule(RULESET, "NewEnumOnlyInside");
+      addRule(RULESET, "Call4MethodNotInPackage");
+      addRule(RULESET, "ActionHasNoShortName");
+      addRule(RULESET, "JUnitTestHasWrongName");
+      addRule(RULESET, "CommitInDBLayer");
    }
 
    public static junit.framework.Test suite() {

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+use of forbidden type
+     ]]></description>
+        <expected-problems>2</expected-problems>
+        <code><![CDATA[
+class MyClass extends OtherClass {
+   public void myMethod() {
+      try {
+         // ...
+         throw new org.codecop.HBDException("...");   
+      } catch(HBDException e) {   
+         // ...
+      }
+   }
+}
+     ]]></code>
+    </test-code>
+</test-data>

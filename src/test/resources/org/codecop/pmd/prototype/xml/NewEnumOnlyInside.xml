@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+creation in other Enum is forbidden
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+class OtherEnum {
+   public void foo() {
+      new MyEnum(); 
+   }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+all is well
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class MyEnum {
+   public void foo() {
+      new MyEnum();
+   }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+array is ok
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class OtherClass {
+   public void foo() {
+      new MyEnum[0]; 
+   }
+}
+     ]]></code>
+    </test-code>
+</test-data>

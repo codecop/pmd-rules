@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+wrong package to call
+     ]]></description>
+        <expected-problems>4</expected-problems>
+        <code><![CDATA[
+package some.notjunit;
+
+public class BadGuy {
+
+   public void method() {
+      Object con = getObject();
+      con.run4Test(); 
+      int result = con.run4Test(params); 
+      System.out.println("we did it");
+
+      getObject().run4Test();
+      int res = getObject().run4Test(params); 
+      System.out.println("we did it again");
+   }
+
+   public void method4Test() { } 
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+proper package
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+package some.junit;
+
+public class GoodGuy {
+
+   public void method() {
+      Object con = getObject();
+      con.run4Test(); 
+      int result = con.run4Test(params); 
+      System.out.println("we did it");
+
+      getObject().run4Test();
+      int res = getObject().run4Test(params); 
+      System.out.println("we did it again");
+   }
+
+   public void method4Test() { } 
+}
+     ]]></code>
+    </test-code>
+</test-data>

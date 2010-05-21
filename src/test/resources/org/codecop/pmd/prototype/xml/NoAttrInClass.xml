@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+non final field
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class AdWorxChannelPolicy {
+   private final String channel; 
+   private boolean showIfSearchedInRegion; 
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+all is well
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class AdWorxChannelPolicy {
+   private final String channel; 
+   private final boolean showIfSearchedInRegion; 
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+other class
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class AdWorxChannelPolicyKey {
+   private final String channel;  
+   private boolean showIfSearchedInRegion; 
+}
+     ]]></code>
+    </test-code>
+</test-data>

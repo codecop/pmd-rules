@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+this does not end with Test
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+package some.junit;
+
+class BadTestClass { 
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+is abstract, name as it likes
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+package some.junit;
+
+abstract class GoodAbstract {
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+ok
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+package some.junit;
+
+class GoodTest {
+}
+     ]]></code>
+    </test-code>
+</test-data>

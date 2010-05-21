@@ -69,7 +69,7 @@ public class JumbledIteratorExample {
             <value>
 <![CDATA[
 //FormalParameters/FormalParameter/VariableDeclaratorId[
-  (not (starts-with(@Image, $prefix)) ) or 
+  (not (starts-with(@Image, $prefix))) or 
   (not (substring(@Image, 2, 1)=upper-case(substring(@Image, 2, 1))) )
 ]
 ]]>
@@ -107,8 +107,8 @@ class ParameterNameWithPExample {
             <value>
 <![CDATA[
 //PrimaryExpression/PrimaryPrefix/Name[
-  @Image='Boolean.getBoolean' or
   @Image='Integer.getInteger' or
+  @Image='Boolean.getBoolean' or
   @Image='Long.getLong'
 ]
 ]]>
@@ -299,9 +299,7 @@ public class AtomWrapperInstantiationExample {
 <![CDATA[
 //PrimaryPrefix/AllocationExpression[ 
   not (ArrayDimsAndInits) and 
-  (
-    ClassOrInterfaceType/@Image='Character' or ClassOrInterfaceType/@Image='java.lang.Character'
-  )
+  ( ClassOrInterfaceType/@Image='Character' or ClassOrInterfaceType/@Image='java.lang.Character' )
 ]
 ]]>
             </value>
