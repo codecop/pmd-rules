@@ -25,6 +25,7 @@ public class CodeCopRulesTest extends SimpleAggregatorTst {
       addRule(RULESET, "AtomWrapperInstantiation");
       addRule(RULESET, "LoggerHasWrongCategory");
       addRule(RULESET, "AvoidThrowingCheckedException");
+      addRule(RULESET, "ShortVariableCustom");
    }
 
    public static junit.framework.Test suite() {

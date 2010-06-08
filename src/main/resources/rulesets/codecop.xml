@@ -550,4 +550,43 @@ public class Foo {
       </example>
    </rule>
    
+
+   <!-- naming.xml -->
+   <rule name="ShortVariableCustom" 
+         since="0.3" 
+         message="Avoid variables with short names like {0}" 
+         class="net.sourceforge.pmd.rules.XPathRule"
+         externalInfoUrl="http://pmd.sourceforge.net/rules/naming.html#ShortVariable">
+       <description>
+          Detects when a field, local, or parameter has a very short name.
+       </description>
+       <priority>3</priority>
+       <properties>
+           <property name="minLen" description="Minimal length of variable names" value="3" />
+           <property name="xpath" pluginname="true">
+               <value>
+                   <![CDATA[
+//VariableDeclaratorId[string-length(@Image) < $minLen]
+  [not(ancestor::ForInit)]
+  [not((ancestor::FormalParameter) and (ancestor::TryStatement))]
+                  ]]>
+               </value>
+           </property>
+       </properties>
+       <example>
+           <![CDATA[
+public class Something {
+  private int q = 15; // VIOLATION - Field
+  public static void main(String[] as) {  // VIOLATION - Formal
+    int r = 20 + q; // VIOLATION - Local
+    for (int i = 0; i < 10; i++) { // Not a Violation (inside FOR)
+      r += q;
+    }
+  }
+}
+]]>
+       </example>
+   </rule>
+  
+   
 </ruleset>
