@@ -12,8 +12,6 @@ import net.sourceforge.pmd.ast.ASTPrimitiveType;
 import net.sourceforge.pmd.ast.ASTType;
 import net.sourceforge.pmd.ast.SimpleNode;
 
-import org.jaxen.JaxenException;
-
 /**
  * @author Peter Kofler
  */
@@ -122,7 +120,7 @@ public class ImmutableValueObject extends AbstractRule {
             if (nodes != null && nodes.size() > 0) {
                addViolation(data, node);
             }
-         } catch (JaxenException e) {
+         } catch (Exception e) {
             // XPath is valid, this should never happens...
             throw new IllegalArgumentException(FIND_SETTER, e);
          }
