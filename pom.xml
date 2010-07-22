@@ -4,19 +4,17 @@
     <parent>
         <groupId>org.codecop</groupId>
         <artifactId>parent</artifactId>
-        <version>1.0</version>
-        <!-- <relativePath>../pom.xml</relativePath> -->
+        <version>1.1-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.codecop</groupId>
     <artifactId>pmd-rules</artifactId>
     <packaging>jar</packaging>
-    <name>Code Cop PMD Rules</name>
+    <name>PmdRules</name>
     <version>1.0-SNAPSHOT</version>
-
     <description>Code Cop PMD rules are a mixed set of PMD rules created since 2004 regarding basic bugs, design principles, junit test, naming and other rule groups.</description>
-    <url>http://code.google.com/p/code-cop-code/wiki/PmdRules</url>
+    <url>http://code.google.com/p/code-cop-code/wiki/${project.name}</url>
     <inceptionYear>2004</inceptionYear>
 
     <contributors>
@@ -33,7 +31,7 @@
             </roles>
         </contributor>
         <contributor>
-            <name>Manuel Tichy</name>
+            <name>Manuel 'Manül' Tichy</name>
             <roles>
                 <role>Rule Creator</role>
             </roles>
@@ -41,9 +39,9 @@
     </contributors>
 
     <scm>
-        <connection>scm:hg:https://pmd-rules.code-cop-code.googlecode.com/hg/</connection>
-        <developerConnection>scm:hg:https://pmd-rules.code-cop-code.googlecode.com/hg/</developerConnection>
-        <url>http://code.google.com/p/code-cop-code/source/browse?repo=pmd-rules</url>
+        <connection>scm:hg:https://${project.artifactId}.code-cop-code.googlecode.com/hg/</connection>
+        <developerConnection>scm:hg:https://${project.artifactId}.code-cop-code.googlecode.com/hg/</developerConnection>
+        <url>http://code.google.com/p/code-cop-code/source/browse?repo=${project.artifactId}</url>
     </scm>
 
     <build>
@@ -52,7 +50,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <excludes>
-                        <!-- Come on surefire ! be smart, the following class is not a test to run ! -->
+                        <!-- Come on surefire! be smart, the following class is not a test to run! -->
                         <exclude>test/net/sourceforge/pmd/testframework/TestDescriptor.java</exclude>
                     </excludes>
                 </configuration>
@@ -73,12 +71,11 @@
             <artifactId>xmlParserAPIs</artifactId>
             <version>2.6.2</version>
             <scope>provided</scope>
-            <!-- dependency of PMD, used in copied testframework -->
+            <!-- direct dependency of PMD, used in copied testframework -->
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.4</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

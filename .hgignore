@@ -1,7 +1,5 @@
 
 syntax: regexp
-^classes$
-syntax: regexp
 ^target$
 syntax: regexp
 ^\.classpath$
@@ -11,5 +9,3 @@ syntax: regexp
 ^\.settings$
 syntax: regexp
 ^sourceforge\.net$
-syntax: regexp
-^\.checkstyle$
