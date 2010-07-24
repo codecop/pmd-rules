@@ -11,10 +11,10 @@
     <groupId>org.codecop</groupId>
     <artifactId>pmd-rules</artifactId>
     <packaging>jar</packaging>
-    <name>PmdRules</name>
+    <name>PMD Rules</name>
     <version>1.0-SNAPSHOT</version>
     <description>Code Cop PMD rules are a mixed set of PMD rules created since 2004 regarding basic bugs, design principles, junit test, naming and other rule groups.</description>
-    <url>http://code.google.com/p/code-cop-code/wiki/${project.name}</url>
+    <url>http://code.google.com/p/code-cop-code/wiki/PmdRules</url>
     <inceptionYear>2004</inceptionYear>
 
     <contributors>
