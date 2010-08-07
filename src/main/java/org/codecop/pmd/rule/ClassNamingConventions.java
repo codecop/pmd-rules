@@ -11,7 +11,7 @@ import net.sourceforge.pmd.properties.IntegerProperty;
  * Changed Class name rule to allow underscore before _Stub and _Core (RMI). Added some additional tests.
  * @author PMD 3.1 - Copied from PMD 3.1 Source Edition.
  * @author PMD 3.7 - updated
- * @author Peter Kofler
+ * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
  */
 public class ClassNamingConventions extends AbstractRule {
 

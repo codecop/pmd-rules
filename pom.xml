@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.codecop</groupId>
         <artifactId>parent</artifactId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -25,13 +25,19 @@
             </roles>
         </contributor>
         <contributor>
+            <name>Manuel 'Manül' Tichy</name>
+            <roles>
+                <role>Rule Creator</role>
+            </roles>
+        </contributor>
+        <contributor>
             <name>Richard Beitelmair</name>
             <roles>
                 <role>Rule Creator</role>
             </roles>
         </contributor>
         <contributor>
-            <name>Manuel 'Manül' Tichy</name>
+            <name>Martina Stoiber</name>
             <roles>
                 <role>Rule Creator</role>
             </roles>

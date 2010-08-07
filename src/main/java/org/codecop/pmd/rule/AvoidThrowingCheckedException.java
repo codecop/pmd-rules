@@ -5,7 +5,8 @@ import net.sourceforge.pmd.ast.ASTAllocationExpression;
 import net.sourceforge.pmd.ast.ASTClassOrInterfaceType;
 
 /**
- * @author Peter Kofler
+ * Avoid throwing checked Exceptions - it's considered noise.
+ * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
  */
 public class AvoidThrowingCheckedException extends AbstractRule {
 

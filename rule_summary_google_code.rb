@@ -6,9 +6,10 @@ require 'rexml/document'
 
 @lines = []
 
+# Redefine puts not to print _msg_ to buffer. 
 def puts(msg)
-  print msg
-  print "\n"
+  # print msg
+  # print "\n"
   @lines << "#{msg}\n"
 end
 
@@ -23,9 +24,9 @@ end
 
 # Format the _rule_ DOM.
 def format_rule(rule)
-  puts ""
+  puts ''
   puts '----'
-  puts ""
+  puts ''
   is_wiki_name = wiki_name?(rule.attributes['name'])
   if is_wiki_name
     puts "==!#{rule.attributes['name']}=="
@@ -33,8 +34,8 @@ def format_rule(rule)
     puts "==#{rule.attributes['name']}=="
   end
   puts " #{norm_text(rule.get_text('description'))}"
-  #rule_msg = rule.attributes["message"].gsub(/\s+/,' ')
-  #prio = rule.elements["priority"].text.to_i
+  #rule_msg = rule.attributes['message'].gsub(/\s+/,' ')
+  #prio = rule.elements['priority'].text.to_i
   
   isxpath = rule.attributes['class']=='net.sourceforge.pmd.rules.XPathRule' 
   if isxpath
@@ -74,9 +75,9 @@ def format_ruleset(ruleset)
   desc = norm_text(ruleset.get_text('description'))
   puts "#summary #{desc.sub(/\..*$/,'.')}"
   puts '#sidebar PmdRulesLinks'
-  puts ""
+  puts ''
   
-  puts ""
+  puts ''
   puts "=#{ruleset.attributes['name']}="
   puts "#{desc}"
   ruleset.elements.each('rule') do |rule|
@@ -111,7 +112,9 @@ rules_dir = 'src/main/resources/rulesets'
 sets = read_rules(rules_dir)
 sets.each_key do |name|
   lines = sets[name]
-  File.open(name + '.txt', "w") { |file|
+  filename = 'target/' + name + '.txt'
+  File.open(filename, 'w') { |file|
     lines.each { |line| file.print line }
   }
+  print "saved #{filename}\n"
 end

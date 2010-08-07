@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+/**
+ * RuleSetNameMapper for my own rulesets.
+ * @author copied from PMD 4.2.5.
+ */
 public class SimpleRuleSetNameMapper {
 
    private final StringBuffer rulesets = new StringBuffer();

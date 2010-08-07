@@ -18,7 +18,7 @@ import net.sourceforge.pmd.properties.BooleanProperty;
  * Changed Exception Signature rule to allow also Spring mock.
  * @author PMD 3.1 - Copied from PMD 3.1 Source Edition.
  * @author PMD 3.7 - updated
- * @author Peter Kofler
+ * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
  */
 public class ExceptionSignatureDeclaration extends AbstractRule {
 

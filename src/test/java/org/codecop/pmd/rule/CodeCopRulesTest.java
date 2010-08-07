@@ -4,6 +4,10 @@ import org.junit.Before;
 
 import test.net.sourceforge.pmd.testframework.SimpleAggregatorTst;
 
+/**
+ * Test the rules in the <code>codecop</code> ruleset.
+ * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
+ */
 public class CodeCopRulesTest extends SimpleAggregatorTst {
 
    private static final String RULESET = "codecop";

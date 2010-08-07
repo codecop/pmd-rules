@@ -13,7 +13,8 @@ import net.sourceforge.pmd.ast.ASTType;
 import net.sourceforge.pmd.ast.SimpleNode;
 
 /**
- * @author Peter Kofler
+ * ValueObjects must not define RelationShips and be immutable.
+ * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
  */
 public class ImmutableValueObject extends AbstractRule {
 

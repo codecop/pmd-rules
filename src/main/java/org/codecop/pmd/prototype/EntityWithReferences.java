@@ -10,7 +10,8 @@ import net.sourceforge.pmd.ast.ASTType;
 import net.sourceforge.pmd.ast.SimpleNode;
 
 /**
- * @author Peter Kofler
+ * Entities must define all attributes with RelationShips.
+ * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
  */
 public class EntityWithReferences extends AbstractRule {
 
