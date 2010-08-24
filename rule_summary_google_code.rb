@@ -6,7 +6,7 @@ require 'rexml/document'
 
 @lines = []
 
-# Redefine puts not to print _msg_ to buffer. 
+# Redefine puts not to print _msg_ to buffer.
 def puts(msg)
   # print msg
   # print "\n"
@@ -15,7 +15,8 @@ end
 
 # Get the contents from _text_ DOM and normalize it.
 def norm_text(text)
-  text.to_s.strip.gsub(/\s+/,' ')
+  text.to_s.strip.gsub(/\s+/,' ').
+       gsub(/(RuntimeException|RelationShip|ValueObject|OperationNotSupportedException)/, '`\1`')
 end
 
 def wiki_name?(name)
@@ -36,8 +37,8 @@ def format_rule(rule)
   puts " #{norm_text(rule.get_text('description'))}"
   #rule_msg = rule.attributes['message'].gsub(/\s+/,' ')
   #prio = rule.elements['priority'].text.to_i
-  
-  isxpath = rule.attributes['class']=='net.sourceforge.pmd.rules.XPathRule' 
+
+  isxpath = rule.attributes['class']=='net.sourceforge.pmd.rules.XPathRule'
   if isxpath
     puts '<p>This rule is defined by the following XPath expression:</p>'
     puts '{{{'
@@ -46,16 +47,16 @@ def format_rule(rule)
   else
     classname = rule.attributes['class']
     href = "https://code.google.com/p/code-cop-code/source/browse/src/main/java/#{classname.gsub(/\./,'/')}.java?repo=pmd-rules"
-    puts "<p>This rule is defined by the following Java class: [#{href} `#{classname}`]</p>"
+    puts "<p>This rule is defined by the following Java class: [#{href} #{classname}]</p>"
   end
-  
+
   rule.elements.each('example') do |example|
     puts '<p>*Example:*</p>'
     puts '{{{'
     puts example.texts.join.strip
     puts '}}}'
   end
-  
+
   properties = rule.elements['count(properties/property)']
   properties -= 1 if isxpath
   if properties > 0
@@ -76,7 +77,7 @@ def format_ruleset(ruleset)
   puts "#summary #{desc.sub(/\..*$/,'.')}"
   puts '#sidebar PmdRulesLinks'
   puts ''
-  
+
   puts ''
   puts "=#{ruleset.attributes['name']}="
   puts "#{desc}"
@@ -89,21 +90,21 @@ def read_rules(rules_dir)
   current_dir = Dir.getwd
   Dir.chdir rules_dir
   begin
-    
+
     sets = {}
-    
+
     Dir['*.xml'].each do |file_name|
-      @lines = [] 
+      @lines = []
       doc = REXML::Document.new(File.new(file_name))
       doc.elements.each('ruleset') do |ruleset|
         format_ruleset(ruleset)
       end
       sets[File.basename(file_name)] = @lines.dup
     end
-    
+
   ensure
     Dir.chdir current_dir
-    @lines = [] 
+    @lines = []
   end
   sets
 end
