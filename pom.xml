@@ -73,6 +73,13 @@
             <!-- will work since 3.9 but tests need 4.1 -->
         </dependency>
         <dependency>
+            <groupId>jaxen</groupId>
+            <artifactId>jaxen</artifactId>
+            <version>1.1</version>
+            <scope>provided</scope>
+            <!-- direct dependency of PMD, used in rules -->
+        </dependency>
+        <dependency>
             <groupId>xerces</groupId>
             <artifactId>xmlParserAPIs</artifactId>
             <version>2.6.2</version>
