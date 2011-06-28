@@ -1,11 +1,8 @@
 
-syntax: regexp
-^target$
-syntax: regexp
-^\.classpath$
-syntax: regexp
-^\.project$
-syntax: regexp
-^\.settings$
-syntax: regexp
-^sourceforge\.net$
+syntax: glob
+target
+.classpath
+.project
+.settings
+sourceforge.net
+.checkstyle
