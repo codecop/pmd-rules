@@ -67,7 +67,7 @@ public abstract class SimpleAggregatorTst extends RuleTst {
     @Test
     public void testAll() {
         boolean regressionTest = TestDescriptor.inRegressionTestMode();
-        ArrayList<Failure> l = new ArrayList<Failure>();
+        List<Failure> l = new ArrayList<Failure>();
         for (Rule r : rules) {
             TestDescriptor[] tests = extractTestsFromXml(r);
             for (TestDescriptor test: tests) {
@@ -99,7 +99,7 @@ public abstract class SimpleAggregatorTst extends RuleTst {
 
         public static void addFailure(Failure failure) {
             synchronized(CustomXmlTestClassMethodsRunner.class) {
-                NOTIFIER.fireTestFailure(failure);
+                notifier.fireTestFailure(failure);
             }
         }
 
@@ -108,12 +108,12 @@ public abstract class SimpleAggregatorTst extends RuleTst {
             synchronized(CustomXmlTestClassMethodsRunner.class) {
                 // synchronized so that access to NOTIFIER is safe: only
                 // one runner at a time is active
-                NOTIFIER = n;
+                notifier = n;
                 super.run(n);
             }
         }
 
-        private static RunNotifier NOTIFIER;
+        private static RunNotifier notifier;
     }
 
 }
