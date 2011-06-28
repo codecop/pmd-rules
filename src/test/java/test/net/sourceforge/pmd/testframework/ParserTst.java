@@ -23,7 +23,7 @@ import java.util.Set;
 public abstract class ParserTst {
 
     private class Collector<E> implements InvocationHandler {
-        private Class<E> clazz = null;
+        private Class<E> clazz;
         private Collection<E> collection;
 
         public Collector(Class<E> clazz) {
@@ -40,7 +40,7 @@ public abstract class ParserTst {
         }
 
       @SuppressWarnings("unchecked")
-      public Object invoke(Object proxy, Method method, Object params[]) throws Throwable {
+      public Object invoke(Object proxy, Method method, Object[] params) throws Throwable {
             if (method.getName().equals("visit")) {
                 if (clazz.isInstance(params[0])) {
                     collection.add((E) params[0]);

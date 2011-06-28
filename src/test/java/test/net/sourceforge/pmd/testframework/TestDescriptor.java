@@ -18,7 +18,7 @@ public class TestDescriptor {
     private int numberOfProblemsExpected;
     private String code;
     private SourceType sourceType;
-    private boolean reinitializeRule = false;   //default
+    private boolean reinitializeRule;
     private boolean isRegressionTest = true;
 
     public TestDescriptor(String code, String description, int numberOfProblemsExpected, Rule rule) {

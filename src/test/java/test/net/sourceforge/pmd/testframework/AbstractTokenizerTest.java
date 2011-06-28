@@ -1,5 +1,5 @@
 /**
- *
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
  */
 package test.net.sourceforge.pmd.testframework;
 
@@ -15,23 +15,22 @@ import net.sourceforge.pmd.cpd.Tokens;
 
 /**
  * @author Romain PELISSE, belaran@gmail.com
- *
  */
 public abstract class AbstractTokenizerTest {
 
-	protected int expectedTokenCount;
-	protected Tokenizer tokenizer;
-	protected SourceCode sourceCode;
+   protected int expectedTokenCount;
+   protected Tokenizer tokenizer;
+   protected SourceCode sourceCode;
 
-	public abstract void buildTokenizer();
+   public abstract void buildTokenizer();
 
-	public abstract String getSampleCode();
+   public abstract String getSampleCode();
 
-	protected void tokenizeTest() throws IOException {
-		Tokens tokens = new Tokens();
-		tokenizer.tokenize(sourceCode, tokens);
-		List<TokenEntry> entries = tokens.getTokens();
-		assertEquals(expectedTokenCount,entries.size());
-	}
+   protected void tokenizeTest() throws IOException {
+      Tokens tokens = new Tokens();
+      tokenizer.tokenize(sourceCode, tokens);
+      List<TokenEntry> entries = tokens.getTokens();
+      assertEquals(expectedTokenCount, entries.size());
+   }
 
 }
