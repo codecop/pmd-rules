@@ -565,16 +565,16 @@ public class Foo {
            <property name="minLen" description="Minimal length of variable names" value="3" />
            <property name="xpath" pluginname="true">
                <value>
-                   <![CDATA[
+<![CDATA[
 //VariableDeclaratorId[string-length(@Image) < $minLen]
   [not(ancestor::ForInit)]
   [not((ancestor::FormalParameter) and (ancestor::TryStatement))]
-                  ]]>
+]]>
                </value>
            </property>
        </properties>
        <example>
-           <![CDATA[
+<![CDATA[
 public class Something {
   private int q = 15; // VIOLATION - Field
   public static void main(String[] as) {  // VIOLATION - Formal
@@ -588,5 +588,31 @@ public class Something {
        </example>
    </rule>
   
+   
+   <!-- imports --> <!-- by Usman Ismail -->
+   <rule name="DontImportWild" 
+         message="Please no wirld card imports" 
+         class="net.sourceforge.pmd.rules.XPathRule"
+         externalInfoUrl="http://www.techtraits.ca/custom-pmd-rules-using-xpath/">
+      <description>
+         Do not use wildcard imports such as java.net.*.
+      </description>
+      <priority>1</priority>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+/ImportDeclaration[@PackageName=@ImportedName]
+]]>
+            </value>
+         </property>
+      </properties>
+      <example>
+<![CDATA[
+import java.net.*; // is bad
+import java.net.URL; // is better
+]]>
+      </example>
+   </rule>   
    
 </ruleset>

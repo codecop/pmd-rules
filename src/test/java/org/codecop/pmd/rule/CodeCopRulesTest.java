@@ -30,6 +30,7 @@ public class CodeCopRulesTest extends SimpleAggregatorTst {
       addRule(RULESET, "LoggerHasWrongCategory");
       addRule(RULESET, "AvoidThrowingCheckedException");
       addRule(RULESET, "ShortVariableCustom");
+      addRule(RULESET, "DontImportWild");
    }
 
    public static junit.framework.Test suite() {
