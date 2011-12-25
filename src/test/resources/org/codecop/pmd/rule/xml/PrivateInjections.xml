@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+wrong usage
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+class PrivateInjectionsExample {
+    @Inject
+    public String myParameter;
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+all is well
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class PrivateInjectionsExample {
+    @Inject
+    private String myParameter;
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+mixed case is well
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class PrivateInjectionsExample {
+    @Inject
+    private String myParameter; 
+
+    public String notInjected;
+}
+     ]]></code>
+    </test-code>
+</test-data>

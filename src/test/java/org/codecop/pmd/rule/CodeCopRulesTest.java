@@ -31,6 +31,7 @@ public class CodeCopRulesTest extends SimpleAggregatorTst {
       addRule(RULESET, "AvoidThrowingCheckedException");
       addRule(RULESET, "ShortVariableCustom");
       addRule(RULESET, "DontImportWild");
+      addRule(RULESET, "PrivateInjections");
    }
 
    public static junit.framework.Test suite() {
