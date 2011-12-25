@@ -70,27 +70,96 @@
         </plugins>
     </build>
 
+    <profiles>
+        <!-- These rules will work since PMD 3.9 but test type resolution needs 4.1 -->
+        <profile>
+            <id>test-framework-compatibility</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <pmd.version>4.1</pmd.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>compile-compatibiliy</id>
+            <activation>
+                <property>
+                    <name>pmd</name>
+                    <value>3.9</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <exclude>org/codecop/pmd/prototype/EntityWithReferences.java</exclude>
+                                <exclude>org/codecop/pmd/prototype/ImmutableValueObject.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <exclude>org/codecop/pmd/prototype/PrototypeRulesTest.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <properties>
+                <pmd.version>3.9</pmd.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>latest-4.2-compatibility</id>
+            <activation>
+                <property>
+                    <name>pmd</name>
+                    <value>4.2</value>
+                </property>
+            </activation>
+            <properties>
+                <pmd.version>4.2.6</pmd.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>latest-compatibility</id>
+            <activation>
+                <property>
+                    <name>pmd</name>
+                    <value>4.3</value>
+                </property>
+            </activation>
+            <properties>
+                <pmd.version>4.3</pmd.version>
+            </properties>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>pmd</groupId>
             <artifactId>pmd</artifactId>
-            <version>4.1</version>
+            <version>${pmd.version}</version>
             <scope>provided</scope>
-            <!-- will work since 3.9 but tests need 4.1 -->
         </dependency>
         <dependency>
             <groupId>jaxen</groupId>
             <artifactId>jaxen</artifactId>
             <version>1.1</version>
             <scope>provided</scope>
-            <!-- direct dependency of PMD, used in rules -->
+            <!-- direct dependency of PMD 4.1, used in rules -->
         </dependency>
         <dependency>
             <groupId>xerces</groupId>
             <artifactId>xmlParserAPIs</artifactId>
             <version>2.6.2</version>
             <scope>provided</scope>
-            <!-- direct dependency of PMD, used in copied testframework -->
+            <!-- direct dependency of PMD 4.1, used in copied testframework -->
         </dependency>
         <dependency>
             <groupId>junit</groupId>
