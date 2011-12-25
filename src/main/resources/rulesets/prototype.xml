@@ -12,7 +12,7 @@
 
    <!-- typeresolution.xml -->
    <rule name="EntityWithReferences"
-         since="3.9"
+         since="4.1"
          message="Entities must define all attributes with RelationShips"
          class="org.codecop.pmd.prototype.EntityWithReferences"
          typeResolution="true"
@@ -40,7 +40,7 @@ public class BadEntity extends BetterEntity {
 
    <!-- typeresolution.xml -->
    <rule name="ImmutableValueObject"
-         since="3.9"
+         since="4.1"
          message="ValueObjects must not define RelationShips and be immutable"
          class="org.codecop.pmd.prototype.ImmutableValueObject"
          typeResolution="true"
