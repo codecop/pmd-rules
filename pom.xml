@@ -20,6 +20,7 @@
     <contributors>
         <contributor>
             <name>Tom Copeland</name>
+            <url>http://pmd.sourceforge.net/</url>
             <roles>
                 <role>PMD Creator</role>
             </roles>
@@ -44,6 +45,7 @@
         </contributor>
         <contributor>
             <name>Usman Ismail</name>
+            <url>http://www.techtraits.com/</url>
             <roles>
                 <role>Rule Creator</role>
             </roles>
