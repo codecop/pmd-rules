@@ -334,7 +334,8 @@ public class CharInstantiationExample {
          <property name="xpath">
             <value>
 <![CDATA[
-//FieldDeclaration[ @Final='false' and ../../../../ClassOrInterfaceDeclaration[ends-with(@Image, 'Exception')] ]
+//FieldDeclaration[ @Final='false' and 
+                    ../../../../ClassOrInterfaceDeclaration[ends-with(@Image, 'Exception')] ]
 ]]>
             </value>
          </property>
@@ -375,8 +376,9 @@ public class BadException extends Exception {
         MethodDeclarator[starts-with(@Image,'set')] and
         MethodDeclarator/FormalParameters[count(FormalParameter)=1] and 
         ResultType[count(Type)=0] and 
-        Block/BlockStatement/Statement/StatementExpression/Expression/PrimaryExpression[count(PrimarySuffix/Arguments)=0] and 
-        //AssignmentOperator[@Image='=']
+        Block/BlockStatement/Statement/StatementExpression/Expression/PrimaryExpression[
+           count(PrimarySuffix/Arguments)=0
+        ] and //AssignmentOperator[@Image='=']
      ) or (
         MethodDeclarator[starts-with(@Image,'get') or starts-with(@Image,'is')] and 
         MethodDeclarator/FormalParameters[count(FormalParameter)=0] and 
@@ -629,7 +631,8 @@ import java.net.URL; // is better
          <property name="xpath">
             <value>
 <![CDATA[
-//ClassOrInterfaceBodyDeclaration[contains(Annotation//Name/@Image, 'Inject') and contains(FieldDeclaration/@Private, 'false')]
+//ClassOrInterfaceBodyDeclaration[contains(Annotation//Name/@Image, 'Inject') and 
+                                  contains(FieldDeclaration/@Private, 'false')]
 ]]>
             </value>
          </property>
@@ -637,8 +640,10 @@ import java.net.URL; // is better
       <example>
 <![CDATA[
 @Inject
-public String myParameter; // is bad
-private String myParameter; // is better
+public String badParameter; // is bad
+
+@Inject
+private String goodParameter; // is better
 ]]>
       </example>
    </rule>   
