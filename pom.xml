@@ -73,7 +73,7 @@
     </build>
 
     <profiles>
-        <!-- These rules will work since PMD 3.9 but test type resolution needs 4.1 -->
+        <!-- These basic rules will work since PMD 3.9 but type resolution needs 4.1 -->
         <profile>
             <id>test-framework-compatibility</id>
             <activation>
@@ -117,15 +117,15 @@
             </properties>
         </profile>
         <profile>
-            <id>latest-4.2-compatibility</id>
+            <id>latest-4.x-compatibility</id>
             <activation>
                 <property>
                     <name>pmd</name>
-                    <value>4.2</value>
+                    <value>4.x</value>
                 </property>
             </activation>
             <properties>
-                <pmd.version>4.2.6</pmd.version>
+                <pmd.version>4.3</pmd.version>
             </properties>
         </profile>
         <profile>
@@ -133,11 +133,11 @@
             <activation>
                 <property>
                     <name>pmd</name>
-                    <value>4.3</value>
+                    <value>5.x</value>
                 </property>
             </activation>
             <properties>
-                <pmd.version>4.3</pmd.version>
+                <pmd.version>5.0</pmd.version>
             </properties>
         </profile>
     </profiles>
