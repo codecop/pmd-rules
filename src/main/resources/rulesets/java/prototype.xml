@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
-<ruleset name="Prototype Rules"
-    xmlns="http://pmd.sf.net/ruleset/1.0.0"
+<ruleset name="Prototype"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
-    xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
 
    <description>
       Very specific rules but useless on general code. They serve as examples and prototypes to copy from.
@@ -12,6 +11,7 @@
 
    <!-- typeresolution.xml -->
    <rule name="EntityWithReferences"
+         language="java"
          since="4.1"
          message="Entities must define all attributes with RelationShips"
          class="org.codecop.pmd.prototype.EntityWithReferences"
@@ -40,6 +40,7 @@ public class BadEntity extends BetterEntity {
 
    <!-- typeresolution.xml -->
    <rule name="ImmutableValueObject"
+         language="java"
          since="4.1"
          message="ValueObjects must not define RelationShips and be immutable"
          class="org.codecop.pmd.prototype.ImmutableValueObject"
@@ -67,8 +68,9 @@ public class BadValueObject extends ValueObject {
 
    <!-- design.xml -->
    <rule name="EmptyFunction"
+         language="java"
          message="The given method must be implemented and not just return null."
-         class="net.sourceforge.pmd.rules.XPathRule"
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#EmptyFunction">
       <description>
          Some methods, e.g. toString or getName() in subclasses of Action, must not just return null. 
@@ -76,7 +78,7 @@ public class BadValueObject extends ValueObject {
       </description>
       <priority>2</priority>
       <properties>
-         <property name="method" description="Name of the method to check" value="getName" />
+         <property name="method" type="String" description="Name of the method to check" value="getName" />
          <property name="xpath">
             <value>
 <![CDATA[
@@ -101,8 +103,9 @@ public class FooAction {
 
    <!-- design.xml --> <!-- by Martina Stoiber -->
    <rule name="CommitInDBLayer"
+         language="java"
          message="Classes in DB layer must not call Connection.commit."
-         class="net.sourceforge.pmd.rules.XPathRule"
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#CommitInDBLayer">
       <description>
          Services are responsible for maintaining transactions, so classes in the DB layer are not allowed to call
@@ -110,8 +113,8 @@ public class FooAction {
       </description>
       <priority>2</priority>
       <properties>
-         <property name="method" description="Name of the commit method" value="commit" />
-         <property name="package" description="Suffix of the db layer package name" value=".resultlist" />
+         <property name="method" type="String" description="Name of the commit method" value="commit" />
+         <property name="package" type="String" description="Suffix of the db layer package name" value=".resultlist" />
          <property name="xpath">
             <value>
 <![CDATA[
@@ -160,16 +163,17 @@ public class CommitInDBLayerExample {
 
    <!-- coupling.xml --> 
    <rule name="Call4MethodNotInPackage"
+         language="java"
          message="Only Classes in $package packages may call *$method() methods."
-         class="net.sourceforge.pmd.rules.XPathRule"
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#Call4MethodNotInPackage">
       <description>
          Only certain classes in $package packages are allowed to call special methods on objects, which are suffixed by $method.
       </description>
       <priority>2</priority>
       <properties>
-         <property name="method" description="Suffix of the method name" value="4Test" />
-         <property name="package" description="Suffix of the allowed package name" value=".junit" />
+         <property name="method" type="String" description="Suffix of the method name" value="4Test" />
+         <property name="package" type="String" description="Suffix of the allowed package name" value=".junit" />
          <property name="xpath">
             <value>
 <![CDATA[
@@ -208,9 +212,10 @@ public class BadGuy {
 
    <!-- logging-java.xml -->
    <rule name="MoreThanOneCustomLogger"
+         language="java"
          since="2.0"
          message="Class contains more than one logger."
-         class="net.sourceforge.pmd.rules.XPathRule"
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#MoreThanOneCustomLogger">
       <description>
          Normally only one logger is used in each class.
@@ -218,7 +223,7 @@ public class BadGuy {
       <!-- Rule copied from PMD's MoreThanOneLogger, but changed name of Logger -->
       <priority>2</priority>
       <properties>
-         <property name="logger" description="Name of the logger type" value="LoggerImpl" />
+         <property name="logger" type="String" description="Name of the logger type" value="LoggerImpl" />
          <property name="xpath">
             <value>
 <![CDATA[
@@ -244,9 +249,10 @@ class Foo {
 
    <!-- logging-java.xml -->
    <rule name="CustomLoggerIsNotStaticFinal"
+         language="java"
          since="2.0"
          message="The Logger variable declaration does not contain the static and final modifiers"
-         class="net.sourceforge.pmd.rules.XPathRule"
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#CustomLoggerIsNotStaticFinal">
       <description>
          In most cases, the Logger can be declared private, static and final.
@@ -254,7 +260,7 @@ class Foo {
       <!-- Rule copied from PMD's LoggerIsNotStaticFinal, but changed name of Logger -->
       <priority>2</priority>
       <properties>
-         <property name="logger" description="Name of the logger type" value="LoggerImpl" />
+         <property name="logger" type="String" description="Name of the logger type" value="LoggerImpl" />
          <property name="xpath">
             <value>
 <![CDATA[
@@ -281,15 +287,16 @@ class Foo {
 
    <!-- design.xml --> <!-- by Richard Beitelmair -->
    <rule name="NoAttrInClass"
+         language="java"
          message="Avoid non final attributes in this class."
-         class="net.sourceforge.pmd.rules.XPathRule"
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#NoAttrInClass">
       <description>
          This class is shared by threads but not threadsafe. Therefore it must only have final members.
       </description>
       <priority>2</priority>
       <properties>
-         <property name="suffix" description="Class name suffix" value="Policy" />
+         <property name="suffix" type="String" description="Class name suffix" value="Policy" />
          <property name="xpath">
             <value>
 <![CDATA[
@@ -316,16 +323,17 @@ public class AdWorxChannelPolicyKey {
 
    <!-- coupling.xml --> <!-- by Manuel Tichy -->
    <rule name="TypeNotAllowed"
+         language="java"
          message="The use of this type is not allowed."
-         class="net.sourceforge.pmd.rules.XPathRule"
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#TypeNotAllowed">
       <description>
          The use of this type is not allowed.
       </description>
       <priority>2</priority>
       <properties>
-         <property name="simple" description="Forbidden type simple name" value="HBDException" />
-         <property name="full" description="Forbidden type full name" value="org.codecop.HBDException" />
+         <property name="simple" type="String" description="Forbidden type simple name" value="HBDException" />
+         <property name="full" type="String" description="Forbidden type full name" value="org.codecop.HBDException" />
          <property name="xpath">
             <value>
 <![CDATA[
@@ -353,16 +361,17 @@ class MyClass extends OtherClass {
 
    <!-- design.xml -->
    <rule name="ActionHasNoShortName"
+         language="java"
          message="All concrete (not abstract) actions must implement the $method method."
-         class="net.sourceforge.pmd.rules.XPathRule"
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#ActionHasNoShortName">
       <description>
          Certain classes need to define and redefine a method on their own regardless of superclasses have provided it or not.
       </description>
       <priority>2</priority>
       <properties>
-         <property name="suffix" description="Class name suffix" value="Action" />
-         <property name="method" description="Name of the method to implement" value="getActionShortName" />
+         <property name="suffix" type="String" description="Class name suffix" value="Action" />
+         <property name="method" type="String" description="Name of the method to implement" value="getActionShortName" />
          <property name="xpath">
             <value>
 <![CDATA[
@@ -391,16 +400,17 @@ public class FooAction {
 
    <!-- junit.xml -->
    <rule name="JUnitTestHasWrongName"
+         language="java"
          message="All concrete JUnit tests must be named ending with Test."
-         class="net.sourceforge.pmd.rules.XPathRule"
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#JUnitTestHasWrongName">
       <description>
          All concrete JUnit tests must be named to the sheme of ending with Test to be identified and run automatically.
       </description>
       <priority>2</priority>
       <properties>
-         <property name="package" description="Suffix of the package name" value=".junit" />
-         <property name="suffix" description="Mandatory suffix of the class name" value="Test" />
+         <property name="package" type="String" description="Suffix of the package name" value=".junit" />
+         <property name="suffix" type="String" description="Mandatory suffix of the class name" value="Test" />
          <property name="xpath">
             <value>
 <![CDATA[
@@ -437,15 +447,16 @@ class GoodTest {
 
    <!-- coupling.xml -->
    <rule name="NewEnumOnlyInside"
+         language="java"
          message="Enums must only be instantiated inside its own Enum class."
-         class="net.sourceforge.pmd.rules.XPathRule"
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#NewEnumOnlyInside">
       <description>
          Enums are special instances and not meant to be created by other classes, instead use a getEnumFor(value) on the Enum itself.
       </description>
       <priority>2</priority>
       <properties>
-         <property name="suffix" description="Enum type name suffix" value="Enum" />
+         <property name="suffix" type="String" description="Enum type name suffix" value="Enum" />
          <property name="xpath">
             <value>
 <![CDATA[

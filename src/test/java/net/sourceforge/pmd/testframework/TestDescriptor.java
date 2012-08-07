@@ -1,36 +1,44 @@
 /**
  * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
  */
-package test.net.sourceforge.pmd.testframework;
+package net.sourceforge.pmd.testframework;
 
 import java.util.Properties;
 
 import net.sourceforge.pmd.Rule;
-import net.sourceforge.pmd.SourceType;
+import net.sourceforge.pmd.lang.LanguageVersion;
+
+import org.junit.Ignore;
 
 /**
  * Stores the information required to run a complete test.
  */
+@Ignore("this is not a unit test")
 public class TestDescriptor {
     private Rule rule;
     private Properties properties;
     private String description;
     private int numberOfProblemsExpected;
     private String code;
-    private SourceType sourceType;
-    private boolean reinitializeRule;
+    private LanguageVersion languageVersion;
+    private boolean reinitializeRule = true;   //default, avoids unintentional mixing of state between test cases
     private boolean isRegressionTest = true;
 
-    public TestDescriptor(String code, String description, int numberOfProblemsExpected, Rule rule) {
-        this(code, description, numberOfProblemsExpected, rule, RuleTst.DEFAULT_SOURCE_TYPE);
+    // Empty descriptor added to please mvn surefire plugin
+    public TestDescriptor() {
+      
     }
     
-    public TestDescriptor(String code, String description, int numberOfProblemsExpected, Rule rule, SourceType sourceType) {
+    public TestDescriptor(String code, String description, int numberOfProblemsExpected, Rule rule) {
+        this(code, description, numberOfProblemsExpected, rule, RuleTst.DEFAULT_LANGUAGE_VERSION);
+    }
+    
+    public TestDescriptor(String code, String description, int numberOfProblemsExpected, Rule rule, LanguageVersion languageVersion) {
         this.rule = rule;
         this.code = code;
         this.description = description;
         this.numberOfProblemsExpected = numberOfProblemsExpected;
-        this.sourceType = sourceType;
+        this.languageVersion = languageVersion;
     }
 
     public void setProperties(Properties properties) {
@@ -45,8 +53,8 @@ public class TestDescriptor {
         return code;
     }
 
-    public SourceType getSourceType() {
-        return sourceType;
+    public LanguageVersion getLanguageVersion() {
+        return languageVersion;
     }
 
     public String getDescription() {
@@ -73,11 +81,21 @@ public class TestDescriptor {
      * Checks whether we are testing for regression problems only.
      * Return value is based on the system property "pmd.regress".
      * 
-     * @return <code>true</code> if system property "pmd.regress" is set to <code>true</code>, <code>false</code> otherwise
+     * @return <code>false</code> if system property "pmd.regress" is set to <code>false</code>, <code>true</code> otherwise
      */
     public static boolean inRegressionTestMode() {
-        //get the "pmd.regress" System property
-        return Boolean.getBoolean("pmd.regress");
+   boolean inRegressionMode = true; // default
+   try {
+       //get the "pmd.regress" System property
+       String property = System.getProperty("pmd.regress");
+       if (property != null) {
+      inRegressionMode = Boolean.parseBoolean(property);
+       }
+   } catch (IllegalArgumentException e) {
+   } catch (NullPointerException e) {
+   }
+   
+        return inRegressionMode;
     }
 
     public boolean isRegressionTest() {
@@ -88,4 +106,3 @@ public class TestDescriptor {
         this.isRegressionTest = isRegressionTest;
     }
 }
-

@@ -1,19 +1,18 @@
 package org.codecop.pmd.prototype;
 
-import net.sourceforge.pmd.AbstractRule;
-import net.sourceforge.pmd.ast.ASTClassOrInterfaceDeclaration;
-import net.sourceforge.pmd.ast.ASTClassOrInterfaceType;
-import net.sourceforge.pmd.ast.ASTExtendsList;
-import net.sourceforge.pmd.ast.ASTFieldDeclaration;
-import net.sourceforge.pmd.ast.ASTPrimitiveType;
-import net.sourceforge.pmd.ast.ASTType;
-import net.sourceforge.pmd.ast.SimpleNode;
+import net.sourceforge.pmd.lang.java.ast.ASTClassOrInterfaceDeclaration;
+import net.sourceforge.pmd.lang.java.ast.ASTClassOrInterfaceType;
+import net.sourceforge.pmd.lang.java.ast.ASTExtendsList;
+import net.sourceforge.pmd.lang.java.ast.ASTFieldDeclaration;
+import net.sourceforge.pmd.lang.java.ast.ASTPrimitiveType;
+import net.sourceforge.pmd.lang.java.ast.ASTType;
+import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 
 /**
  * Entities must define all attributes with RelationShips.
  * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
  */
-public class EntityWithReferences extends AbstractRule {
+public class EntityWithReferences extends AbstractJavaRule {
 
    private boolean entity;
 
@@ -41,7 +40,7 @@ public class EntityWithReferences extends AbstractRule {
 
       // check superclass
       if (node.jjtGetNumChildren() != 0 && node.jjtGetChild(0).getClass().equals(ASTExtendsList.class)) {
-         ASTClassOrInterfaceType type = (ASTClassOrInterfaceType) ((SimpleNode) node.jjtGetChild(0)).jjtGetChild(0);
+         ASTClassOrInterfaceType type = (ASTClassOrInterfaceType) node.jjtGetChild(0).jjtGetChild(0);
          if (isClassOrSubClass(type, className)) {
             return true;
          }
@@ -92,12 +91,12 @@ public class EntityWithReferences extends AbstractRule {
 
          ASTType fieldType = node.getFirstChildOfType(ASTType.class);
          if (fieldType != null) {
-            if (fieldType.isArray() || fieldType.containsChildOfType(ASTPrimitiveType.class)) {
+            if (fieldType.isArray() || fieldType.hasDescendantOfType(ASTPrimitiveType.class)) {
                addViolation(data, node);
 
             } else {
 
-               ASTClassOrInterfaceType refType = fieldType.getFirstChildOfType(ASTClassOrInterfaceType.class);
+               ASTClassOrInterfaceType refType = fieldType.getFirstDescendantOfType(ASTClassOrInterfaceType.class);
                if (!isClassOrSubClass(refType, "org.codecop.pmd.prototype.domain.base.RelationShip")) {
                   addViolation(data, node);
                }

@@ -1,14 +1,14 @@
 package org.codecop.pmd.rule;
 
-import net.sourceforge.pmd.AbstractRule;
-import net.sourceforge.pmd.ast.ASTAllocationExpression;
-import net.sourceforge.pmd.ast.ASTClassOrInterfaceType;
+import net.sourceforge.pmd.lang.java.ast.ASTAllocationExpression;
+import net.sourceforge.pmd.lang.java.ast.ASTClassOrInterfaceType;
+import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 
 /**
  * Avoid throwing checked Exceptions - it's considered noise.
  * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
  */
-public class AvoidThrowingCheckedException extends AbstractRule {
+public class AvoidThrowingCheckedException extends AbstractJavaRule {
 
    @Override
    public Object visit(ASTAllocationExpression node, Object data) {

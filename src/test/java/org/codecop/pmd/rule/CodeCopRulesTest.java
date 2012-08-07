@@ -1,8 +1,8 @@
 package org.codecop.pmd.rule;
 
-import org.junit.Before;
+import net.sourceforge.pmd.testframework.SimpleAggregatorTst;
 
-import test.net.sourceforge.pmd.testframework.SimpleAggregatorTst;
+import org.junit.Before;
 
 /**
  * Test the rules in the <code>codecop</code> ruleset.
@@ -10,7 +10,7 @@ import test.net.sourceforge.pmd.testframework.SimpleAggregatorTst;
  */
 public class CodeCopRulesTest extends SimpleAggregatorTst {
 
-   private static final String RULESET = "codecop";
+   private static final String RULESET = "java-codecop";
 
    @Before
    public void setUp() {

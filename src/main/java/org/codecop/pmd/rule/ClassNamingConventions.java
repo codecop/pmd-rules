@@ -1,11 +1,8 @@
 package org.codecop.pmd.rule;
 
-import java.util.Map;
-
-import net.sourceforge.pmd.AbstractRule;
-import net.sourceforge.pmd.PropertyDescriptor;
-import net.sourceforge.pmd.ast.ASTClassOrInterfaceDeclaration;
-import net.sourceforge.pmd.properties.IntegerProperty;
+import net.sourceforge.pmd.lang.java.ast.ASTClassOrInterfaceDeclaration;
+import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
+import net.sourceforge.pmd.lang.rule.properties.IntegerProperty;
 
 /**
  * Changed Class name rule to allow underscore before _Stub and _Core (RMI). Added some additional tests.
@@ -13,21 +10,19 @@ import net.sourceforge.pmd.properties.IntegerProperty;
  * @author PMD 3.7 - updated
  * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
  */
-public class ClassNamingConventions extends AbstractRule {
+public class ClassNamingConventions extends AbstractJavaRule {
 
    private int upperCaseLen;
 
-   private static final PropertyDescriptor UPPERCASE_LEN_DESCRIPTOR = new IntegerProperty("upperCaseLen", "Allowed length of upper case only names", 3, 1.0f);
-   private static final Map<String, PropertyDescriptor> PROPERTY_DESCRIPTORS_BY_NAME = asFixedMap(new PropertyDescriptor[] { UPPERCASE_LEN_DESCRIPTOR });
-
-   @Override
-   protected Map<String, PropertyDescriptor> propertiesByName() {
-      return PROPERTY_DESCRIPTORS_BY_NAME;
+   private static final IntegerProperty UPPERCASE_LEN_DESCRIPTOR = new IntegerProperty("upperCaseLen", "Allowed length of upper case only names", 1, 99, 3, 1.0f);
+   
+   public ClassNamingConventions() {
+      definePropertyDescriptor(UPPERCASE_LEN_DESCRIPTOR);
    }
 
    @Override
    public Object visit(ASTClassOrInterfaceDeclaration node, Object data) {
-      upperCaseLen = getIntProperty(UPPERCASE_LEN_DESCRIPTOR);
+      upperCaseLen = getProperty(UPPERCASE_LEN_DESCRIPTOR);
 
       final String className = node.getImage();
 

@@ -1,7 +1,7 @@
 /**
  * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
  */
-package test.net.sourceforge.pmd.testframework;
+package net.sourceforge.pmd.testframework;
 
 import static org.junit.Assert.assertEquals;
 
@@ -15,6 +15,7 @@ import net.sourceforge.pmd.cpd.Tokens;
 
 /**
  * @author Romain PELISSE, belaran@gmail.com
+ *
  */
 public abstract class AbstractTokenizerTest {
 
@@ -30,7 +31,7 @@ public abstract class AbstractTokenizerTest {
       Tokens tokens = new Tokens();
       tokenizer.tokenize(sourceCode, tokens);
       List<TokenEntry> entries = tokens.getTokens();
-      assertEquals(expectedTokenCount, entries.size());
+      assertEquals(expectedTokenCount,entries.size());
    }
 
 }

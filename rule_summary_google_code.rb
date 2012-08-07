@@ -38,7 +38,7 @@ def format_rule(rule)
   #rule_msg = rule.attributes['message'].gsub(/\s+/,' ')
   #prio = rule.elements['priority'].text.to_i
 
-  isxpath = rule.attributes['class']=='net.sourceforge.pmd.rules.XPathRule'
+  isxpath = rule.attributes['class']=='net.sourceforge.pmd.lang.rule.XPathRule'
   if isxpath
     puts '<p>This rule is defined by the following XPath expression:</p>'
     puts '{{{'
@@ -109,7 +109,7 @@ def read_rules(rules_dir)
   sets
 end
 
-rules_dir = 'src/main/resources/rulesets'
+rules_dir = 'src/main/resources/rulesets/java'
 sets = read_rules(rules_dir)
 sets.each_key do |name|
   lines = sets[name]

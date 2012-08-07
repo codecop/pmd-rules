@@ -1,12 +1,25 @@
 /**
  * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
  */
-package test.net.sourceforge.pmd.testframework;
+package net.sourceforge.pmd.testframework;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.util.Map;
+import java.util.Properties;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.FactoryConfigurationError;
+import javax.xml.parsers.ParserConfigurationException;
+
 import net.sourceforge.pmd.PMD;
 import net.sourceforge.pmd.PMDException;
+import net.sourceforge.pmd.PropertyDescriptor;
 import net.sourceforge.pmd.Report;
 import net.sourceforge.pmd.Rule;
 import net.sourceforge.pmd.RuleContext;
@@ -14,46 +27,34 @@ import net.sourceforge.pmd.RuleSet;
 import net.sourceforge.pmd.RuleSetFactory;
 import net.sourceforge.pmd.RuleSetNotFoundException;
 import net.sourceforge.pmd.RuleSets;
-import net.sourceforge.pmd.SimpleRuleSetNameMapper;
-import net.sourceforge.pmd.SourceType;
-import net.sourceforge.pmd.SourceTypeToRuleLanguageMapper;
+import net.sourceforge.pmd.lang.Language;
+import net.sourceforge.pmd.lang.LanguageVersion;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.util.Properties;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.FactoryConfigurationError;
-import javax.xml.parsers.ParserConfigurationException;
 /**
- * Advanced methods for test cases.
+ * Advanced methods for test cases
  */
 public abstract class RuleTst {
-    public static final SourceType DEFAULT_SOURCE_TYPE = SourceType.JAVA_15;
+    public static final LanguageVersion DEFAULT_LANGUAGE_VERSION = LanguageVersion.JAVA_15;
+    public static final Language DEFAULT_LANGUAGE = DEFAULT_LANGUAGE_VERSION.getLanguage();
 
     /**
-     * Find a rule in a certain ruleset by name.
+     * Find a rule in a certain ruleset by name
      */
-   @SuppressWarnings("null")
-   public Rule findRule(String ruleSet, String ruleName) {
+    public Rule findRule(String ruleSet, String ruleName) {
         try {
-            String rules = new SimpleRuleSetNameMapper(ruleSet).getRuleSets();
-            Rule rule = new RuleSetFactory().createRuleSets(rules).getRuleByName(ruleName);
+            Rule rule = new RuleSetFactory().createRuleSets(ruleSet).getRuleByName(ruleName);
             if (rule == null) {
                 fail("Rule " + ruleName + " not found in ruleset " + ruleSet);
             }
             rule.setRuleSetName(ruleSet);
             return rule;
         } catch (RuleSetNotFoundException e) {
-            e.printStackTrace();        
+            e.printStackTrace();
             fail("Couldn't find ruleset " + ruleSet);
             return null;
         }
@@ -63,59 +64,71 @@ public abstract class RuleTst {
     /**
      * Run the rule on the given code, and check the expected number of violations.
      */
+    @SuppressWarnings("unchecked")
     public void runTest(TestDescriptor test) {
         Rule rule = test.getRule();
-        
+
         if (test.getReinitializeRule()) {
             rule = findRule(rule.getRuleSetName(), rule.getName());
         }
-        
-        Properties ruleProperties = rule.getProperties();
-        Properties oldProperties = (Properties)ruleProperties.clone();
+
+        Map<PropertyDescriptor<?>, Object> oldProperties = rule.getPropertiesByPropertyDescriptor();
         try {
             int res;
             try {
+         // Set test specific properties onto the Rule
                 if (test.getProperties() != null) {
-                    oldProperties = (Properties)ruleProperties.clone();
-                    ruleProperties.putAll(test.getProperties());
+                    for (Map.Entry<Object, Object> entry : test.getProperties().entrySet()) {
+                  String propertyName = (String)entry.getKey();
+                  String strValue = (String)entry.getValue();
+                  PropertyDescriptor propertyDescriptor = rule.getPropertyDescriptor(propertyName);
+                  if (propertyDescriptor == null) {
+                            throw new IllegalArgumentException("No such property '" + propertyName + "' on Rule " + rule.getName());
+                  }
+                  Object value = propertyDescriptor.valueFrom(strValue);
+                  rule.setProperty(propertyDescriptor, value);
+                    }
                 }
-                
-                res = processUsingStringReader(test.getCode(), rule, test.getSourceType()).size();
+
+                res = processUsingStringReader(test.getCode(), rule, test.getLanguageVersion()).size();
             } catch (Throwable t) {
                 t.printStackTrace();
-                throw new RuntimeException('"' + test.getDescription() + "\" failed");
+                throw new RuntimeException('"' + test.getDescription() + "\" failed", t);
             }
             assertEquals('"' + test.getDescription() + "\" resulted in wrong number of failures,",
                     test.getNumberOfProblemsExpected(), res);
         } finally {
             //Restore old properties
-            ruleProperties.clear();
-            ruleProperties.putAll(oldProperties);
+            // TODO Tried to use generics here, but there's a compiler bug doing so in a finally block.
+            // Neither 1.5.0_16-b02 or 1.6.0_07-b06 works, but 1.7.0-ea-b34 seems to work.   
+            for (Map.Entry entry: oldProperties.entrySet()) {
+         rule.setProperty((PropertyDescriptor)entry.getKey(), entry.getValue());
+            }
         }
     }
 
     private Report processUsingStringReader(String code, Rule rule,
-                                            SourceType sourceType) throws PMDException {
+            LanguageVersion languageVersion) throws PMDException {
         Report report = new Report();
-        runTestFromString(code, rule, report, sourceType);
+        runTestFromString(code, rule, report, languageVersion);
         return report;
     }
 
     /**
      * Run the rule on the given code and put the violations in the report.
      */
-    public void runTestFromString(String code, Rule rule, Report report, SourceType sourceType) throws PMDException {
+    public void runTestFromString(String code, Rule rule, Report report, LanguageVersion languageVersion) throws PMDException {
         PMD p = new PMD();
-        p.setJavaVersion(sourceType);
+        p.getConfiguration().setDefaultLanguageVersion(languageVersion);
         RuleContext ctx = new RuleContext();
         ctx.setReport(report);
         ctx.setSourceCodeFilename("n/a");
+        ctx.setLanguageVersion(languageVersion);
         RuleSet rules = new RuleSet();
         rules.addRule(rule);
-        rules.setLanguage(SourceTypeToRuleLanguageMapper.getMappedLanguage(sourceType));
-        p.processFile(new StringReader(code), new RuleSets(rules), ctx, sourceType);
+        p.getSourceCodeProcessor().processSourceCode(new StringReader(code), new RuleSets(rules), ctx);
     }
-    
+
     /**
      * getResourceAsStream tries to find the XML file in weird locations if the
      * ruleName includes the package, so we strip it here.
@@ -126,8 +139,9 @@ public abstract class RuleTst {
             //We got the full class name, so we'll use the stripped name instead
             String packageName = rule.getClass().getPackage().getName();
             return fullClassName.substring(packageName.length()+1);
+        } else {
+            return rule.getName();  //Test is using findRule, smart!
         }
-      return rule.getName();  //Test is using findRule, smart!
     }
 
     /**
@@ -155,7 +169,7 @@ public abstract class RuleTst {
         if (inputStream == null) {
             throw new RuntimeException("Couldn't find " + testXmlFileName);
         }
-        
+
         Document doc;
         try {
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -185,16 +199,16 @@ public abstract class RuleTst {
         for (int i = 0; i < testCodes.getLength(); i++) {
             Element testCode = (Element)testCodes.item(i);
 
-            boolean reinitializeRule = false;
+            boolean reinitializeRule = true;
             Node reinitializeRuleAttribute = testCode.getAttributes().getNamedItem("reinitializeRule");
             if (reinitializeRuleAttribute != null) {
                 String reinitializeRuleValue = reinitializeRuleAttribute.getNodeValue();
-                if ("true".equalsIgnoreCase(reinitializeRuleValue) || 
-                        "1".equalsIgnoreCase(reinitializeRuleValue)) {
-                    reinitializeRule = true;
+                if ("false".equalsIgnoreCase(reinitializeRuleValue) ||
+                        "0".equalsIgnoreCase(reinitializeRuleValue)) {
+                    reinitializeRule = false;
                 }
             }
-           
+
             boolean isRegressionTest = true;
             Node regressionTestAttribute = testCode.getAttributes().getNamedItem("regressionTest");
             if (regressionTestAttribute != null) {
@@ -229,21 +243,21 @@ public abstract class RuleTst {
                         code = parseTextNode(codeFragments.item(j));
                     }
                 }
-                
+
                 if (code==null) {
                     throw new RuntimeException("No matching code fragment found for coderef");
                 }
             }
-            
-            String sourceTypeString = getNodeValue(testCode, "source-type", false);
-            if (sourceTypeString == null) {
+
+            String languageVersionString = getNodeValue(testCode, "source-type", false);
+            if (languageVersionString == null) {
                 tests[i] = new TestDescriptor(code, description, expectedProblems, rule);
             } else {
-                SourceType sourceType = SourceType.getSourceTypeForId(sourceTypeString);
-                if (sourceType != null) {
-                    tests[i] = new TestDescriptor(code, description, expectedProblems, rule, sourceType);
+                LanguageVersion languageVersion = LanguageVersion.findByTerseName(languageVersionString);
+                if (languageVersion != null) {
+                    tests[i] = new TestDescriptor(code, description, expectedProblems, rule, languageVersion);
                 } else {
-                    throw new RuntimeException("Unknown sourceType for test: " + sourceTypeString);
+                    throw new RuntimeException("Unknown LanguageVersion for test: " + languageVersionString);
                 }
             }
             tests[i].setReinitializeRule(reinitializeRule);
@@ -258,13 +272,14 @@ public abstract class RuleTst {
         if (nodes == null || nodes.getLength() == 0) {
             if (required) {
                 throw new RuntimeException("Required tag is missing from the test-xml: " + nodeName);
+            } else {
+                return null;
             }
-            return null;
         }
         Node node = nodes.item(0);
         return parseTextNode(node);
     }
-    
+
     private static String parseTextNode(Node exampleNode) {
         StringBuffer buffer = new StringBuffer();
         for (int i = 0; i < exampleNode.getChildNodes().getLength(); i++) {
@@ -276,12 +291,12 @@ public abstract class RuleTst {
         }
         return buffer.toString().trim();
     }
-    
+
     /**
-     * Run the test using the DEFAULT_SOURCE_TYPE and put the violations in the report.
+     * Run the test using the DEFAULT_LANGUAGE_VERSION and put the violations in the report.
      * Convenience method.
      */
     public void runTestFromString(String code, Rule rule, Report report) throws PMDException {
-        runTestFromString(code, rule, report, DEFAULT_SOURCE_TYPE);
+        runTestFromString(code, rule, report, DEFAULT_LANGUAGE_VERSION);
     }
 }

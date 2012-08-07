@@ -1,8 +1,8 @@
 package org.codecop.pmd.prototype;
 
-import org.junit.Before;
+import net.sourceforge.pmd.testframework.SimpleAggregatorTst;
 
-import test.net.sourceforge.pmd.testframework.SimpleAggregatorTst;
+import org.junit.Before;
 
 /**
  * Test the rules in the <code>prototype</code> ruleset.
@@ -10,7 +10,7 @@ import test.net.sourceforge.pmd.testframework.SimpleAggregatorTst;
  */
 public class PrototypeRulesTest extends SimpleAggregatorTst {
 
-   private static final String RULESET = "prototype";
+   private static final String RULESET = "java-prototype";
 
    @Before
    public void setUp() {

@@ -12,7 +12,7 @@
     <artifactId>pmd-rules</artifactId>
     <packaging>jar</packaging>
     <name>PMD Rules</name>
-    <version>1.1-SNAPSHOT</version>
+    <version>2.0-SNAPSHOT</version>
     <description>Code Cop PMD rules are a mixed set of PMD rules created since 2004 regarding basic bugs, design principles, junit test, naming and other rule groups.</description>
     <url>http://code.google.com/p/code-cop-code/wiki/PmdRules</url>
     <inceptionYear>2004</inceptionYear>
@@ -65,7 +65,7 @@
                 <configuration>
                     <excludes>
                         <!-- Come on surefire! be smart, the following class is not a test to run! -->
-                        <exclude>test/net/sourceforge/pmd/testframework/TestDescriptor.java</exclude>
+                        <exclude>net/sourceforge/pmd/testframework/TestDescriptor.java</exclude>
                     </excludes>
                 </configuration>
             </plugin>
@@ -80,52 +80,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <pmd.version>4.1</pmd.version>
-            </properties>
-        </profile>
-        <profile>
-            <id>compile-compatibiliy</id>
-            <activation>
-                <property>
-                    <name>pmd</name>
-                    <value>3.9</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <configuration>
-                            <excludes>
-                                <exclude>org/codecop/pmd/prototype/EntityWithReferences.java</exclude>
-                                <exclude>org/codecop/pmd/prototype/ImmutableValueObject.java</exclude>
-                            </excludes>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <excludes>
-                                <exclude>org/codecop/pmd/prototype/PrototypeRulesTest.java</exclude>
-                            </excludes>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-            <properties>
-                <pmd.version>3.9</pmd.version>
-            </properties>
-        </profile>
-        <profile>
-            <id>latest-4.x-compatibility</id>
-            <activation>
-                <property>
-                    <name>pmd</name>
-                    <value>4.x</value>
-                </property>
-            </activation>
-            <properties>
-                <pmd.version>4.3</pmd.version>
+                <pmd.version>5.0.0</pmd.version>
             </properties>
         </profile>
         <profile>
@@ -137,31 +92,17 @@
                 </property>
             </activation>
             <properties>
-                <pmd.version>5.0</pmd.version>
+                <pmd.version>5.0.0</pmd.version>
             </properties>
         </profile>
     </profiles>
 
     <dependencies>
         <dependency>
-            <groupId>pmd</groupId>
+            <groupId>net.sourceforge.pmd</groupId>
             <artifactId>pmd</artifactId>
             <version>${pmd.version}</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>jaxen</groupId>
-            <artifactId>jaxen</artifactId>
-            <version>1.1</version>
-            <scope>provided</scope>
-            <!-- direct dependency of PMD 4.1, used in rules -->
-        </dependency>
-        <dependency>
-            <groupId>xerces</groupId>
-            <artifactId>xmlParserAPIs</artifactId>
-            <version>2.6.2</version>
-            <scope>provided</scope>
-            <!-- direct dependency of PMD 4.1, used in copied testframework -->
         </dependency>
         <dependency>
             <groupId>junit</groupId>
