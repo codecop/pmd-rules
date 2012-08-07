@@ -52,12 +52,6 @@
         </contributor>
     </contributors>
 
-    <scm>
-        <connection>scm:hg:https://${project.artifactId}.code-cop-code.googlecode.com/hg/</connection>
-        <developerConnection>scm:hg:https://${project.artifactId}.code-cop-code.googlecode.com/hg/</developerConnection>
-        <url>http://code.google.com/p/code-cop-code/source/browse?repo=${project.artifactId}</url>
-    </scm>
-
     <build>
         <plugins>
             <plugin>
