@@ -28,7 +28,8 @@ public class ExceptionSignatureDeclaration extends AbstractJavaRule {
    private static final BooleanProperty IGNORE_TESTS_DESCRIPTOR = new BooleanProperty("ignoreTests", "Ignore test methods", false, 1.0f);
 
    public ExceptionSignatureDeclaration() {
-      definePropertyDescriptor(IGNORE_TESTS_DESCRIPTOR);
+      // definePropertyDescriptor(IGNORE_TESTS_DESCRIPTOR);
+      // defined in XML for better readbility
    }
 
    @Override

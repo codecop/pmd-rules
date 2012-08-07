@@ -17,7 +17,8 @@ public class ClassNamingConventions extends AbstractJavaRule {
    private static final IntegerProperty UPPERCASE_LEN_DESCRIPTOR = new IntegerProperty("upperCaseLen", "Allowed length of upper case only names", 1, 99, 3, 1.0f);
    
    public ClassNamingConventions() {
-      definePropertyDescriptor(UPPERCASE_LEN_DESCRIPTOR);
+      // definePropertyDescriptor(UPPERCASE_LEN_DESCRIPTOR);
+      // defined in XML for better readbility
    }
 
    @Override

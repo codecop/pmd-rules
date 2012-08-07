@@ -468,7 +468,7 @@ public class MembersMustBePrivateExample {
       <!-- Rule copied from PMD 3.1 (no type inference), but only allow exceptions for methods "setUp", "tearDown" -->
       <priority>2</priority>
       <properties>
-         <property name="ignoreTests" type="Boolean" description="Ignore test methods" value="false" />
+          <property name="ignoreTests" type="Boolean" description="Ignore test methods" value="false" />  
       </properties>
       <example>
 <![CDATA[
@@ -492,7 +492,7 @@ public void methodThrowingException() throws Exception { }
       <!-- Rule copied from PMD 3.1 and made it a bit more strict -->
       <priority>2</priority>
       <properties>
-         <property name="upperCaseLen" type="Integer" description="Allowed length of upper case only names" value="3" />
+         <property name="upperCaseLen" type="Integer" description="Allowed length of upper case only names" min="1" max="99" value="3" />
       </properties>
       <example>
 <![CDATA[
