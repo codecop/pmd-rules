@@ -150,16 +150,16 @@ class UnintendedEnvUsageExample {
 <![CDATA[
 //MethodDeclarator[
   ( @Image='setUp' and count(FormalParameters/*)=0 and
-    count(../Block//PrimaryPrefix[@Image='setUp'])=0
+    count(../Block//PrimarySuffix[@Image='setUp'])=0
   ) or
   ( @Image='tearDown' and count(FormalParameters/*)=0 and
-    count(../Block//PrimaryPrefix[@Image='tearDown'])=0
+    count(../Block//PrimarySuffix[@Image='tearDown'])=0
   )  or
   ( @Image='onSetUp' and count(FormalParameters/*)=0 and
-    count(../Block//PrimaryPrefix[@Image='onSetUp'])=0
+    count(../Block//PrimarySuffix[@Image='onSetUp'])=0
   )  or
   ( @Image='onTearDown' and count(FormalParameters/*)=0 and
-    count(../Block//PrimaryPrefix[@Image='onTearDown'])=0
+    count(../Block//PrimarySuffix[@Image='onTearDown'])=0
   )
 ]
 ]]>

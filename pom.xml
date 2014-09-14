@@ -80,7 +80,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <pmd.version>5.0.0</pmd.version>
+                <pmd.version>5.0.1</pmd.version>
             </properties>
         </profile>
         <profile>
@@ -110,5 +110,9 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <properties>
+        <project.build.java.target>1.6</project.build.java.target>
+    </properties>
 
 </project>
