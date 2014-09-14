@@ -8,6 +8,8 @@ import net.sourceforge.pmd.lang.java.ast.ASTCompilationUnit;
 import net.sourceforge.pmd.lang.java.ast.ASTConstructorDeclaration;
 import net.sourceforge.pmd.lang.java.ast.ASTFormalParameter;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclaration;
+import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclarator;
+import net.sourceforge.pmd.lang.java.ast.ASTType;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 import net.sourceforge.pmd.lang.rule.properties.BooleanProperty;
 
@@ -31,7 +33,7 @@ public class PrimitiveObsession extends AbstractJavaRule {
     );
 
     private boolean allowObject;
-    private boolean wrongParameterDetected;
+    private boolean wrongTypesDetected;
 
     @Override
     public Object visit(ASTCompilationUnit node, Object context) {
@@ -48,50 +50,67 @@ public class PrimitiveObsession extends AbstractJavaRule {
      */
     @Override
     public Object visit(ASTConstructorDeclaration constructorDeclaration, Object context) {
-        resetParameterTypeCheck();
+        resetTypeCheck();
 
         Object visit = super.visit(constructorDeclaration, context);
 
         boolean isPublic = constructorDeclaration.isPublic();
         boolean moreThanOneArguments = constructorDeclaration.getParameterCount() >= 2;
-        addViolation(isPublic && moreThanOneArguments, context, constructorDeclaration);
+        addViolationOnPrimitiveParameter(isPublic && moreThanOneArguments, context, constructorDeclaration);
 
         return visit;
     }
 
     /**
-     * The methods do not allow any primitive arguments.
+     * The methods do not allow any primitive arguments. Primitive return values are allowed if there are no arguments.
+     * This is true for hashCode, toString and plain getters.
      */
     @Override
     public Object visit(ASTMethodDeclaration methodDeclaration, Object context) {
-        resetParameterTypeCheck();
+        resetTypeCheck();
 
         Object visit = super.visit(methodDeclaration, context);
 
+        checkForPrimitiveReturnType(methodDeclaration);
+
         boolean isPublic = methodDeclaration.isPublic();
-        addViolation(isPublic, context, methodDeclaration);
+        addViolationOnPrimitiveParameter(isPublic, context, methodDeclaration);
 
         return visit;
     }
 
-    private void resetParameterTypeCheck() {
-        wrongParameterDetected = false;
+    private void resetTypeCheck() {
+        wrongTypesDetected = false;
     }
 
-    private void addViolation(boolean condition, Object context, Node declaration) {
-        if (condition && wrongParameterDetected) {
+    private void checkForPrimitiveReturnType(ASTMethodDeclaration methodDeclaration) {
+        boolean hasReturnValue = !methodDeclaration.isVoid();
+        boolean hasParameters = methodDeclaration.getFirstChildOfType(ASTMethodDeclarator.class).getParameterCount() > 0;
+        if (hasReturnValue && hasParameters) {
+            ASTType returnType = methodDeclaration.getResultType().getFirstChildOfType(ASTType.class);
+            checkForPrimitive(returnType);
+        }
+    }
+
+    private void addViolationOnPrimitiveParameter(boolean condition, Object context, Node declaration) {
+        if (condition && wrongTypesDetected) {
             addViolation(context, declaration);
         }
     }
 
     @Override
     public Object visit(ASTFormalParameter formalParameter, Object context) {
-        checkForPrimitive(formalParameter);
+        checkForPrimitiveParameter(formalParameter);
         return super.visit(formalParameter, context);
     }
 
-    private void checkForPrimitive(ASTFormalParameter formalParameter) {
-        String parameterType = formalParameter.getTypeNode().getTypeImage();
+    private void checkForPrimitiveParameter(ASTFormalParameter formalParameter) {
+        ASTType parameterType = formalParameter.getTypeNode();
+        checkForPrimitive(parameterType);
+    }
+
+    private void checkForPrimitive(ASTType type) {
+        String parameterType = type.getTypeImage();
         checkForPrimitive(parameterType);
         if (parameterType.startsWith("java.lang.")) {
             checkForPrimitive(parameterType.substring(10));
@@ -103,7 +122,7 @@ public class PrimitiveObsession extends AbstractJavaRule {
 
     private void checkForPrimitive(String parameterType) {
         if (isForbidden(parameterType)) {
-            wrongParameterDetected = true;
+            wrongTypesDetected = true;
         }
     }
 

@@ -70,6 +70,15 @@ class SomeObject {
 }
      ]]></code>
     </test-code>
+    <test-code>
+        <description><![CDATA[
+primitive return types only in plain getters, no parameters
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+class BadObject {
+   public String sad(Date when) { };
+}
+     ]]></code>
+    </test-code>
 </test-data>
-
-
