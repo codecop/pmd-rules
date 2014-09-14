@@ -59,6 +59,17 @@ class ValueObject {
 }
      ]]></code>
     </test-code>
+    <test-code>
+        <description><![CDATA[
+Object is allowed in default
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class SomeObject {
+   public SomeObject(Object a, Object b) { };
+}
+     ]]></code>
+    </test-code>
 </test-data>
 
 

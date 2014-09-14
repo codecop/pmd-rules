@@ -26,7 +26,8 @@ public class PrimitiveObsession extends AbstractJavaRule {
             "byte", "Byte", "short", "Short", "int", "Integer", "long", "Long", //
             "float", "Float", "double", "Double", "Number", //
             "boolean", "Boolean", //
-            "String" // 
+            "String", //
+            "List", "Map", "Set" //
     );
 
     private boolean allowObject;
@@ -93,6 +94,9 @@ public class PrimitiveObsession extends AbstractJavaRule {
         String parameterType = formalParameter.getTypeNode().getTypeImage();
         checkForPrimitive(parameterType);
         if (parameterType.startsWith("java.lang.")) {
+            checkForPrimitive(parameterType.substring(10));
+        }
+        if (parameterType.startsWith("java.util.")) {
             checkForPrimitive(parameterType.substring(10));
         }
     }
