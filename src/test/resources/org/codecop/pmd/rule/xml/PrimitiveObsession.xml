@@ -13,12 +13,13 @@ class BadObject {
     </test-code>
     <test-code>
         <description><![CDATA[
-too many ints in method
+int in method
      ]]></description>
-        <expected-problems>1</expected-problems>
+        <expected-problems>2</expected-problems>
         <code><![CDATA[
 class BadObject {
-   public void sad(int a, int b) { };
+   public void sad(int a) { };
+   public void more(java.lang.String b) { };
 }
      ]]></code>
     </test-code>

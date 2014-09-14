@@ -26,7 +26,8 @@ public class PrimitiveObsession extends AbstractJavaRule {
             "byte", "Byte", "short", "Short", "int", "Integer", "long", "Long", //
             "float", "Float", "double", "Double", "Number", //
             "boolean", "Boolean", //
-            "String");
+            "String" // 
+    );
 
     private boolean allowObject;
     private boolean wrongParameterDetected;
@@ -46,7 +47,7 @@ public class PrimitiveObsession extends AbstractJavaRule {
      */
     @Override
     public Object visit(ASTConstructorDeclaration constructorDeclaration, Object context) {
-        wrongParameterDetected = false;
+        resetParameterTypeCheck();
 
         Object visit = super.visit(constructorDeclaration, context);
 
@@ -62,7 +63,7 @@ public class PrimitiveObsession extends AbstractJavaRule {
      */
     @Override
     public Object visit(ASTMethodDeclaration methodDeclaration, Object context) {
-        wrongParameterDetected = false;
+        resetParameterTypeCheck();
 
         Object visit = super.visit(methodDeclaration, context);
 
@@ -70,6 +71,10 @@ public class PrimitiveObsession extends AbstractJavaRule {
         addViolation(isPublic, context, methodDeclaration);
 
         return visit;
+    }
+
+    private void resetParameterTypeCheck() {
+        wrongParameterDetected = false;
     }
 
     private void addViolation(boolean condition, Object context, Node declaration) {
@@ -86,6 +91,13 @@ public class PrimitiveObsession extends AbstractJavaRule {
 
     private void checkForPrimitive(ASTFormalParameter formalParameter) {
         String parameterType = formalParameter.getTypeNode().getTypeImage();
+        checkForPrimitive(parameterType);
+        if (parameterType.startsWith("java.lang.")) {
+            checkForPrimitive(parameterType.substring(10));
+        }
+    }
+
+    private void checkForPrimitive(String parameterType) {
         if (isForbidden(parameterType)) {
             wrongParameterDetected = true;
         }
