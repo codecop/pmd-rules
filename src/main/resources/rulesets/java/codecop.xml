@@ -665,4 +665,30 @@ private String goodParameter; // is better
       </example>
    </rule>   
    
+
+   <!-- design -->
+   <rule name="PrimitiveObsession"
+         language="java"
+         since="5.0"
+         message="Introduce a ValueObject in place of the primitive data"
+         class="org.codecop.pmd.rule.PrimitiveObsession"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#PrimitiveObsession">
+      <description>
+         You are likely using primitive data types to represent domain ideas. For example, a String to 
+         represent a message, an Integer to represent an amount of money, or a Struct/Dictionary/Hash to 
+         represent a specific object. You should introduce a ValueObject in place of the primitive data. 
+      </description>
+      <priority>2</priority>
+      <properties>
+          <property name="allowObject" type="Boolean" description="Allow plain java.lang.Object" value="true" />  
+      </properties>
+      <example>
+<![CDATA[
+class BadObject {
+   public BadObject(String a, String b) { };
+}
+]]>
+      </example>
+   </rule>
+   
 </ruleset>

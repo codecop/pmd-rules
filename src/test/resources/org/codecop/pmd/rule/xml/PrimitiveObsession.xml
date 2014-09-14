@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+too many Strings in constructor
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+class BadObject {
+   public BadObject(String a, String b) { };
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+too many ints in method
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+class BadObject {
+   public void sad(int a, int b) { };
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+primitive arrays are primitive
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+class BadObject {
+   public void sad(byte[] buf, Date when) { };
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+private constructors and methods can do anything.
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class HiddenObject {
+   private HiddenObject(String a, String b) { };
+   private void hidden(int a, int b) { };
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+all is well, a real value object
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class ValueObject {
+   public ValueObject(int number) { };
+   public int getNumber() { return 0; }
+   public String toString() { return "0"; }
+}
+     ]]></code>
+    </test-code>
+</test-data>
+
+
