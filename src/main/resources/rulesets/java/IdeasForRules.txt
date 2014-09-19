@@ -4,3 +4,27 @@ logging.xml
 * log.error(ex) is wrong, use log.error(msg, ex)
 
 ---
+
+code-kata.xml neues XML dafür
+
+Missing Feature Activities
+* No naked primitives
+* No conditional statements
+  * NoConditionals (if, while, do?)
+* No loops
+  * NoLoops (for)
+
+Quality Constraint Activities
+* Immutables only, please
+  * Immutable (alle fields final, alle parameter final, alle local vars final)
+
+One Level of intention
+No Else Keyword
+First Class Collections
+No Class Over 50 Lines
+
+* NoVoidMethods (ausser @Test)
+* OnlyVoidMethods
+* . (only one if/try/loop per method = only 1 brace/block)
+
+---
