@@ -19,8 +19,7 @@ One Level of intention
 No Else Keyword
 First Class Collections
 
-* NoVoidMethods (ausser @Test)
-* OnlyVoidMethods
+* (ausser @Test)
 * . (only one if/try/loop per method = only 1 brace/block)
 
 ---

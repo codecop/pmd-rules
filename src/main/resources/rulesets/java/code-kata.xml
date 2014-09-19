@@ -46,5 +46,8 @@
     
     <!-- Only void methods -->
     <rule ref="rulesets/java/constraints.xml/OnlyVoidMethods" />
+
+    <!-- No void methods -->
+    <rule ref="rulesets/java/constraints.xml/NoVoidMethods" />
     
 </ruleset>

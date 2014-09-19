@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+void method, bad
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class Foo {
+    public void vidMethod(){
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+non-void method, ok
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Foo {
+    public int getIt(){
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+special method is ok
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public interface Runnable {
+    public abstract void run();
+}
+     ]]></code>
+    </test-code>
+</test-data>
