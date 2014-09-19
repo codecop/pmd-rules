@@ -44,4 +44,7 @@
         </properties>
     </rule>
     
+    <!-- Only void methods -->
+    <rule ref="rulesets/java/constraints.xml/OnlyVoidMethods" />
+    
 </ruleset>

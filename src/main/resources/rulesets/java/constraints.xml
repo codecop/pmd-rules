@@ -23,7 +23,9 @@
          <property name="xpath">
             <value>
 <![CDATA[
-//ResultType/Type
+//MethodDeclaration[ResultType/Type and 
+      not(@Name='hashCode' or @Name='equals' or @Name='clone' or @Name='toString' or @Name='compare')
+]
 ]]>
             </value>
          </property>
