@@ -6,6 +6,7 @@ import org.junit.Before;
 
 /**
  * Test the rules in the <code>constraints</code> ruleset.
+ * 
  * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
  */
 public class ConstraintsRulesTest extends SimpleAggregatorTst {
@@ -14,7 +15,7 @@ public class ConstraintsRulesTest extends SimpleAggregatorTst {
 
     @Before
     public void setUp() {
-        // addRule(RULESET, "ClassNamingConventions");
+        addRule(RULESET, "OnlyVoidMethods");
     }
 
     public static junit.framework.Test suite() {
