@@ -16,7 +16,7 @@
          class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesConstraints#OnlyVoidMethods">
       <description>
-         As an exercise only void methods are allowed. This is Tell, Don't Ask.
+         As an exercise only void methods are allowed. This is Tell, Don't Ask. Only inherited Object methods can be non-void.
       </description>
       <priority>3</priority>
       <properties>
@@ -48,20 +48,32 @@ public class Foo {
          class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesConstraints#NoVoidMethods">
       <description>
-         As an exercise no void methods are allowed. This is the functional style.
+         As an exercise no void methods are allowed. This is the functional style. Only JUnit tests can have void methods.
       </description>
       <priority>3</priority>
       <properties>
          <property name="xpath">
             <value>
 <![CDATA[
-//MethodDeclaration[@Void='true' and not(MethodDeclarator[@Image='run'])]
+//MethodDeclaration[
+    not(../Annotation/MarkerAnnotation/Name[@Image='Test' or @Image='Before' or @Image='After']) and
+    @Void='true' and 
+    not(MethodDeclarator[@Image='run'])
+]
 ]]>
             </value>
          </property>
       </properties>
       <example>
 <![CDATA[
+public class BadClass {
+    public void voidMethod(){
+    }
+}
+public class OkClass {
+    public int getIt(){
+    }
+}
 ]]>
       </example>
    </rule>

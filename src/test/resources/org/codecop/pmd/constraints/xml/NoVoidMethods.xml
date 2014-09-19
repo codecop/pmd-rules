@@ -7,7 +7,7 @@ void method, bad
         <expected-problems>1</expected-problems>
         <code><![CDATA[
 public class Foo {
-    public void vidMethod(){
+    public void voidMethod(){
     }
 }
      ]]></code>
@@ -32,6 +32,22 @@ special method is ok
         <code><![CDATA[
 public interface Runnable {
     public abstract void run();
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+JUnit tests are ok
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class xTest {
+  @Before
+  public void before(){ }
+  @Test
+  public void shouldDo(){ }
+  @After
+  public void after(){ }
 }
      ]]></code>
     </test-code>
