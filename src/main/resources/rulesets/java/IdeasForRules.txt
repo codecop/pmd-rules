@@ -5,10 +5,7 @@ logging.xml
 
 ---
 
-code-kata.xml neues XML dafür
-
 Missing Feature Activities
-* No naked primitives
 * No conditional statements
   * NoConditionals (if, while, do?)
 * No loops
@@ -21,7 +18,6 @@ Quality Constraint Activities
 One Level of intention
 No Else Keyword
 First Class Collections
-No Class Over 50 Lines
 
 * NoVoidMethods (ausser @Test)
 * OnlyVoidMethods

@@ -8,6 +8,13 @@
         Collection of rules for code katas, Coding Dojos and Code Retreats.
     </description>
 
+    <!-- No Class Over 50 Lines -->
+    <rule ref="rulesets/java/codesize.xml/NcssTypeCount">
+        <properties>
+            <property name="minimum" value="51" />  
+        </properties>
+    </rule>
+
     <!-- Only four lines per method -->
     <rule ref="rulesets/java/codesize.xml/NcssMethodCount">
         <properties>
@@ -30,4 +37,11 @@
         </properties>
     </rule>
 
+    <!-- No naked primitives -->
+    <rule ref="rulesets/java/codecop.xml/PrimitiveObsession">
+        <properties>
+            <property name="allowObject" value="false" />  
+        </properties>
+    </rule>
+    
 </ruleset>
