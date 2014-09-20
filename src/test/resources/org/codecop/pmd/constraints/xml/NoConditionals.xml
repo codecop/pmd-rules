@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+if, bad
+     ]]></description>
+        <expected-problems>4</expected-problems>
+        <code><![CDATA[
+public class NoLoops {
+    public void main() {
+        if (true) {  } 
+        while(true) {  }
+        int i = true ? 1 : 2;
+        switch(i) { case 0: break; }
+    }
+}
+     ]]></code>
+    </test-code>
+</test-data>

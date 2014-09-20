@@ -7,10 +7,6 @@ logging.xml
 
 constraints.xml
 
-Missing Feature
-* No conditional statements
-  * NoConditionals (if, while, do?)
-
 Quality Constraint
 * Immutables only, please - wie kann ich das prüfen?
   * ImmutablesOnly (alle fields final, alle parameter final, alle local vars final)

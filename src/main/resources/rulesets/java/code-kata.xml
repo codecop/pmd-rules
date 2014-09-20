@@ -56,4 +56,8 @@
     <!-- No else keyword (rule 2 of Object Calisthenics) -->
     <rule ref="rulesets/java/constraints.xml/NoElseKeyword" />
     
+    <!-- No conditional statements (Missing Feature) -->
+    <rule ref="rulesets/java/constraints.xml/NoConditionals" />
+    
+    
 </ruleset>
