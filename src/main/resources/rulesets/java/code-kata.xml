@@ -50,4 +50,7 @@
     <!-- No void methods -->
     <rule ref="rulesets/java/constraints.xml/NoVoidMethods" />
     
+    <!-- No loops -->
+    <rule ref="rulesets/java/constraints.xml/NoLoops" />
+    
 </ruleset>

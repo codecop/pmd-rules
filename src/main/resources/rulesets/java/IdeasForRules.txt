@@ -10,8 +10,6 @@ constraints.xml
 Missing Feature Activities
 * No conditional statements
   * NoConditionals (if, while, do?)
-* No loops
-  * NoLoops (for)
 
 Quality Constraint Activities
 * Immutables only, please - wie kann ich das prüfen?

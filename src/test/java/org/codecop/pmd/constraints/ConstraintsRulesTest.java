@@ -17,6 +17,7 @@ public class ConstraintsRulesTest extends SimpleAggregatorTst {
     public void setUp() {
         addRule(RULESET, "OnlyVoidMethods");
         addRule(RULESET, "NoVoidMethods");
+        addRule(RULESET, "NoLoops");
     }
 
     public static junit.framework.Test suite() {

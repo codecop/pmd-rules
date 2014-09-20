@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+loops, bad
+     ]]></description>
+        <expected-problems>3</expected-problems>
+        <code><![CDATA[
+public class Foo {
+    public void main() { 
+        for (int i = 0; i < 3; i++) { }
+
+        int i = 0;
+        while (i < 3) { i++; }
+
+        do { } while (false);
+    }
+}
+     ]]></code>
+    </test-code>
+</test-data>
