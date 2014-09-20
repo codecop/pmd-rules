@@ -7,11 +7,11 @@ logging.xml
 
 constraints.xml
 
-Missing Feature Activities
+Missing Feature
 * No conditional statements
   * NoConditionals (if, while, do?)
 
-Quality Constraint Activities
+Quality Constraint
 * Immutables only, please - wie kann ich das prüfen?
   * ImmutablesOnly (alle fields final, alle parameter final, alle local vars final)
 
@@ -19,7 +19,6 @@ One Level of intention = nur 1 block?
   * only one if/try/loop per method = only 1 brace/block
 
 Callestenics
-No Else Keyword
 First Class Collections
 
 ---

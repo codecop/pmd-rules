@@ -8,14 +8,14 @@
         Collection of rules for code katas, Coding Dojos and Code Retreats.
     </description>
 
-    <!-- No Class Over 50 Lines -->
+    <!-- No Class Over 50 Lines (rule 7 of Object Calisthenics) -->
     <rule ref="rulesets/java/codesize.xml/NcssTypeCount">
         <properties>
             <property name="minimum" value="51" />  
         </properties>
     </rule>
 
-    <!-- Only four lines per method -->
+    <!-- Only four lines per method (Quality Constraint) -->
     <rule ref="rulesets/java/codesize.xml/NcssMethodCount">
         <properties>
             <property name="minimum" value="6" /> <!-- = 4 lines plus signature --> 
@@ -30,14 +30,14 @@
         </properties>
     </rule>
     
-    <!-- No More Than 2 instance variables -->
+    <!-- No More Than 2 instance variables (rule 8 of Object Calisthenics) -->
     <rule ref="rulesets/java/codesize.xml/TooManyFields">
         <properties>
             <property name="maxfields" value="2" />  
         </properties>
     </rule>
 
-    <!-- No naked primitives -->
+    <!-- No naked primitives (Missing Feature/rule 3 of Object Calisthenics) -->
     <rule ref="rulesets/java/codecop.xml/PrimitiveObsession">
         <properties>
             <property name="allowObject" value="false" />  
@@ -50,7 +50,10 @@
     <!-- No void methods -->
     <rule ref="rulesets/java/constraints.xml/NoVoidMethods" />
     
-    <!-- No loops -->
+    <!-- No loops (Missing Feature) -->
     <rule ref="rulesets/java/constraints.xml/NoLoops" />
+
+    <!-- No else keyword (rule 2 of Object Calisthenics) -->
+    <rule ref="rulesets/java/constraints.xml/NoElseKeyword" />
     
 </ruleset>

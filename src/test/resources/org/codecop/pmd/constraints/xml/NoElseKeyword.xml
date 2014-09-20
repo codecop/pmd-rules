@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+no else, all ok
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Foo {
+    public void main() { 
+        if (true) {
+        }        
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+else, bad
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class Foo {
+    public void main() { 
+        if (false) {
+        } else {
+        }        
+    }
+}
+     ]]></code>
+    </test-code>
+</test-data>
