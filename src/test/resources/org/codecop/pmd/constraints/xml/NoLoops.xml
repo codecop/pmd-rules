@@ -4,7 +4,7 @@
         <description><![CDATA[
 loops, bad
      ]]></description>
-        <expected-problems>3</expected-problems>
+        <expected-problems>4</expected-problems>
         <code><![CDATA[
 public class Foo {
     public void main() { 
@@ -14,6 +14,8 @@ public class Foo {
         while (i < 3) { i++; }
 
         do { } while (false);
+        
+        for (int i : Arrays.asList(1,2,3)) { }
     }
 }
      ]]></code>
