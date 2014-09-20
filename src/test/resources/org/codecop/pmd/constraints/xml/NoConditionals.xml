@@ -6,7 +6,7 @@ if, bad
      ]]></description>
         <expected-problems>4</expected-problems>
         <code><![CDATA[
-public class NoLoops {
+public class Foo {
     public void main() {
         if (true) {  } 
         while(true) {  }

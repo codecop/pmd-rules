@@ -10,6 +10,8 @@ public class CyclomaticComplexityOne {
         boolean a = false;
         if (a) {
             System.out.println("NO");
+        } else {
+            System.out.println("YES");
         }
     }
 }
