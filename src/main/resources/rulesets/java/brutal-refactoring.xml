@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<ruleset name="BrutalRefactoring"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+    <description>
+        Collection of rules for the Brutal Refactoring Game (Coding Dojo).
+    </description>
+
+    <!-- 
+    Brutal Refactoring Game
+    1. Lack of tests
+    2. Name not from domain
+    3. Name not expressing intent
+    4. Unnecessary if
+    5. Unnecessary else
+    6. Duplication of constant
+    7. Method does more than 1 thing
+    8. Primitive obsession
+    9. Feature envy
+    10. Method too long (> 6 lines)
+    11. Too many parameters (> 3)
+    12. Test – not unitary
+    13. Test – setup too complex
+    14. Test – unclear Act
+    15. Test - more than one assert
+    16. Test – no assert
+    17. Test – too many paths
+    -->
+
+    <rule ref="rulesets/java/codecop.xml/PrimitiveObsession" />
+
+    <rule ref="rulesets/java/codesize.xml/NcssMethodCount">
+        <properties>
+            <property name="minimum" value="8" /> <!-- = 6 lines plus signature --> 
+        </properties>
+    </rule>
+
+    <rule ref="rulesets/java/codesize.xml/ExcessiveParameterList">
+        <properties>
+            <property name="minimum" value="3" />  
+        </properties>
+    </rule>
+
+    <rule ref="rulesets/java/junit.xml/JUnitTestsShouldIncludeAssert" />
+    
+</ruleset>

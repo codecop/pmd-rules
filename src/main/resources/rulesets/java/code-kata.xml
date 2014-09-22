@@ -8,19 +8,11 @@
         Collection of rules for code katas, Coding Dojos and Code Retreats.
     </description>
 
-    <!-- No Class Over 50 Lines (rule 7 of Object Calisthenics) -->
-    <rule ref="rulesets/java/codesize.xml/NcssTypeCount">
-        <properties>
-            <property name="minimum" value="51" />  
-        </properties>
-    </rule>
+    <!-- No conditional statements (Missing Feature) -->
+    <rule ref="rulesets/java/constraints.xml/NoConditionals" />
 
-    <!-- Only four lines per method (Quality Constraint) -->
-    <rule ref="rulesets/java/codesize.xml/NcssMethodCount">
-        <properties>
-            <property name="minimum" value="6" /> <!-- = 4 lines plus signature --> 
-        </properties>
-    </rule>
+    <!-- No loops (Missing Feature) -->
+    <rule ref="rulesets/java/constraints.xml/NoLoops" />
 
     <!-- Cyclomatic Complexity of one -->
     <rule ref="rulesets/java/codesize.xml/CyclomaticComplexity">
@@ -29,35 +21,35 @@
             <property name="showClassesComplexity" value="false" /> 
         </properties>
     </rule>
-    
-    <!-- No More Than 2 instance variables (rule 8 of Object Calisthenics) -->
-    <rule ref="rulesets/java/codesize.xml/TooManyFields">
-        <properties>
-            <property name="maxfields" value="2" />  
-        </properties>
-    </rule>
 
-    <!-- No naked primitives (Missing Feature/rule 3 of Object Calisthenics) -->
+    <!-- No naked primitives (Missing Feature) -->
     <rule ref="rulesets/java/codecop.xml/PrimitiveObsession">
         <properties>
             <property name="allowObject" value="false" />  
         </properties>
     </rule>
-    
-    <!-- Only void methods -->
+
+    <!-- Only void methods (Missing Feature) -->
     <rule ref="rulesets/java/constraints.xml/OnlyVoidMethods" />
+
+    <!-- Only four lines per method (Quality Constraint) -->
+    <rule ref="rulesets/java/codesize.xml/NcssMethodCount">
+        <properties>
+            <property name="minimum" value="6" /> <!-- = 4 lines plus signature --> 
+        </properties>
+    </rule>
+
+    <!-- Only one Level of intention (Quality Constraint) -->
+    <!--  TODO <rule ref="rulesets/java/constraints.xml/OneLevelOfIntention" /> -->
 
     <!-- No void methods -->
     <rule ref="rulesets/java/constraints.xml/NoVoidMethods" />
-    
-    <!-- No loops (Missing Feature) -->
-    <rule ref="rulesets/java/constraints.xml/NoLoops" />
 
-    <!-- No else keyword (rule 2 of Object Calisthenics) -->
-    <rule ref="rulesets/java/constraints.xml/NoElseKeyword" />
+    <!-- Immutables only (Quality Constraint) -->    
+    <rule ref="rulesets/java/constraints.xml/ImmutablesOnly" />
+    <!-- TODO alle fields final, alle parameter final, alle local vars final -->
     
-    <!-- No conditional statements (Missing Feature) -->
-    <rule ref="rulesets/java/constraints.xml/NoConditionals" />
-    
-    
+    <!-- Law of Demeter -->
+    <rule ref="rulesets/java/coupling.xml/LawOfDemeter" />
+
 </ruleset>
