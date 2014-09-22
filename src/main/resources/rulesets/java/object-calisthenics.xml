@@ -22,7 +22,7 @@
     -->
 
     <!-- Only one Level of intention (rule 1 of Object Calisthenics) -->
-    <!--  TODO <rule ref="rulesets/java/constraints.xml/OneLevelOfIntention" /> -->
+    <rule ref="rulesets/java/constraints.xml/OneLevelOfIntention" />
 
     <!-- No else keyword (rule 2 of Object Calisthenics) -->
     <rule ref="rulesets/java/constraints.xml/NoElseKeyword" />

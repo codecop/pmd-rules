@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+One level alone, ok
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Foo {
+    public void mainIf() {
+        if (true) { } 
+    }
+    public void mainWhile() {
+        while(true) {  }
+    }
+    public void mainTry() {
+        try { 
+        } catch (Exception e) {
+        }
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+nested blocks, bad
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class Foo {
+    public void main() {
+        if (true) {  
+            while(true) {  }
+        } 
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+block not first statement, bad
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class Foo {
+    public void main() {
+        System.out.println("Outer");
+        try { 
+        } catch (Exception e) {
+        }
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+block not last statement, bad
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class Foo {
+    public void main() {
+        try { 
+        } catch (Exception e) {
+        }
+        System.out.println("Outer");
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+block mixed, bad
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class Foo {
+    public void main() {
+        if (true) { } 
+        System.out.println("Outer");
+        while(true) {  }
+    }
+}
+     ]]></code>
+    </test-code>
+</test-data>

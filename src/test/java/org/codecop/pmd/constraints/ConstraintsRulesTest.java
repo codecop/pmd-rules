@@ -20,6 +20,7 @@ public class ConstraintsRulesTest extends SimpleAggregatorTst {
         addRule(RULESET, "NoLoops");
         addRule(RULESET, "NoElseKeyword");
         addRule(RULESET, "NoConditionals");
+        addRule(RULESET, "OneLevelOfIntention");
     }
 
     public static junit.framework.Test suite() {

@@ -40,14 +40,15 @@
     </rule>
 
     <!-- Only one Level of intention (Quality Constraint) -->
-    <!--  TODO <rule ref="rulesets/java/constraints.xml/OneLevelOfIntention" /> -->
+    <rule ref="rulesets/java/constraints.xml/OneLevelOfIntention" />
 
     <!-- No void methods -->
     <rule ref="rulesets/java/constraints.xml/NoVoidMethods" />
 
-    <!-- Immutables only (Quality Constraint) -->    
+    <!-- Immutables only (Quality Constraint) -->
+    <!--     
     <rule ref="rulesets/java/constraints.xml/ImmutablesOnly" />
-    <!-- TODO alle fields final, alle parameter final, alle local vars final -->
+    TODO alle fields final, alle parameter final, alle local vars final -->
     
     <!-- Law of Demeter -->
     <rule ref="rulesets/java/coupling.xml/LawOfDemeter" />

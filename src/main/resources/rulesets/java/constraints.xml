@@ -16,16 +16,16 @@
          class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesConstraints#OnlyVoidMethods">
       <description>
-         As an exercise only void methods are allowed. This is Tell, Don't Ask. Only inherited Object methods can be non-void.
+         As an exercise only void methods are allowed. This enforces Tell, Don't Ask design. Only inherited Object methods can be non-void.
       </description>
       <priority>3</priority>
       <properties>
          <property name="xpath">
             <value>
 <![CDATA[
-//MethodDeclaration[@Void='false' and 
-      not(@Name='hashCode' or @Name='equals' or @Name='clone' or @Name='toString' or @Name='compare')
-]
+//MethodDeclaration[ @Void='false' and 
+        not(@Name='hashCode' or @Name='equals' or @Name='toString' or @Name='clone' or @Name='compare')
+    ]
 ]]>
             </value>
          </property>
@@ -55,11 +55,10 @@ public class Foo {
          <property name="xpath">
             <value>
 <![CDATA[
-//MethodDeclaration[
-    not(../Annotation/MarkerAnnotation/Name[@Image='Test' or @Image='Before' or @Image='After']) and
-    @Void='true' and 
-    not(MethodDeclarator[@Image='run'])
-]
+//MethodDeclaration[ @Void='true' and
+        not(../Annotation/MarkerAnnotation/Name[@Image='Test' or @Image='Before' or @Image='After']) and
+        not(MethodDeclarator[@Image='run'])
+    ]
 ]]>
             </value>
          </property>
@@ -132,6 +131,15 @@ public class OkClass {
       </properties>
       <example>
 <![CDATA[
+public class Foo {
+    public void main() { 
+        // ok, no else        
+        if (true) { }
+
+        // bad, hase else
+        if (false) { } else { }        
+    }
+}
 ]]>
       </example>
    </rule>
@@ -157,6 +165,66 @@ public class OkClass {
       </properties>
       <example>
 <![CDATA[
+public class Foo {
+    public void main() {
+        if (true) {  } 
+        int i = true ? 1 : 2;
+        switch(i) { case 0: break; }
+        while(true) {  }
+    }
+}
+]]>
+      </example>
+   </rule>
+   
+   
+   <rule name="OneLevelOfIntention"
+         language="java"
+         message="Only one Level of intention per method."
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesConstraints#NoConditionals">
+      <description>
+         As an exercise use only one level of intention per method. You cannot use if, loops or trys more than 
+         once in a method. If used they need to be the first/outer statement of the method.
+         This enforces SRP split on method level. This is rule 1 of Object Calisthenics.
+      </description>
+      <priority>3</priority>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//MethodDeclaration[
+        count( descendant::IfStatement | descendant::SwitchStatement | descendant::TryStatement |
+               descendant::ForStatement | descendant::WhileStatement | descendant::DoStatement ) > 1
+        or Block/BlockStatement[ 
+            count( Statement[IfStatement | SwitchStatement | TryStatement | ForStatement | WhileStatement | DoStatement] ) > 0 and
+            count( parent::Block/BlockStatement ) > 1
+                ]
+    ]
+]]>
+            </value>
+            <!--
+            find methods which 
+                have more than one If/Switch/.../Do Statement inside 
+                or
+                has blocks with If/Switch/.../Do Statement which are in a group of more than one other block
+            -->
+         </property>
+      </properties>
+      <example>
+<![CDATA[
+public class Foo {
+    public void okBecauseOneBlock() {
+        if (true) {
+            // ok, only one block  
+        } 
+    }
+    public void failBecauseNested() {
+        if (true) {
+            while(true) {  }
+        } 
+    }
+}
 ]]>
       </example>
    </rule>
