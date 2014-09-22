@@ -2,6 +2,7 @@ package codekata;
 
 import java.util.Date;
 
+@SuppressWarnings("unused")
 public class TooManyParameters {
 
     void okParameters(Date a, Date b) {
