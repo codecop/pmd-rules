@@ -29,20 +29,28 @@
     17. Test – too many paths
     -->
 
+    <!-- 7 -->
+    <rule ref="rulesets/java/codecop.xml/OneLevelOfIntention" />
+
+    <!-- 8 -->
     <rule ref="rulesets/java/codecop.xml/PrimitiveObsession" />
 
+    <!-- 10 -->
     <rule ref="rulesets/java/codesize.xml/NcssMethodCount">
         <properties>
             <property name="minimum" value="8" /> <!-- = 6 lines plus signature --> 
         </properties>
     </rule>
 
+    <!-- 11 -->
     <rule ref="rulesets/java/codesize.xml/ExcessiveParameterList">
         <properties>
             <property name="minimum" value="3" />  
         </properties>
     </rule>
 
+    <!-- 16 -->
     <rule ref="rulesets/java/junit.xml/JUnitTestsShouldIncludeAssert" />
+    <rule ref="rulesets/java/codecop.xml/JUnitTestsShouldIncludeAssertOrVerify" />
     
 </ruleset>
