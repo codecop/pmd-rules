@@ -34,6 +34,7 @@ public class CodeCopRulesTest extends SimpleAggregatorTst {
       addRule(RULESET, "PrivateInjections");
       addRule(RULESET, "JUnitTestsShouldIncludeAssertOrVerify");
       addRule(RULESET, "PrimitiveObsession");
+      addRule(RULESET, "MutableException");
    }
 
    public static junit.framework.Test suite() {

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+all is well
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class ChannelPolicyError {
+   private final String channel;  // ok
+   private final boolean showIfSearchedInRegion; // ok
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+mutable Error is flagged
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class ChannelPolicyError {
+   private final String channel;  
+   private boolean showIfSearchedInRegion; 
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+mutable Exception is flagged
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class ChannelPolicyException {
+   private String channel;  
+   public final boolean showIfSearchedInRegion; 
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+some other class is not concerned
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class ChannelPolicyOther {
+   private String channel;  
+   private boolean showIfSearchedInRegion; 
+}
+     ]]></code>
+    </test-code>
+</test-data>
+
+
