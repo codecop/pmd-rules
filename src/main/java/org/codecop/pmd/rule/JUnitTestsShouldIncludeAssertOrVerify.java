@@ -13,6 +13,7 @@ import net.sourceforge.pmd.rules.junit.AbstractJUnitRule;
  * JUnit tests should include at least one assertion (assert, fail or verify). 
  * This makes the tests more robust, and using assert with messages provide 
  * the developer a clearer idea of what the test does.
+ * @see net.sourceforge.pmd.rules.junit.JUnitTestsShouldContainAsserts
  */
 public class JUnitTestsShouldIncludeAssertOrVerify extends AbstractJUnitRule {
 

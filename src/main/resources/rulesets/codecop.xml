@@ -647,5 +647,30 @@ private String goodParameter; // is better
 ]]>
       </example>
    </rule>   
-   
+
+
+   <!-- junit.xml --> <!-- by Florian and Roland of LOT team -->
+   <rule name="JUnitTestsShouldIncludeAssertOrVerify"
+         message="JUnit tests should include at least one assertion (assert(), fail() or verify())."
+         class="org.codecop.pmd.rule.JUnitTestsShouldIncludeAssertOrVerify"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#JUnitTestsShouldIncludeAssertOrVerify">
+        <description>
+            JUnit tests should include at least one assertion.  This makes the tests more robust, and
+            using assert with messages provide the developer a clearer idea of what the test does.
+        </description>
+        <priority>3</priority>
+        <example>
+<![CDATA[
+public class Foo extends TestCase {
+  public void testSomething() {
+      Bar b = findBar();
+  // This is better than having a NullPointerException
+  // assertNotNull("bar not found", b);
+  b.work();
+  }
+}
+]]>
+        </example>
+      </rule>
+
 </ruleset>
