@@ -9,6 +9,7 @@ import net.sourceforge.pmd.lang.rule.properties.IntegerProperty;
  * @author PMD 3.1 - Copied from PMD 3.1 Source Edition.
  * @author PMD 3.7 - updated
  * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
+ * @see net.sourceforge.pmd.lang.java.rule.naming.ClassNamingConventionsRule
  */
 public class ClassNamingConventions extends AbstractJavaRule {
 

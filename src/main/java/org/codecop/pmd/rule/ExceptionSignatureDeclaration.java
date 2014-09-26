@@ -17,6 +17,7 @@ import net.sourceforge.pmd.lang.rule.properties.BooleanProperty;
  * @author PMD 3.1 - Copied from PMD 3.1 Source Edition.
  * @author PMD 3.7 - updated
  * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
+ * @see net.sourceforge.pmd.lang.java.rule.strictexception.SignatureDeclareThrowsExceptionRule
  */
 public class ExceptionSignatureDeclaration extends AbstractJavaRule {
 
