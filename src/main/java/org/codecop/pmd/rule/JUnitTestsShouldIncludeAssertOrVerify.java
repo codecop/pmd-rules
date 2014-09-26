@@ -1,9 +1,13 @@
 package org.codecop.pmd.rule;
 
+import java.util.List;
+
 import net.sourceforge.pmd.lang.ast.Node;
 import net.sourceforge.pmd.lang.java.ast.ASTClassOrInterfaceDeclaration;
+import net.sourceforge.pmd.lang.java.ast.ASTMemberValuePair;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclaration;
 import net.sourceforge.pmd.lang.java.ast.ASTName;
+import net.sourceforge.pmd.lang.java.ast.ASTNormalAnnotation;
 import net.sourceforge.pmd.lang.java.ast.ASTPrimaryExpression;
 import net.sourceforge.pmd.lang.java.ast.ASTPrimaryPrefix;
 import net.sourceforge.pmd.lang.java.ast.ASTStatementExpression;
@@ -15,6 +19,7 @@ import net.sourceforge.pmd.lang.java.rule.junit.AbstractJUnitRule;
  * the developer a clearer idea of what the test does.
  * @author PMD 4.1 - Copied from PMD 4.1 Source Edition.
  * @author PMD 4.3 - updated
+ * @author PMD 5.1 - updated
  * @see net.sourceforge.pmd.lang.java.rule.junit.JUnitTestsShouldIncludeAssertRule
  */
 public class JUnitTestsShouldIncludeAssertOrVerify extends AbstractJUnitRule {
@@ -30,7 +35,8 @@ public class JUnitTestsShouldIncludeAssertOrVerify extends AbstractJUnitRule {
     @Override
     public Object visit(ASTMethodDeclaration method, Object data) {
         if (isJUnitMethod(method, data)) {
-            if (!containsAssert(method.getBlock(), false)) {
+            if (!containsAssert(method.getBlock(), false)
+                    && !containsExpect(method.jjtGetParent())) {
                 addViolation(data, method);
             }
         }
@@ -56,6 +62,26 @@ public class JUnitTestsShouldIncludeAssertOrVerify extends AbstractJUnitRule {
         return false;
     }
 
+    /**
+     * Tells if the node contains a Test annotation with an expected exception.
+     */
+    private boolean containsExpect(Node methodParent) {
+        List<ASTNormalAnnotation> annotations = methodParent.findDescendantsOfType(ASTNormalAnnotation.class);
+        for (ASTNormalAnnotation annotation : annotations) {
+            ASTName name = annotation.getFirstChildOfType(ASTName.class);
+            if (name != null && ("Test".equals(name.getImage())
+                    || (name.getType() != null && name.getType().equals(JUNIT4_CLASS)))) {
+                List<ASTMemberValuePair> memberValues = annotation.findDescendantsOfType(ASTMemberValuePair.class);
+                for (ASTMemberValuePair pair : memberValues) {
+                    if ("expected".equals(pair.getImage())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
     /**
      * Tells if the expression is an assert/verify statement or not.
      */
