@@ -691,7 +691,7 @@ public class Foo extends TestCase {
    </rule>
 
 
-   <!-- design -->
+   <!-- design.xml -->
    <rule name="PrimitiveObsession"
          language="java"
          since="5.0"
