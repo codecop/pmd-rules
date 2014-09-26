@@ -805,4 +805,49 @@ public class Foo {
       </example>
    </rule>
    
+   
+   <!-- design.xml -->
+   <rule name="FirstClassCollections"
+         language="java"
+         message="Any class that contains a collection (or array) should contain no other member variables."
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#FirstClassCollections">
+      <description>
+         Each collection gets wrapped in its own class, so now behaviors related to the collection have a home.
+         Constants do not count.
+         This is rule 4 of Object Calisthenics.
+      </description>
+      <priority>3</priority>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//FieldDeclaration[ 
+        ( @Array='true' or
+          Type[@TypeImage='List' or @TypeImage='Set' or @TypeImage='SortedSet' or @TypeImage='NavigableSet' or
+               @TypeImage='Map' or @TypeImage='SortedMap' or @TypeImage='NavigableMap' or 
+               @TypeImage='Collection' or @TypeImage='Deque' or @TypeImage='Queue' ] 
+        ) and
+        count( //FieldDeclaration[@Static='false' or @Final='false'] ) > 1
+    ] 
+]]>
+            </value>
+            <!--
+            find collection fields which more than 1 sinblings 
+            -->
+         </property>
+      </properties>
+      <example>
+<![CDATA[
+public class FooMap {
+    private Map map; // ok
+}
+public class Mixup {
+    private Map map;
+    private int i; // yuk
+}
+]]>
+      </example>
+   </rule>
+   
 </ruleset>

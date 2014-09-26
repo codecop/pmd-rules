@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+only single collection in class
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class FooMap {
+    private Map map;
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+single collection with constant
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class FooMap {
+    private static final int X = 3;
+    private Map map;
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+collection with other field
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class FooMap {
+    private int x;
+    private Map map;
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+array with other field
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class FooMap {
+    private int x;
+    private int[] xs;
+}
+     ]]></code>
+    </test-code>
+</test-data>
+
+

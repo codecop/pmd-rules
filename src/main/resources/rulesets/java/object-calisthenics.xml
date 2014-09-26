@@ -30,6 +30,9 @@
     <!-- Wrap all primitives and Strings (rule 3 of Object Calisthenics) -->
     <rule ref="rulesets/java/codecop.xml/PrimitiveObsession" />
 
+    <!-- First class collections (rule 4 of Object Calisthenics) -->
+    <rule ref="rulesets/java/codecop.xml/FirstClassCollections" />
+
     <!-- One dot per line (rule 5 of Object Calisthenics), not quite but similar -->
     <rule ref="rulesets/java/coupling.xml/LawOfDemeter" />
 

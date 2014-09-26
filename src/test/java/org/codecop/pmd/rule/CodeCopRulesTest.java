@@ -36,6 +36,7 @@ public class CodeCopRulesTest extends SimpleAggregatorTst {
       addRule(RULESET, "PrimitiveObsession");
       addRule(RULESET, "MutableException");
       addRule(RULESET, "OneLevelOfIntention");
+      addRule(RULESET, "FirstClassCollections");
    }
 
    public static junit.framework.Test suite() {
