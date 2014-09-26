@@ -234,7 +234,7 @@ public class Foo {
          language="java"
          message="Don't use getters or setters."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#AvoidPrivateGetterAndSetter">
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesConstraints#NoGetterAndSetter">
       <description>
          Do not use getter or setter to enforces encapsulation. This is rule 9 of Object Calisthenics.
       </description>
@@ -248,14 +248,12 @@ public class Foo {
   count(Block/BlockStatement)=1 and
   (
      (
-        MethodDeclarator[starts-with(@Image,'set')] and
         MethodDeclarator/FormalParameters[count(FormalParameter)=1] and 
         ResultType[count(Type)=0] and 
         Block/BlockStatement/Statement/StatementExpression/Expression/PrimaryExpression[
            count(PrimarySuffix/Arguments)=0
         ] and //AssignmentOperator[@Image='=']
      ) or (
-        MethodDeclarator[starts-with(@Image,'get') or starts-with(@Image,'is')] and 
         MethodDeclarator/FormalParameters[count(FormalParameter)=0] and 
         ResultType/Type[count(ReferenceType)=1] and 
         Block/BlockStatement/Statement/ReturnStatement/Expression/PrimaryExpression[count(PrimarySuffix)=0] and 
