@@ -40,7 +40,7 @@
     </rule>
 
     <!-- Only one Level of intention (Quality Constraint) -->
-    <rule ref="rulesets/java/constraints.xml/OneLevelOfIntention" />
+    <rule ref="rulesets/java/codecop.xml/OneLevelOfIntention" />
 
     <!-- No void methods -->
     <rule ref="rulesets/java/constraints.xml/NoVoidMethods" />

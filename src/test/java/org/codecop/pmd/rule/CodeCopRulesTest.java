@@ -35,6 +35,7 @@ public class CodeCopRulesTest extends SimpleAggregatorTst {
       addRule(RULESET, "JUnitTestsShouldIncludeAssertOrVerify");
       addRule(RULESET, "PrimitiveObsession");
       addRule(RULESET, "MutableException");
+      addRule(RULESET, "OneLevelOfIntention");
    }
 
    public static junit.framework.Test suite() {

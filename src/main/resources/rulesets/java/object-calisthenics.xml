@@ -22,17 +22,18 @@
     -->
 
     <!-- Only one Level of intention (rule 1 of Object Calisthenics) -->
-    <rule ref="rulesets/java/constraints.xml/OneLevelOfIntention" />
+    <rule ref="rulesets/java/codecop.xml/OneLevelOfIntention" />
 
     <!-- No else keyword (rule 2 of Object Calisthenics) -->
     <rule ref="rulesets/java/constraints.xml/NoElseKeyword" />
 
-    <!-- No naked primitives (rule 3 of Object Calisthenics) -->
-    <rule ref="rulesets/java/codecop.xml/PrimitiveObsession">
-        <properties>
-            <property name="allowObject" value="false" />  
-        </properties>
-    </rule>
+    <!-- Wrap all primitives and Strings (rule 3 of Object Calisthenics) -->
+    <rule ref="rulesets/java/codecop.xml/PrimitiveObsession" />
+
+    <!-- One dot per line (rule 5 of Object Calisthenics), not quite but similar -->
+    <rule ref="rulesets/java/coupling.xml/LawOfDemeter" />
+
+    <!-- can't check rule 6 -->
 
     <!-- No Class Over 50 Lines (rule 7 of Object Calisthenics) -->
     <rule ref="rulesets/java/codesize.xml/NcssTypeCount">
