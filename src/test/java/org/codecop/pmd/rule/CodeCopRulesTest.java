@@ -32,6 +32,7 @@ public class CodeCopRulesTest extends SimpleAggregatorTst {
       addRule(RULESET, "ShortVariableCustom");
       addRule(RULESET, "DontImportWild");
       addRule(RULESET, "PrivateInjections");
+      addRule(RULESET, "JUnitTestsShouldIncludeAssertOrVerify");
       addRule(RULESET, "PrimitiveObsession");
    }
 
