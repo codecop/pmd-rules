@@ -1,18 +1,19 @@
 package org.codecop.pmd.rule;
 
-import net.sourceforge.pmd.ast.ASTClassOrInterfaceDeclaration;
-import net.sourceforge.pmd.ast.ASTMethodDeclaration;
-import net.sourceforge.pmd.ast.ASTName;
-import net.sourceforge.pmd.ast.ASTPrimaryExpression;
-import net.sourceforge.pmd.ast.ASTPrimaryPrefix;
-import net.sourceforge.pmd.ast.ASTStatementExpression;
-import net.sourceforge.pmd.ast.Node;
-import net.sourceforge.pmd.rules.junit.AbstractJUnitRule;
+import net.sourceforge.pmd.lang.ast.Node;
+import net.sourceforge.pmd.lang.java.ast.ASTClassOrInterfaceDeclaration;
+import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclaration;
+import net.sourceforge.pmd.lang.java.ast.ASTName;
+import net.sourceforge.pmd.lang.java.ast.ASTPrimaryExpression;
+import net.sourceforge.pmd.lang.java.ast.ASTPrimaryPrefix;
+import net.sourceforge.pmd.lang.java.ast.ASTStatementExpression;
+import net.sourceforge.pmd.lang.java.rule.junit.AbstractJUnitRule;
 
 /**
  * JUnit tests should include at least one assertion (assert, fail or verify). 
  * This makes the tests more robust, and using assert with messages provide 
  * the developer a clearer idea of what the test does.
+ * @see net.sourceforge.pmd.lang.java.rule.junit.JUnitTestsShouldIncludeAssertRule
  */
 public class JUnitTestsShouldIncludeAssertOrVerify extends AbstractJUnitRule {
 
