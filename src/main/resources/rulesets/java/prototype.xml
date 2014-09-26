@@ -311,7 +311,8 @@ public class AdWorxChannelPolicy {
    private final String channel; // ok
    private boolean showIfSearchedInRegion; // not ok
 }
-public class AdWorxChannelPolicyKey {
+// other class
+public class AdWorxChannelPolicyKey { 
    private final String channel;  // ok
    private boolean showIfSearchedInRegion; // ok
 }
