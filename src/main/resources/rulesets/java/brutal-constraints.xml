@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ruleset name="BrutalConstraints"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+    <description>
+        Collection of rules for the Brutal Constraints (Coding Dojo).
+    </description>
+
+    <!-- 
+    Brutal Constraints
+    * TTDaiymi
+    * No Conditionals
+    * No Loops
+    * immutable
+    * no void
+    * No naked primitives
+    -->
+
+    <rule ref="rulesets/java/constraints.xml/NoConditionals" />
+    <rule ref="rulesets/java/constraints.xml/NoLoops" />
+    <!--
+    <rule ref="rulesets/java/constraints.xml/ImmutablesOnly" />
+    -->
+    <rule ref="rulesets/java/constraints.xml/NoVoidMethods" />
+    <rule ref="rulesets/java/codecop.xml/PrimitiveObsession">
+        <properties>
+            <property name="allowObject" value="false" />  
+        </properties>
+    </rule>
+    
+</ruleset>
