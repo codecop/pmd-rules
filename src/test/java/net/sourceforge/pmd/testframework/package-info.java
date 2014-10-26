@@ -3,7 +3,7 @@
  */
 
 /**
- * Copy of the pmd.testframework pmd-4.2.5.
+ * Copy of the pmd.testframework pmd-5.0.1.
  * @author Tom Copeland, Xavier Le Vourch, Allan Caplan
  */
 package net.sourceforge.pmd.testframework;
