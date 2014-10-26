@@ -25,6 +25,8 @@ end
 
 # Format the _rule_ DOM.
 def format_rule(rule)
+  return unless rule.attributes['name']
+    
   puts ''
   puts '----'
   puts ''
