@@ -198,7 +198,8 @@ class BadTestCase extends TestCase {
          <property name="xpath">
             <value>
 <![CDATA[
-//ClassOrInterfaceDeclaration[@Interface='true' and not (ends-with(@Image, $suffix))]
+//ClassOrInterfaceDeclaration[@Interface='true' and 
+                              not (ends-with(@Image, $suffix))]
 ]]>
             </value>
          </property>
@@ -573,7 +574,7 @@ public class Foo {
          since="0.3" 
          message="Avoid variables with short names like {0}" 
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="http://pmd.sourceforge.net/rules/naming.html#ShortVariable">
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#ShortVariableCustom">
        <description>
           Detects when a field, local, or parameter has a very short name.
        </description>
@@ -611,7 +612,7 @@ public class Something {
          language="java"
          message="Please no wild card imports" 
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="http://www.techtraits.ca/custom-pmd-rules-using-xpath/">
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#DontImportWild">
       <description>
          Do not use wildcard imports such as java.net.*.
       </description>
@@ -639,7 +640,7 @@ import java.net.URL; // is better
          language="java"
          message="Please make injected fields private" 
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="http://www.techtraits.com/custum-pmd-rule-for-private-injected-fields/">
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#PrivateInjections">
       <description>
          Set all injected fields to private. 
       </description>
@@ -732,7 +733,8 @@ class BadObject {
          <property name="xpath">
             <value>
 <![CDATA[
-//FieldDeclaration[@Final='false' and ../../..[ends-with(@Image,'Exception') or ends-with(@Image,'Error')]]
+//FieldDeclaration[@Final='false' and 
+                   ../../..[ends-with(@Image,'Exception') or ends-with(@Image,'Error')]]
 ]]>
             </value>
          </property>
