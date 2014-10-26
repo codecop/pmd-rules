@@ -9,6 +9,10 @@ import static org.junit.Assert.fail;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -27,8 +31,10 @@ import net.sourceforge.pmd.RuleSet;
 import net.sourceforge.pmd.RuleSetFactory;
 import net.sourceforge.pmd.RuleSetNotFoundException;
 import net.sourceforge.pmd.RuleSets;
-import net.sourceforge.pmd.lang.Language;
+import net.sourceforge.pmd.RuleViolation;
+//PK import net.sourceforge.pmd.lang.LanguageRegistry;
 import net.sourceforge.pmd.lang.LanguageVersion;
+import net.sourceforge.pmd.renderers.TextRenderer;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -39,9 +45,6 @@ import org.xml.sax.SAXException;
  * Advanced methods for test cases
  */
 public abstract class RuleTst {
-    public static final LanguageVersion DEFAULT_LANGUAGE_VERSION = LanguageVersion.JAVA_15;
-    public static final Language DEFAULT_LANGUAGE = DEFAULT_LANGUAGE_VERSION.getLanguage();
-
     /**
      * Find a rule in a certain ruleset by name
      */
@@ -75,36 +78,116 @@ public abstract class RuleTst {
         Map<PropertyDescriptor<?>, Object> oldProperties = rule.getPropertiesByPropertyDescriptor();
         try {
             int res;
+            Report report;
             try {
-         // Set test specific properties onto the Rule
+            // Set test specific properties onto the Rule
                 if (test.getProperties() != null) {
                     for (Map.Entry<Object, Object> entry : test.getProperties().entrySet()) {
-                  String propertyName = (String)entry.getKey();
-                  String strValue = (String)entry.getValue();
-                  PropertyDescriptor propertyDescriptor = rule.getPropertyDescriptor(propertyName);
-                  if (propertyDescriptor == null) {
+                    String propertyName = (String)entry.getKey();
+                    String strValue = (String)entry.getValue();
+                    PropertyDescriptor propertyDescriptor = rule.getPropertyDescriptor(propertyName);
+                    if (propertyDescriptor == null) {
                             throw new IllegalArgumentException("No such property '" + propertyName + "' on Rule " + rule.getName());
-                  }
-                  Object value = propertyDescriptor.valueFrom(strValue);
-                  rule.setProperty(propertyDescriptor, value);
+                    }
+                    Object value = propertyDescriptor.valueFrom(strValue);
+                    rule.setProperty(propertyDescriptor, value);
                     }
                 }
 
-                res = processUsingStringReader(test.getCode(), rule, test.getLanguageVersion()).size();
+                report = processUsingStringReader(test.getCode(), rule, test.getLanguageVersion());
+                res = report.size();
             } catch (Throwable t) {
                 t.printStackTrace();
                 throw new RuntimeException('"' + test.getDescription() + "\" failed", t);
             }
+            if (test.getNumberOfProblemsExpected() != res) {
+                printReport(test, report);
+            }
             assertEquals('"' + test.getDescription() + "\" resulted in wrong number of failures,",
                     test.getNumberOfProblemsExpected(), res);
+            assertMessages(report, test);
+            assertLineNumbers(report, test);
         } finally {
             //Restore old properties
             // TODO Tried to use generics here, but there's a compiler bug doing so in a finally block.
             // Neither 1.5.0_16-b02 or 1.6.0_07-b06 works, but 1.7.0-ea-b34 seems to work.   
             for (Map.Entry entry: oldProperties.entrySet()) {
-         rule.setProperty((PropertyDescriptor)entry.getKey(), entry.getValue());
+            rule.setProperty((PropertyDescriptor)entry.getKey(), entry.getValue());
             }
         }
+    }
+
+    private void assertMessages(Report report, TestDescriptor test) {
+        if (report == null || test.getExpectedMessages().isEmpty()) {
+            return;
+        }
+
+        List<String> expectedMessages = test.getExpectedMessages();
+        if (report.size() != expectedMessages.size()) {
+            throw new RuntimeException("Test setup error: number of expected messages doesn't match "
+                    + "number of violations for test case '" + test.getDescription() + "'");
+        }
+
+        Iterator<RuleViolation> it = report.iterator();
+        int index = 0;
+        while (it.hasNext()) {
+            RuleViolation violation = it.next();
+            String actual = violation.getDescription();
+            if (!expectedMessages.get(index).equals(actual)) {
+                printReport(test, report);
+            }
+            assertEquals(
+                    '"' + test.getDescription() + "\" produced wrong message on violation number " + (index + 1) + ".",
+                    expectedMessages.get(index), actual);
+            index++;
+        }
+    }
+
+    private void assertLineNumbers(Report report, TestDescriptor test) {
+        if (report == null || test.getExpectedLineNumbers().isEmpty()) {
+            return;
+        }
+
+        List<Integer> expected = test.getExpectedLineNumbers();
+        if (report.getViolationTree().size() != expected.size()) {
+            throw new RuntimeException("Test setup error: number of execpted line numbers doesn't match "
+                    + "number of violations for test case '" + test.getDescription() + "'");
+        }
+
+        Iterator<RuleViolation> it = report.getViolationTree().iterator();
+        int index = 0;
+        while (it.hasNext()) {
+            RuleViolation violation = it.next();
+            Integer actual = violation.getBeginLine();
+            if (expected.get(index) != actual.intValue()) {
+                printReport(test, report);
+            }
+            assertEquals(
+                    '"' + test.getDescription() + "\" violation on wrong line number: violation number " + (index + 1) + ".",
+                    expected.get(index), actual);
+            index++;
+        }
+    }
+
+    private void printReport(TestDescriptor test, Report report) {
+        System.out.println("--------------------------------------------------------------");
+        System.out.println("Test Failure: " + test.getDescription());
+        System.out.println(" -> Expected " + test.getNumberOfProblemsExpected() + " problem(s), "
+                + report.size() + " problem(s) found.");
+        System.out.println(" -> Expected messages: " + test.getExpectedMessages());
+        System.out.println(" -> Expected line numbers: " + test.getExpectedLineNumbers());
+        System.out.println();
+        TextRenderer renderer = new TextRenderer();
+        renderer.setWriter(new StringWriter());
+        try {
+            renderer.start();
+            renderer.renderFileReport(report);
+            renderer.end();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(renderer.getWriter().toString());
+        System.out.println("--------------------------------------------------------------");
     }
 
     private Report processUsingStringReader(String code, Rule rule,
@@ -124,6 +207,7 @@ public abstract class RuleTst {
         ctx.setReport(report);
         ctx.setSourceCodeFilename("n/a");
         ctx.setLanguageVersion(languageVersion);
+        //PK ctx.setIgnoreExceptions(false);
         RuleSet rules = new RuleSet();
         rules.addRule(rule);
         p.getSourceCodeProcessor().processSourceCode(new StringReader(code), new RuleSets(rules), ctx);
@@ -226,6 +310,27 @@ public abstract class RuleTst {
                 properties.setProperty(propertyName, parseTextNode(ruleProperty));
             }
             int expectedProblems = Integer.parseInt(getNodeValue(testCode, "expected-problems", true));
+
+            NodeList expectedMessagesNodes = testCode.getElementsByTagName("expected-messages");
+            List<String> messages = new ArrayList<String>();
+            if (expectedMessagesNodes != null && expectedMessagesNodes.getLength() > 0) {
+                Element item = (Element)expectedMessagesNodes.item(0);
+                NodeList messagesNodes = item.getElementsByTagName("message");
+                for (int j = 0; j < messagesNodes.getLength(); j++) {
+                    messages.add(parseTextNode(messagesNodes.item(j)));
+                }
+            }
+
+            NodeList expectedLineNumbersNodes = testCode.getElementsByTagName("expected-linenumbers");
+            List<Integer> expectedLineNumbers = new ArrayList<Integer>();
+            if (expectedLineNumbersNodes != null && expectedLineNumbersNodes.getLength() > 0) {
+                Element item = (Element)expectedLineNumbersNodes.item(0);
+                String numbers = item.getTextContent();
+                for (String n : numbers.split(" *, *")) {
+                    expectedLineNumbers.add(Integer.valueOf(n));
+                }
+            }
+
             String description = getNodeValue(testCode, "description", true);
             String code = getNodeValue(testCode, "code", false);
             if (code == null) {
@@ -253,16 +358,19 @@ public abstract class RuleTst {
             if (languageVersionString == null) {
                 tests[i] = new TestDescriptor(code, description, expectedProblems, rule);
             } else {
-                LanguageVersion languageVersion = LanguageVersion.findByTerseName(languageVersionString);
-                if (languageVersion != null) {
-                    tests[i] = new TestDescriptor(code, description, expectedProblems, rule, languageVersion);
-                } else {
-                    throw new RuntimeException("Unknown LanguageVersion for test: " + languageVersionString);
-                }
+                //PK LanguageVersion languageVersion = LanguageRegistry.findLanguageVersionByTerseName(languageVersionString);
+                //PK if (languageVersion != null) {
+                //PK     tests[i] = new TestDescriptor(code, description, expectedProblems, rule, languageVersion);
+                //PK } else {
+                     throw new RuntimeException("Unknown LanguageVersion for test: " + languageVersionString);
+                //PK }
             }
             tests[i].setReinitializeRule(reinitializeRule);
             tests[i].setRegressionTest(isRegressionTest);
+            tests[i].setExpectedMessages(messages);
+            tests[i].setExpectedLineNumbers(expectedLineNumbers);
             tests[i].setProperties(properties);
+            tests[i].setNumberInDocument(i);
         }
         return tests;
     }
@@ -290,13 +398,5 @@ public abstract class RuleTst {
             }
         }
         return buffer.toString().trim();
-    }
-
-    /**
-     * Run the test using the DEFAULT_LANGUAGE_VERSION and put the violations in the report.
-     * Convenience method.
-     */
-    public void runTestFromString(String code, Rule rule, Report report) throws PMDException {
-        runTestFromString(code, rule, report, DEFAULT_LANGUAGE_VERSION);
     }
 }

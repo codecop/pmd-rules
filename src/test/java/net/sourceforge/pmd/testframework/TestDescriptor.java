@@ -3,6 +3,8 @@
  */
 package net.sourceforge.pmd.testframework;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import net.sourceforge.pmd.Rule;
@@ -19,18 +21,21 @@ public class TestDescriptor {
     private Properties properties;
     private String description;
     private int numberOfProblemsExpected;
+    private List<String> expectedMessages = new ArrayList<String>();
+    private List<Integer> expectedLineNumbers = new ArrayList<Integer>();
     private String code;
     private LanguageVersion languageVersion;
     private boolean reinitializeRule = true;   //default, avoids unintentional mixing of state between test cases
     private boolean isRegressionTest = true;
+    private int numberInDocument = -1;
 
     // Empty descriptor added to please mvn surefire plugin
     public TestDescriptor() {
-      
+        
     }
     
     public TestDescriptor(String code, String description, int numberOfProblemsExpected, Rule rule) {
-        this(code, description, numberOfProblemsExpected, rule, RuleTst.DEFAULT_LANGUAGE_VERSION);
+        this(code, description, numberOfProblemsExpected, rule, rule.getLanguage().getDefaultVersion());
     }
     
     public TestDescriptor(String code, String description, int numberOfProblemsExpected, Rule rule, LanguageVersion languageVersion) {
@@ -39,6 +44,32 @@ public class TestDescriptor {
         this.description = description;
         this.numberOfProblemsExpected = numberOfProblemsExpected;
         this.languageVersion = languageVersion;
+    }
+
+    public int getNumberInDocument() {
+        return numberInDocument;
+    }
+
+    public void setNumberInDocument(int numberInDocument) {
+        this.numberInDocument = numberInDocument;
+    }
+
+    public void setExpectedMessages(List<String> messages) {
+        expectedMessages.clear();
+        expectedMessages.addAll(messages);
+    }
+
+    public List<String> getExpectedMessages() {
+        return expectedMessages;
+    }
+
+    public void setExpectedLineNumbers(List<Integer> expectedLineNumbers) {
+        this.expectedLineNumbers.clear();
+        this.expectedLineNumbers.addAll(expectedLineNumbers);
+    }
+
+    public List<Integer> getExpectedLineNumbers() {
+        return expectedLineNumbers;
     }
 
     public void setProperties(Properties properties) {
@@ -84,17 +115,17 @@ public class TestDescriptor {
      * @return <code>false</code> if system property "pmd.regress" is set to <code>false</code>, <code>true</code> otherwise
      */
     public static boolean inRegressionTestMode() {
-   boolean inRegressionMode = true; // default
-   try {
-       //get the "pmd.regress" System property
-       String property = System.getProperty("pmd.regress");
-       if (property != null) {
-      inRegressionMode = Boolean.parseBoolean(property);
-       }
-   } catch (IllegalArgumentException e) {
-   } catch (NullPointerException e) {
-   }
-   
+    boolean inRegressionMode = true; // default
+    try {
+        //get the "pmd.regress" System property
+        String property = System.getProperty("pmd.regress");
+        if (property != null) {
+        inRegressionMode = Boolean.parseBoolean(property);
+        }
+    } catch (IllegalArgumentException e) {
+    } catch (NullPointerException e) {
+    }
+    
         return inRegressionMode;
     }
 

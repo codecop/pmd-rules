@@ -60,28 +60,31 @@
 
     <build>
         <finalName>codecop-${project.artifactId}-${project.version}</finalName>
-        <plugins>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <!-- Come on surefire! be smart, the following class is not a test to run! -->
-                        <exclude>net/sourceforge/pmd/testframework/TestDescriptor.java</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
 
     <profiles>
-        <!-- These basic rules will work since PMD 3.9 but type resolution needs 4.1 -->
+        <!-- These basic rules will work since PMD 5.0 -->
         <profile>
-            <id>test-framework-compatibility</id>
+            <id>base-compatibility</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
                 <pmd.version>5.0.1</pmd.version>
+                <pmd.dependency>pmd</pmd.dependency>
+            </properties>
+        </profile>
+        <profile>
+            <id>pmd-51-compatibility</id>
+            <activation>
+                <property>
+                    <name>pmd</name>
+                    <value>5.1</value>
+                </property>
+            </activation>
+            <properties>
+                <pmd.version>5.1.3</pmd.version>
+                <pmd.dependency>pmd</pmd.dependency>
             </properties>
         </profile>
         <profile>
@@ -93,7 +96,8 @@
                 </property>
             </activation>
             <properties>
-                <pmd.version>5.1.3</pmd.version>
+                <pmd.version>5.2.0</pmd.version>
+                <pmd.dependency>pmd-java</pmd.dependency>
             </properties>
         </profile>
     </profiles>
@@ -101,13 +105,14 @@
     <dependencies>
         <dependency>
             <groupId>net.sourceforge.pmd</groupId>
-            <artifactId>pmd</artifactId>
+            <artifactId>${pmd.dependency}</artifactId>
             <version>${pmd.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <version>4.11</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
