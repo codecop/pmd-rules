@@ -48,7 +48,7 @@
     <!-- Immutables only (Quality Constraint) -->
     <!--     
     <rule ref="rulesets/java/constraints.xml/ImmutablesOnly" />
-    TODO alle fields final, alle parameter final, alle local vars final -->
+    TODO all fields final but it is not enough -->
     
     <!-- Law of Demeter -->
     <rule ref="rulesets/java/coupling.xml/LawOfDemeter" />
