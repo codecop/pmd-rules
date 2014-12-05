@@ -25,4 +25,16 @@ public class Foo {
 }
      ]]></code>
     </test-code>
+    <test-code>
+        <description><![CDATA[
+non-void Object method, ok
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Foo {
+    public boolean equals(Object other) { return false; }
+    public int hashCode() { return 1; }
+}
+     ]]></code>
+    </test-code>
 </test-data>
