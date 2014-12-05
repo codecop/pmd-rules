@@ -459,7 +459,7 @@ public class MembersMustBePrivateExample {
    <rule name="SignatureDeclareThrowsException"
          language="java"
          since="3.1"
-         message="A method/constructor shouldn't explicitly throw java.lang.Exception"
+         message="A method/constructor shouldn't explicitly throw java.lang.Exception."
          class="org.codecop.pmd.rule.ExceptionSignatureDeclaration"
          externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#SignatureDeclareThrowsException">
       <description>
@@ -512,7 +512,7 @@ public class Foo_Core {} // ok - Generation Gap Pattern
    <!-- logging-java.xml -->
    <rule name="LoggerHasWrongCategory"
          language="java"
-         message="Logger has wrong category"
+         message="Logger has wrong category."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#LoggerHasWrongCategory">
       <description>
@@ -572,7 +572,7 @@ public class Foo {
    <rule name="ShortVariableCustom" 
          language="java"
          since="0.3" 
-         message="Avoid variables with short names like {0}" 
+         message="Avoid variables with short names like {0}." 
          class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#ShortVariableCustom">
        <description>
@@ -610,7 +610,7 @@ public class Something {
    <!-- imports --> <!-- by Usman Ismail -->
    <rule name="DontImportWild" 
          language="java"
-         message="Please no wild card imports" 
+         message="Please no wild card imports." 
          class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#DontImportWild">
       <description>
@@ -638,7 +638,7 @@ import java.net.URL; // is better
    <!-- design --> <!-- by Usman Ismail -->
    <rule name="PrivateInjections" 
          language="java"
-         message="Please make injected fields private" 
+         message="Please make injected fields private." 
          class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#PrivateInjections">
       <description>
@@ -696,7 +696,7 @@ public class Foo extends TestCase {
    <rule name="PrimitiveObsession"
          language="java"
          since="5.0"
-         message="Introduce a ValueObject in place of the primitive data"
+         message="Introduce a ValueObject in place of the primitive data."
          class="org.codecop.pmd.rule.PrimitiveObsession"
          externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#PrimitiveObsession">
       <description>
