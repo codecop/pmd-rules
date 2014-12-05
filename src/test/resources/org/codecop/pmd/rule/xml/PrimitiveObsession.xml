@@ -2,12 +2,12 @@
 <test-data>
     <test-code>
         <description><![CDATA[
-too many Strings in constructor
+too many Strings in method
      ]]></description>
         <expected-problems>1</expected-problems>
         <code><![CDATA[
 class BadObject {
-   public BadObject(String a, String b) { };
+   public void badMethod(String a, String b) { };
 }
      ]]></code>
     </test-code>
@@ -66,7 +66,7 @@ Object is allowed in default
         <expected-problems>0</expected-problems>
         <code><![CDATA[
 class SomeObject {
-   public SomeObject(Object a, Object b) { };
+   public void someMethod(Object a, Object b) { };
 }
      ]]></code>
     </test-code>
@@ -78,6 +78,17 @@ primitive return types only in plain getters, no parameters
         <code><![CDATA[
 class BadObject {
    public String sad(Date when) { };
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+constructor can take everything because we need to wrap it inside, e.g. Coordinate(int, int)
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class GoodObject {
+   public GoodObject(String a, String b) { };
 }
      ]]></code>
     </test-code>

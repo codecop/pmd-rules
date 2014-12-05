@@ -22,6 +22,7 @@ import net.sourceforge.pmd.lang.rule.properties.BooleanProperty;
 public class PrimitiveObsession extends AbstractJavaRule {
 
     private static final BooleanProperty ALLOW_OBJECT = new BooleanProperty("allowObject", "Allow plain java.lang.Object", true, 1.0f);
+    private static final BooleanProperty CHECK_CONSTRUCTORS = new BooleanProperty("checkConstructors", "Check public constructors for more than one primitive", false, 1.0f);
 
     private static final List<String> FORBIDDEN_TYPES = Arrays.asList( //
             "char", "Character", // 
@@ -33,6 +34,7 @@ public class PrimitiveObsession extends AbstractJavaRule {
     );
 
     private boolean allowObject;
+    private boolean checkConstructors;
     private boolean wrongTypesDetected;
 
     @Override
@@ -43,6 +45,7 @@ public class PrimitiveObsession extends AbstractJavaRule {
 
     private void configure() {
         allowObject = getProperty(ALLOW_OBJECT);
+        checkConstructors = getProperty(CHECK_CONSTRUCTORS);
     }
 
     /**
@@ -55,8 +58,8 @@ public class PrimitiveObsession extends AbstractJavaRule {
         Object visit = super.visit(constructorDeclaration, context);
 
         boolean isPublic = constructorDeclaration.isPublic();
-        boolean moreThanOneArguments = constructorDeclaration.getParameterCount() >= 2;
-        addViolationOnPrimitiveParameter(isPublic && moreThanOneArguments, context, constructorDeclaration);
+        boolean tooManyArguments = constructorDeclaration.getParameterCount() > 1;
+        addViolationOnPrimitiveParameter(checkConstructors && isPublic && tooManyArguments, context, constructorDeclaration);
 
         return visit;
     }

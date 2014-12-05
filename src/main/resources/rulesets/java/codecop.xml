@@ -707,11 +707,13 @@ public class Foo extends TestCase {
       <priority>2</priority>
       <properties>
           <property name="allowObject" type="Boolean" description="Allow plain java.lang.Object" value="true" />  
+          <property name="checkConstructors" type="Boolean" description="Check public constructors for more than one primitive" value="false" />  
       </properties>
       <example>
 <![CDATA[
 class BadObject {
-   public BadObject(String a, String b) { };
+   public void badVoidMethod(String a, String b) { };
+   public String badMixedMethod(Date when) { };
 }
 ]]>
       </example>
