@@ -51,4 +51,15 @@ public class xTest {
 }
      ]]></code>
     </test-code>
+    <test-code>
+        <description><![CDATA[
+assertions are ok
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class xTest {
+  public void assertCustomerSatisfied(){ }
+}
+     ]]></code>
+    </test-code>
 </test-data>
