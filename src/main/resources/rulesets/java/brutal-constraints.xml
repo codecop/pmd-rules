@@ -5,11 +5,11 @@
     xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
 
     <description>
-        Collection of rules for the Brutal Constraints (Coding Dojo).
+        Collection of rules for the Brutal Coding Constraints (Coding Dojo).
     </description>
 
     <!-- 
-    Brutal Constraints
+    Brutal Coding Constraints
     * TTDaiymi
     * No Conditionals
     * No Loops
