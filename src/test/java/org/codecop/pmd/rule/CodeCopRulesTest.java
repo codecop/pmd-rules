@@ -13,6 +13,7 @@ public class CodeCopRulesTest extends SimpleAggregatorTst {
    private static final String RULESET = "java-codecop";
 
    @Before
+   @Override
    public void setUp() {
       addRule(RULESET, "ClassNamingConventions");
       addRule(RULESET, "SignatureDeclareThrowsException");

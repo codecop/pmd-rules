@@ -14,6 +14,7 @@ public class ConstraintsRulesTest extends SimpleAggregatorTst {
     private static final String RULESET = "java-constraints";
 
     @Before
+    @Override
     public void setUp() {
         addRule(RULESET, "OnlyVoidMethods");
         addRule(RULESET, "NoVoidMethods");

@@ -13,6 +13,7 @@ public class PrototypeRulesTest extends SimpleAggregatorTst {
    private static final String RULESET = "java-prototype";
 
    @Before
+   @Override
    public void setUp() {
       addRule(RULESET, "EntityWithReferences");
       addRule(RULESET, "ImmutableValueObject");
