@@ -55,6 +55,7 @@ all is well, a real value object
 class ValueObject {
    public ValueObject(int number) { };
    public int getNumber() { return 0; }
+   public boolean getBranch() { return false; }
    public String toString() { return "0"; }
 }
      ]]></code>
