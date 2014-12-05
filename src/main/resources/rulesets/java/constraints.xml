@@ -244,7 +244,7 @@ class AvoidGetterAndSetterExample {
             <value>
 <![CDATA[
 //MethodDeclaration[ @Static='false' and 
-        not(@Name='hashCode' or @Name='equals' or @Name='toString' or @Name='clone' or @Name='compare')
+        not(@MethodName='hashCode' or @MethodName='equals' or @MethodName='toString' or @MethodName='clone' or @MethodName='compare')
     ]
 ]]>
             </value>
