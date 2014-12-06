@@ -8,11 +8,7 @@
         Collection of rules for code katas, Coding Dojos and Code Retreats.
     </description>
 
-    <!-- No conditional statements (Missing Feature) -->
-    <rule ref="rulesets/java/constraints.xml/NoConditionals" />
-
-    <!-- No loops (Missing Feature) -->
-    <rule ref="rulesets/java/constraints.xml/NoLoops" />
+    <!-- Quality Constraint -->
 
     <!-- Cyclomatic Complexity of one -->
     <rule ref="rulesets/java/codesize.xml/CyclomaticComplexity">
@@ -22,33 +18,39 @@
         </properties>
     </rule>
 
-    <!-- No naked primitives (Missing Feature) -->
-    <rule ref="rulesets/java/codecop.xml/PrimitiveObsession">
-        <properties>
-            <property name="allowObject" value="false" />  
-        </properties>
-    </rule>
+    <!-- Only one Level of intention -->
+    <rule ref="rulesets/java/codecop.xml/OneLevelOfIntention" />
 
-    <!-- Only void methods (Missing Feature) -->
-    <rule ref="rulesets/java/constraints.xml/OnlyVoidMethods" />
-
-    <!-- Only four lines per method (Quality Constraint) -->
+    <!-- Only four lines per method -->
     <rule ref="rulesets/java/codesize.xml/NcssMethodCount">
         <properties>
             <property name="minimum" value="6" /> <!-- = 4 lines plus signature --> 
         </properties>
     </rule>
 
-    <!-- Only one Level of intention (Quality Constraint) -->
-    <rule ref="rulesets/java/codecop.xml/OneLevelOfIntention" />
+    <!-- Missing Feature -->
+    <rule ref="rulesets/java/constraints.xml/NoConditionals" />
+    <rule ref="rulesets/java/constraints.xml/NoElseKeyword" />
+    <rule ref="rulesets/java/constraints.xml/NoLoops" />
+    <rule ref="rulesets/java/constraints.xml/OnlyVoidMethods" /> <!-- also Design OO -->
+    <rule ref="rulesets/java/constraints.xml/NoVoidMethods" /> <!-- also Design/FP -->
+    <rule ref="rulesets/java/constraints.xml/OnlyStaticMethods" />
+    <rule ref="rulesets/java/constraints.xml/OnlyStaticFields" />
 
-    <!-- No void methods -->
-    <rule ref="rulesets/java/constraints.xml/NoVoidMethods" />
+    <!-- Design -->
 
-    <!-- Immutables only (Quality Constraint) -->
-    <rule ref="rulesets/java/constraints.xml/ImmutablesOnly" />
-    
     <!-- Law of Demeter -->
     <rule ref="rulesets/java/coupling.xml/LawOfDemeter" />
+
+    <!-- No naked primitives -->
+    <rule ref="rulesets/java/codecop.xml/PrimitiveObsession">
+        <properties>
+            <property name="allowObject" value="false" />  
+        </properties>
+    </rule>
+    
+    <rule ref="rulesets/java/codecop.xml/FirstClassCollections" />
+    <rule ref="rulesets/java/constraints.xml/ImmutablesOnly" />
+    <rule ref="rulesets/java/constraints.xml/NoGetterAndSetter" />
 
 </ruleset>
