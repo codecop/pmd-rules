@@ -24,6 +24,17 @@ public class ChannelPolicy {
 }
      ]]></code>
     </test-code>
+    <test-code>
+        <description><![CDATA[
+mutable static data is flagged
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class ChannelPolicy {
+   private static boolean SHOW_IF = false; 
+}
+     ]]></code>
+    </test-code>
 </test-data>
 
 
