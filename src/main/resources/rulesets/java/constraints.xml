@@ -180,6 +180,7 @@ public class Foo {
    </rule>
    
 
+   <!-- design.xml -->
    <rule name="NoGetterAndSetter"
          language="java"
          message="Don't use getters or setters."
@@ -256,6 +257,37 @@ public class Foo {
     public int nonStaticMethod(byte b){
         return 1;
     }
+}
+]]>
+      </example>
+   </rule>
+
+
+   <!-- design.xml -->
+   <rule name="ImmutablesOnly"
+         language="java"
+         message="Avoid mutable state."
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesConstraints#ImmutablesOnly">
+      <description>
+         Immutable data structures are easier to reason about and have no concurrency issues.
+         Only final fields are allowed.
+      </description>
+      <priority>3</priority>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//FieldDeclaration[@Final='false']
+]]>
+            </value>
+         </property>
+      </properties>
+      <example>
+<![CDATA[
+public class SomeClass {
+   private final String channel; // ok
+   private boolean showIfSearchedInRegion; // not ok
 }
 ]]>
       </example>

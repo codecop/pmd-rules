@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+all fields are final and well
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class ChannelPolicy {
+   private final String channel;  // ok
+   private final boolean showIfSearchedInRegion; // ok
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+mutable class is flagged
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class ChannelPolicy {
+   private final String channel;  
+   private boolean showIfSearchedInRegion; 
+}
+     ]]></code>
+    </test-code>
+</test-data>
+
+

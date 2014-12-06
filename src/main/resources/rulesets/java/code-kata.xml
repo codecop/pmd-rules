@@ -46,9 +46,7 @@
     <rule ref="rulesets/java/constraints.xml/NoVoidMethods" />
 
     <!-- Immutables only (Quality Constraint) -->
-    <!--     
     <rule ref="rulesets/java/constraints.xml/ImmutablesOnly" />
-    TODO all fields final but it is not enough -->
     
     <!-- Law of Demeter -->
     <rule ref="rulesets/java/coupling.xml/LawOfDemeter" />
