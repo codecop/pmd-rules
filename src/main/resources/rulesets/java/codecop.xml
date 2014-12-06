@@ -768,7 +768,7 @@ public class ChannelPolicyError {
          once in a method. If used they need to be the first/outer statement of the method.
          This enforces SRP split on method level. This is rule 1 of Object Calisthenics.
       </description>
-      <priority>3</priority>
+      <priority>2</priority>
       <properties>
          <property name="xpath">
             <value>
@@ -821,7 +821,7 @@ public class Foo {
          Constants do not count.
          This is rule 4 of Object Calisthenics.
       </description>
-      <priority>3</priority>
+      <priority>2</priority>
       <properties>
          <property name="xpath">
             <value>
