@@ -14,8 +14,8 @@
     2. Don’t use the ELSE keyword
     3. Wrap all primitives and Strings
     4. First class collections
-    5. One dot per line -- use Law of Demeter instead
-    6. Don’t abbreviate -- not checked
+    5. One dot per line - used Law of Demeter instead
+    6. Don’t abbreviate - not checked
     7. Keep all entities small
     8. No classes with more than two instance variables
     9. No getters/setters/properties
