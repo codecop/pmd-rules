@@ -24,6 +24,7 @@ public class ConstraintsRulesTest extends SimpleAggregatorTst {
         addRule(RULESET, "NoGetterAndSetter");
         addRule(RULESET, "OnlyStaticMethods");
         addRule(RULESET, "ImmutablesOnly");
+        addRule(RULESET, "OnlyStaticFields");
     }
 
     public static junit.framework.Test suite() {

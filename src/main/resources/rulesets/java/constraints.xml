@@ -292,5 +292,34 @@ public class SomeClass {
 ]]>
       </example>
    </rule>
+
+
+   <rule name="OnlyStaticFields"
+         language="java"
+         message="All fields must be static."
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
+         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesConstraints#OnlyStaticFields">
+      <description>
+         As an exercise only static fields are allowed. This exaggerates the common mistake to have too many static fields.
+      </description>
+      <priority>3</priority>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//FieldDeclaration[@Static='false']
+]]>
+            </value>
+         </property>
+      </properties>
+      <example>
+<![CDATA[
+public class SomeClass {
+   private String channel; // not ok
+   private static boolean showIfSearchedInRegion; // ok
+}
+]]>
+      </example>
+   </rule>
    
 </ruleset>

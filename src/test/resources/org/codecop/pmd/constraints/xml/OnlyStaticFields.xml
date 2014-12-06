@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+all fields are static and well
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class ChannelPolicy {
+   private static String channel;  
+   private static boolean showIfSearchedInRegion; 
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+non static field is flagged
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class ChannelPolicy {
+   private boolean showIfSearchedInRegion; 
+}
+     ]]></code>
+    </test-code>
+</test-data>
+
+
