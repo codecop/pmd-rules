@@ -26,7 +26,9 @@
             <value>
 <![CDATA[
 //MethodDeclaration[ @Void='false' and 
-        not(@MethodName='hashCode' or @MethodName='equals' or @MethodName='toString' or @MethodName='clone' or @MethodName='compare')
+        not(@MethodName='hashCode' or @MethodName='equals' or 
+            @MethodName='toString' or @MethodName='clone' or 
+            @MethodName='compare')
     ]
 ]]>
             </value>
@@ -203,11 +205,14 @@ public class Foo {
         ResultType[count(Type)=0] and 
         Block/BlockStatement/Statement/StatementExpression/Expression/PrimaryExpression[
            count(PrimarySuffix/Arguments)=0
-        ] and //AssignmentOperator[@Image='=']
+        ] and 
+        //AssignmentOperator[@Image='=']
      ) or (
         MethodDeclarator/FormalParameters[count(FormalParameter)=0] and 
         ResultType/Type[count(ReferenceType)=1] and 
-        Block/BlockStatement/Statement/ReturnStatement/Expression/PrimaryExpression[count(PrimarySuffix)=0] and 
+        Block/BlockStatement/Statement/ReturnStatement/Expression/PrimaryExpression[
+           count(PrimarySuffix)=0
+        ] and 
         count(Block/BlockStatement/Statement/ReturnStatement)=1
      )
   )
@@ -245,7 +250,9 @@ class AvoidGetterAndSetterExample {
             <value>
 <![CDATA[
 //MethodDeclaration[ @Static='false' and 
-        not(@MethodName='hashCode' or @MethodName='equals' or @MethodName='toString' or @MethodName='clone' or @MethodName='compare')
+        not(@MethodName='hashCode' or @MethodName='equals' or 
+            @MethodName='toString' or @MethodName='clone' or 
+            @MethodName='compare')
     ]
 ]]>
             </value>
