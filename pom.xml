@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <parent>
         <groupId>org.codecop</groupId>
         <artifactId>parent</artifactId>
-        <version>1.2</version>
+        <version>1.3</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -14,7 +14,7 @@
     <name>PMD Rules</name>
     <version>1.2.2-SNAPSHOT</version>
     <description>Code Cop PMD rules are a mixed set of PMD rules created since 2004 regarding basic bugs, design principles, junit test, naming and other rule groups.</description>
-    <url>http://code.google.com/p/code-cop-code/wiki/PmdRules</url>
+    <url>https://bitbucket.org/pkofler/${project.artifactId}/</url>
     <inceptionYear>2004</inceptionYear>
 
     <contributors>
@@ -51,12 +51,6 @@
             </roles>
         </contributor>
     </contributors>
-
-    <scm>
-        <connection>scm:hg:https://code.google.com/p/code-cop-code.${project.artifactId}</connection>
-        <developerConnection>scm:hg:https://code.google.com/p/code-cop-code.${project.artifactId}</developerConnection>
-        <url>http://code.google.com/p/code-cop-code/source/browse?repo=${project.artifactId}</url>
-    </scm>
 
     <build>
         <finalName>codecop-${project.artifactId}-${project.version}</finalName>
