@@ -12,7 +12,7 @@
     <artifactId>pmd-rules</artifactId>
     <packaging>jar</packaging>
     <name>PMD Rules</name>
-    <version>1.2.2</version>
+    <version>1.2.3-SNAPSHOT</version>
     <description>A mixed set of PMD rules created since 2004 regarding basic bugs, design principles, JUnit test, naming and other things.</description>
     <url>https://bitbucket.org/pkofler/${project.artifactId}/</url>
     <inceptionYear>2004</inceptionYear>
