@@ -16,7 +16,7 @@
          message="Entities must define all attributes with RelationShips."
          class="org.codecop.pmd.prototype.EntityWithReferences"
          typeResolution="true"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#EntityWithReferences">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!entitywithreferences">
       <description>
          In a specific Rich Domain Model all Entities (subclasses of Entity) must define their attributes as (subclasses of) RelationShips.
          Simple attributes are not allowed. To fix this rule, wrap all simple attributes with a RelationShip of proper type accordingly.
@@ -45,10 +45,10 @@ public class BadEntity extends BetterEntity {
          message="ValueObjects must not define RelationShips and be immutable."
          class="org.codecop.pmd.prototype.ImmutableValueObject"
          typeResolution="true"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#ImmutableValueObject">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!immutablevalueobject">
       <description>
-         In a specific Rich Domain Model all Value Objects (subclasses of ValueObjects) must not define their attributes as (subclasses of) 
-         RelationShips. Just simple attributes are allowed. 
+         In a specific Rich Domain Model all Value Objects (subclasses of ValueObjects) must not define their attributes as (subclasses of)
+         RelationShips. Just simple attributes are allowed.
       </description>
       <priority>2</priority>
       <example>
@@ -71,9 +71,9 @@ public class BadValueObject extends ValueObject {
          language="java"
          message="The given method must be implemented and not just return null."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#EmptyFunction">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!emptyfunction">
       <description>
-         Some methods, e.g. toString or getName() in subclasses of Action, must not just return null. 
+         Some methods, e.g. toString or getName() in subclasses of Action, must not just return null.
          If they will never be called, throw a OperationNotSupportedException.
       </description>
       <priority>2</priority>
@@ -106,7 +106,7 @@ public class FooAction {
          language="java"
          message="Classes in DB layer must not call Connection.commit."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#CommitInDBLayer">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!commitindblayer">
       <description>
          Services are responsible for maintaining transactions, so classes in the DB layer are not allowed to call
          Connection.commit. commit is a reserved word and should also not be used as identifier.
@@ -134,7 +134,7 @@ public class CommitInDBLayerExample {
 
    public void methodOne() {
       Connection con = getConnection();
-      con.commit(); 
+      con.commit();
       System.out.println("we did it");
    }
    public void methodTwo() {
@@ -143,7 +143,7 @@ public class CommitInDBLayerExample {
    }
    public void methodThree() {
       // would be ok, but may warn as well
-      other.commit(bla); 
+      other.commit(bla);
    }
    public void okOne() {
       int commit;
@@ -161,12 +161,12 @@ public class CommitInDBLayerExample {
    </rule>
 
 
-   <!-- coupling.xml --> 
+   <!-- coupling.xml -->
    <rule name="Call4MethodNotInPackage"
          language="java"
          message="Only Classes in $package packages may call *$method() methods."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#Call4MethodNotInPackage">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!call4methodnotinpackage">
       <description>
          Only certain classes in $package packages are allowed to call special methods on objects, which are suffixed by $method.
       </description>
@@ -178,7 +178,7 @@ public class CommitInDBLayerExample {
             <value>
 <![CDATA[
 //PrimaryExpression[
-   ( PrimaryPrefix/Name[ends-with(@Image, $method)] or PrimarySuffix[ends-with(@Image, $method)] ) 
+   ( PrimaryPrefix/Name[ends-with(@Image, $method)] or PrimarySuffix[ends-with(@Image, $method)] )
    and
    //PackageDeclaration[Name[ not (ends-with(@Image, $package)) ]]
 ]
@@ -194,12 +194,12 @@ public class BadGuy {
 
    public void method() {
       Object con = getObject();
-      con.run4Test(); 
-      int result = con.run4Test(params); 
+      con.run4Test();
+      int result = con.run4Test(params);
       System.out.println("we did it");
 
       getObject().run4Test();
-      int res = getObject().run4Test(params); 
+      int res = getObject().run4Test(params);
       System.out.println("we did it again");
    }
 
@@ -216,7 +216,7 @@ public class BadGuy {
          since="2.0"
          message="Class contains more than one logger."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#MoreThanOneCustomLogger">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!morethanonecustomlogger">
       <description>
          Normally only one logger is used in each class.
       </description>
@@ -227,8 +227,8 @@ public class BadGuy {
          <property name="xpath">
             <value>
 <![CDATA[
-//ClassOrInterfaceBody[ 
-  count(//VariableDeclarator[parent::FieldDeclaration][../Type/ReferenceType/ClassOrInterfaceType[@Image=$logger]]) > 1 
+//ClassOrInterfaceBody[
+  count(//VariableDeclarator[parent::FieldDeclaration][../Type/ReferenceType/ClassOrInterfaceType[@Image=$logger]]) > 1
 ]
 ]]>
             </value>
@@ -253,7 +253,7 @@ class Foo {
          since="2.0"
          message="The Logger variable declaration does not contain the static and final modifiers."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#CustomLoggerIsNotStaticFinal">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!customloggerisnotstaticfinal">
       <description>
          In most cases, the Logger can be declared private, static and final.
       </description>
@@ -265,8 +265,8 @@ class Foo {
             <value>
 <![CDATA[
 //VariableDeclarator[parent::FieldDeclaration][
-  ../Type/ReferenceType/ClassOrInterfaceType[@Image=$logger] and 
-  ( ..[@Final='false'] or ..[@Static='false'] or .. [@Private='false'] ) 
+  ../Type/ReferenceType/ClassOrInterfaceType[@Image=$logger] and
+  ( ..[@Final='false'] or ..[@Static='false'] or .. [@Private='false'] )
 ]
 ]]>
             </value>
@@ -290,7 +290,7 @@ class Foo {
          language="java"
          message="Avoid non final attributes in this class."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#NoAttrInClass">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!noattrinclass">
       <description>
          This class is shared by threads but not threadsafe. Therefore it must only have final members.
       </description>
@@ -312,7 +312,7 @@ public class AdWorxChannelPolicy {
    private boolean showIfSearchedInRegion; // not ok
 }
 // other class
-public class AdWorxChannelPolicyKey { 
+public class AdWorxChannelPolicyKey {
    private final String channel;  // ok
    private boolean showIfSearchedInRegion; // ok
 }
@@ -327,7 +327,7 @@ public class AdWorxChannelPolicyKey {
          language="java"
          message="The use of this type is not allowed."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#TypeNotAllowed">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!typenotallowed">
       <description>
          The use of this type is not allowed.
       </description>
@@ -346,7 +346,7 @@ public class AdWorxChannelPolicyKey {
       <example>
 <![CDATA[
 class MyClass extends OtherClass {
-   public void myMethod() { 
+   public void myMethod() {
       try {
          // ...
          throw new org.codecop.HBDException("..."); // "throw new HBDException" is not allowed!
@@ -365,7 +365,7 @@ class MyClass extends OtherClass {
          language="java"
          message="All concrete (not abstract) actions must implement the $method method."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#ActionHasNoShortName">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!actionhasnoshortname">
       <description>
          Certain classes need to define and redefine a method on their own regardless of superclasses have provided it or not.
       </description>
@@ -377,10 +377,10 @@ class MyClass extends OtherClass {
             <value>
 <![CDATA[
 //ClassOrInterfaceDeclaration[
-  ends-with(@Image, $suffix) and 
+  ends-with(@Image, $suffix) and
   not (ends-with(@Image,'HelperAction')) and
   @Abstract='false' and
-  count(//MethodDeclarator[@Image=$method])=0 
+  count(//MethodDeclarator[@Image=$method])=0
 ]
 ]]>
             </value>
@@ -404,7 +404,7 @@ public class FooAction {
          language="java"
          message="All concrete JUnit tests must be named ending with Test."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#JUnitTestHasWrongName">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!junittesthaswrongname">
       <description>
          All concrete JUnit tests must be named to the sheme of ending with Test to be identified and run automatically.
       </description>
@@ -416,12 +416,12 @@ public class FooAction {
             <value>
 <![CDATA[
 //ClassOrInterfaceDeclaration[
-   not (ends-with(@Image, $suffix)) and 
-   not (ends-with(@Image, 'TestManuell')) and 
-   not (@Image='TCInit') and 
+   not (ends-with(@Image, $suffix)) and
+   not (ends-with(@Image, 'TestManuell')) and
+   not (@Image='TCInit') and
    @Abstract='false' and
    //PackageDeclaration[Name[ ends-with(@Image, $package) ]]
-]   
+]
 ]]>
             </value>
          </property>
@@ -430,7 +430,7 @@ public class FooAction {
  <![CDATA[
 package some.junit;
 
-class BadTestClass { 
+class BadTestClass {
   // this does not end with Test
 }
 
@@ -451,7 +451,7 @@ class GoodTest {
          language="java"
          message="Enums must only be instantiated inside its own Enum class."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesPrototype#NewEnumOnlyInside">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!newenumonlyinside">
       <description>
          Enums are special instances and not meant to be created by other classes, instead use a getEnumFor(value) on the Enum itself.
       </description>
@@ -462,9 +462,9 @@ class GoodTest {
             <value>
 <![CDATA[
 //AllocationExpression[
-   ends-with(ClassOrInterfaceType/@Image, $suffix) and 
+   ends-with(ClassOrInterfaceType/@Image, $suffix) and
    (count(ArrayDimsAndInits)=0) and
-   not (//ClassOrInterfaceDeclaration/@Image=ClassOrInterfaceType/@Image) 
+   not (//ClassOrInterfaceDeclaration/@Image=ClassOrInterfaceType/@Image)
 ]
 ]]>
             </value>
@@ -491,5 +491,5 @@ class OtherClass {
       </example>
    </rule>
    <!-- might use Typeresolution to find super class instead of relying on class name -->
-   
+
 </ruleset>

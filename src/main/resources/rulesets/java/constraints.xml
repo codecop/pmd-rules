@@ -8,7 +8,7 @@
       Special (likely controversial) rules for constraints in code katas, Coding Dojos and Code Retreats.
       See http://coderetreat.org/facilitating/activity-catalog
       Some less extreme rules like PrimitiveObsession or FirstClassCollections are located in the regular
-      codecop.xml ruleset, see https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop
+      codecop.xml ruleset.
    </description>
 
 
@@ -16,7 +16,7 @@
          language="java"
          message="All methods must be void."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesConstraints#OnlyVoidMethods">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!onlyvoidmethods">
       <description>
          As an exercise only void methods are allowed. This enforces Tell, Don't Ask design. Only inherited Object methods can be non-void.
       </description>
@@ -25,9 +25,9 @@
          <property name="xpath">
             <value>
 <![CDATA[
-//MethodDeclaration[ @Void='false' and 
-        not(@MethodName='hashCode' or @MethodName='equals' or 
-            @MethodName='toString' or @MethodName='clone' or 
+//MethodDeclaration[ @Void='false' and
+        not(@MethodName='hashCode' or @MethodName='equals' or
+            @MethodName='toString' or @MethodName='clone' or
             @MethodName='compare')
     ]
 ]]>
@@ -44,13 +44,13 @@ public class Foo {
 ]]>
       </example>
    </rule>
-   
-   
+
+
    <rule name="NoVoidMethods"
          language="java"
          message="All methods must be non void."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesConstraints#NoVoidMethods">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!novoidmethods">
       <description>
          As an exercise no void methods are allowed. This is the functional style. Only JUnit tests and custom asserts can have void methods.
       </description>
@@ -80,13 +80,13 @@ public class OkClass {
 ]]>
       </example>
    </rule>
-   
-   
+
+
    <rule name="NoLoops"
          language="java"
          message="No loops."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesConstraints#NoLoops">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!noloops">
       <description>
          As an exercise no loop constructs are allowed. You cannot use for, do or while.
       </description>
@@ -102,24 +102,24 @@ public class OkClass {
       </properties>
       <example>
 <![CDATA[
-    public void main() {
-        for (int i = 0; i < 3; i++) { }
+public void main() {
+    for (int i = 0; i < 3; i++) { }
 
-        int i = 0;
-        while (i < 3) { i++; }
+    int i = 0;
+    while (i < 3) { i++; }
 
-        do { } while (false);
-    }
+    do { } while (false);
+}
 ]]>
       </example>
    </rule>
-   
+
 
    <rule name="NoElseKeyword"
          language="java"
          message="No else keyword."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesConstraints#NoElseKeyword">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!noelsekeyword">
       <description>
          As an exercise no else statement is allowed. This is rule 2 of Object Calisthenics.
       </description>
@@ -136,24 +136,24 @@ public class OkClass {
       <example>
 <![CDATA[
 public class Foo {
-    public void main() { 
-        // ok, no else        
+    public void main() {
+        // ok, no else
         if (true) { }
 
         // bad, hase else
-        if (false) { } else { }        
+        if (false) { } else { }
     }
 }
 ]]>
       </example>
    </rule>
-   
+
 
    <rule name="NoConditionals"
          language="java"
          message="No conditional statements."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesConstraints#NoConditionals">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!noconditionals">
       <description>
          As an exercise no conditional statements are allowed. You cannot use if, while, switch or ?:.
       </description>
@@ -171,7 +171,7 @@ public class Foo {
 <![CDATA[
 public class Foo {
     public void main() {
-        if (true) {  } 
+        if (true) {  }
         int i = true ? 1 : 2;
         switch(i) { case 0: break; }
         while(true) {  }
@@ -180,14 +180,14 @@ public class Foo {
 ]]>
       </example>
    </rule>
-   
+
 
    <!-- design.xml -->
    <rule name="NoGetterAndSetter"
          language="java"
          message="Don't use getters or setters."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesConstraints#NoGetterAndSetter">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!nogetterandsetter">
       <description>
          Do not use getter or setter to enforces encapsulation. This is rule 9 of Object Calisthenics.
       </description>
@@ -196,23 +196,23 @@ public class Foo {
          <property name="xpath">
             <value>
 <![CDATA[
-//MethodDeclaration [ 
-  @Synchronized='false' and 
+//MethodDeclaration [
+  @Synchronized='false' and
   count(Block/BlockStatement)=1 and
   (
      (
-        MethodDeclarator/FormalParameters[count(FormalParameter)=1] and 
-        ResultType[count(Type)=0] and 
+        MethodDeclarator/FormalParameters[count(FormalParameter)=1] and
+        ResultType[count(Type)=0] and
         Block/BlockStatement/Statement/StatementExpression/Expression/PrimaryExpression[
            count(PrimarySuffix/Arguments)=0
-        ] and 
+        ] and
         //AssignmentOperator[@Image='=']
      ) or (
-        MethodDeclarator/FormalParameters[count(FormalParameter)=0] and 
-        ResultType/Type[count(ReferenceType)=1] and 
+        MethodDeclarator/FormalParameters[count(FormalParameter)=0] and
+        ResultType/Type[count(ReferenceType)=1] and
         Block/BlockStatement/Statement/ReturnStatement/Expression/PrimaryExpression[
            count(PrimarySuffix)=0
-        ] and 
+        ] and
         count(Block/BlockStatement/Statement/ReturnStatement)=1
      )
   )
@@ -240,7 +240,7 @@ class AvoidGetterAndSetterExample {
          language="java"
          message="All methods must be static."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesConstraints#OnlyStaticMethods">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!onlystaticmethods">
       <description>
          As an exercise only static methods are allowed. This exaggerates the common mistake to have too many static methods. Only inherited Object methods can be non-static.
       </description>
@@ -249,9 +249,9 @@ class AvoidGetterAndSetterExample {
          <property name="xpath">
             <value>
 <![CDATA[
-//MethodDeclaration[ @Static='false' and 
-        not(@MethodName='hashCode' or @MethodName='equals' or 
-            @MethodName='toString' or @MethodName='clone' or 
+//MethodDeclaration[ @Static='false' and
+        not(@MethodName='hashCode' or @MethodName='equals' or
+            @MethodName='toString' or @MethodName='clone' or
             @MethodName='compare')
     ]
 ]]>
@@ -275,7 +275,7 @@ public class Foo {
          language="java"
          message="Avoid mutable state."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesConstraints#ImmutablesOnly">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!immutablesonly">
       <description>
          Immutable data structures are easier to reason about and have no concurrency issues.
          Only final fields are allowed. (Mutable field references should be copied when passed in or out, but that is not checked.)
@@ -305,7 +305,7 @@ public class SomeClass {
          language="java"
          message="All fields must be static."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesConstraints#OnlyStaticFields">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!onlystaticfields">
       <description>
          As an exercise only static fields are allowed. This exaggerates the common mistake to have too many static fields.
       </description>
@@ -328,5 +328,5 @@ public class SomeClass {
 ]]>
       </example>
    </rule>
-   
+
 </ruleset>

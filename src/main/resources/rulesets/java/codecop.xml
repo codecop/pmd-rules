@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
 
    <description>
-      Mix of rules for various bugs and conventions. Some of these should really be in the core of PMD. 
+      Mix of rules for various bugs and conventions. Some of these should really be in the core of PMD.
       Others are likely to be controversial.
    </description>
 
@@ -15,7 +15,7 @@
          language="java"
          message="Non matching iterator identifier found in for loop."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#JumbledIterator">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!jumblediterator">
       <description>
          The used Iterator for the 'exit expression' in a for loop does not match the 'declaration expression', most likely this is not intended.
       </description>
@@ -61,7 +61,7 @@ public class JumbledIteratorExample {
          language="java"
          message="Method parameter names must start with 'p'."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#ParameterNameWithP">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!parameternamewithp">
       <description>
          All parameters of methods and constructors are required to be named like pXyz. Use Ctrl-1 to local rename it.
       </description>
@@ -72,7 +72,7 @@ public class JumbledIteratorExample {
             <value>
 <![CDATA[
 //FormalParameters/FormalParameter/VariableDeclaratorId[
-  (not (starts-with(@Image, $prefix))) or 
+  (not (starts-with(@Image, $prefix))) or
   (not (substring(@Image, 2, 1)=upper-case(substring(@Image, 2, 1))) )
 ]
 ]]>
@@ -101,7 +101,7 @@ class ParameterNameWithPExample {
          language="java"
          message="getBoolean, getInteger, getLong read from System Properties and do not parse."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#UnintendedEnvUsage">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!unintendedenvusage">
       <description>
          The methods getBoolean, getInteger and getLong read from environment (System Properties) and do not parse. Use Integer.parseInt() instead.
       </description>
@@ -139,7 +139,7 @@ class UnintendedEnvUsageExample {
          language="java"
          message="Methods setUp and tearDown in JUnit tests must call super.setUp/tearDown."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#JunitSetupDoesNotCallSuper">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!junitsetupdoesnotcallsuper">
       <description>
          The framework methods setUp() and tearDown() of JUnit's Testcase must always call super.setUp() and super.tearDown() to enable proper preparing and cleaning of resources.
       </description>
@@ -188,7 +188,7 @@ class BadTestCase extends TestCase {
          language="java"
          message="Interface names should end with 'IF'."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#InterfaceNamesEndWithIF">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!interfacenamesendwithif">
       <description>
          For better recognition interface names should end with 'IF'. Rename the interface!
       </description>
@@ -198,7 +198,7 @@ class BadTestCase extends TestCase {
          <property name="xpath">
             <value>
 <![CDATA[
-//ClassOrInterfaceDeclaration[@Interface='true' and 
+//ClassOrInterfaceDeclaration[@Interface='true' and
                               not (ends-with(@Image, $suffix))]
 ]]>
             </value>
@@ -215,12 +215,12 @@ public class SomeClass { }             // ok
    </rule>
 
 
-   <!-- naming.xml/controversial.xml --> 
+   <!-- naming.xml/controversial.xml -->
    <rule name="InterfaceNamesStartWithI"
          language="java"
          message="Interface names should start with 'I'."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#InterfaceNamesStartWithI">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!interfacenamesstartwithi">
       <description>
          For better recognition interface names should start with 'I'. Rename the interface!
       </description>
@@ -252,7 +252,7 @@ public class SomeClass { }             // ok
          since="3.5"
          message="Avoid instantiating Wrapper Type objects. Call Type.valueOf() instead."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#AtomWrapperInstantiation">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!atomwrapperinstantiation">
       <description>
          In JDK 1.5, calling new Type() causes memory allocation. Type.valueOf() is more memory friendly.
       </description>
@@ -263,7 +263,7 @@ public class SomeClass { }             // ok
             <value>
 <![CDATA[
 //PrimaryPrefix/AllocationExpression[
-  not (ArrayDimsAndInits) and 
+  not (ArrayDimsAndInits) and
   (
     ClassOrInterfaceType/@Image='Byte' or ClassOrInterfaceType/@Image='java.lang.Byte' or
     ClassOrInterfaceType/@Image='Short' or ClassOrInterfaceType/@Image='java.lang.Short' or
@@ -282,7 +282,7 @@ public class AtomWrapperInstantiationExample {
     Byte myByte = new Byte(1);    // bad
     Byte byte2 = Byte.valueOf(1); // ok
     Short myshort = new Short(20);       // bad
-    Short myshort2 = Short.valueOf(20);  // ok 
+    Short myshort2 = Short.valueOf(20);  // ok
     Integer integer = new Integer(4);      // bad
     Integer integer2 = Integer.valueOf(4); // ok
     Long myLong = new Long(10000000);       // bad
@@ -295,13 +295,13 @@ public class AtomWrapperInstantiationExample {
    </rule>
 
 
-   <!-- migrating.xml --> 
+   <!-- migrating.xml -->
    <rule name="CharInstantiation"
          language="java"
          since="4.0"
          message="Avoid instantiating Character objects. Call Character.valueOf() instead."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#CharInstantiation">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!charinstantiation">
       <description>
          In JDK 1.5, calling new Character() causes memory allocation. Character.valueOf() is more memory friendly.
       </description>
@@ -310,8 +310,8 @@ public class AtomWrapperInstantiationExample {
          <property name="xpath">
             <value>
 <![CDATA[
-//PrimaryPrefix/AllocationExpression[ 
-  not (ArrayDimsAndInits) and 
+//PrimaryPrefix/AllocationExpression[
+  not (ArrayDimsAndInits) and
   ( ClassOrInterfaceType/@Image='Character' or ClassOrInterfaceType/@Image='java.lang.Character' )
 ]
 ]]>
@@ -328,13 +328,13 @@ public class CharInstantiationExample {
       </example>
    </rule>
 
-   
+
    <!-- strictexception.xml --> <!-- by Manuel Tichy -->
    <rule name="NonFinalFieldInException"
          language="java"
          message="Exceptions must be immutable."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#NonFinalFieldInException">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!nonfinalfieldinexception">
       <description>
          Exceptions must be immutable, so the fields of an Exception must be declared as final.
       </description>
@@ -343,7 +343,7 @@ public class CharInstantiationExample {
          <property name="xpath">
             <value>
 <![CDATA[
-//FieldDeclaration[ @Final='false' and 
+//FieldDeclaration[ @Final='false' and
                     ../../../../ClassOrInterfaceDeclaration[ends-with(@Image, 'Exception')] ]
 ]]>
             </value>
@@ -361,14 +361,14 @@ public class BadException extends Exception {
 ]]>
       </example>
    </rule>
-   
-   
+
+
    <!-- design.xml --> <!-- by Manuel Tichy -->
    <rule name="AvoidPrivateGetterAndSetter"
          language="java"
          message="Don't use private getters/setters."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#AvoidPrivateGetterAndSetter">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!avoidprivategetterandsetter">
       <description>
          Instead of using private getter or setter, we use the member variable instead. It's easier to read and saves lines of code.
       </description>
@@ -377,23 +377,23 @@ public class BadException extends Exception {
          <property name="xpath">
             <value>
 <![CDATA[
-//MethodDeclaration [ 
-  @Private='true' and 
-  @Synchronized='false' and 
+//MethodDeclaration [
+  @Private='true' and
+  @Synchronized='false' and
   count(Block/BlockStatement)=1 and
   (
      (
         MethodDeclarator[starts-with(@Image,'set')] and
-        MethodDeclarator/FormalParameters[count(FormalParameter)=1] and 
-        ResultType[count(Type)=0] and 
+        MethodDeclarator/FormalParameters[count(FormalParameter)=1] and
+        ResultType[count(Type)=0] and
         Block/BlockStatement/Statement/StatementExpression/Expression/PrimaryExpression[
            count(PrimarySuffix/Arguments)=0
         ] and //AssignmentOperator[@Image='=']
      ) or (
-        MethodDeclarator[starts-with(@Image,'get') or starts-with(@Image,'is')] and 
-        MethodDeclarator/FormalParameters[count(FormalParameter)=0] and 
-        ResultType/Type[count(ReferenceType)=1] and 
-        Block/BlockStatement/Statement/ReturnStatement/Expression/PrimaryExpression[count(PrimarySuffix)=0] and 
+        MethodDeclarator[starts-with(@Image,'get') or starts-with(@Image,'is')] and
+        MethodDeclarator/FormalParameters[count(FormalParameter)=0] and
+        ResultType/Type[count(ReferenceType)=1] and
+        Block/BlockStatement/Statement/ReturnStatement/Expression/PrimaryExpression[count(PrimarySuffix)=0] and
         count(Block/BlockStatement/Statement/ReturnStatement)=1
      )
   )
@@ -415,14 +415,14 @@ class AvoidPrivateGetterAndSetterExample {
 ]]>
       </example>
    </rule>
-      
-      
+
+
    <!-- design.xml --> <!-- by Manuel Tichy -->
    <rule name="MembersMustBePrivate"
          language="java"
          message="Members must be private except they are static and final"
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#MembersMustBePrivate">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!membersmustbeprivate">
       <description>
          Members must be private, except static final constants. Change Member to private and create getter and/or setter to access value/s.
       </description>
@@ -439,21 +439,21 @@ class AvoidPrivateGetterAndSetterExample {
       <example>
 <![CDATA[
 public class MembersMustBePrivateExample {
-   public int z1 = 1;      WRONG must be private
-   private int z2 = 2;     OK its private (without static and final)
-   protected int z3;       WRONG must be private
+   public int z1 = 1;      // WRONG must be private
+   private int z2 = 2;     // OK its private (without static and final)
+   protected int z3;       // WRONG must be private
 
-   public static int z4 = 1;     WRONG final is missing
-   private static int z5 = 2;    OK its private (with static)
-   protected static int z6 = 3;  WRONG final is missing
+   public static int z4 = 1;     // WRONG final is missing
+   private static int z5 = 2;    // OK its private (with static)
+   protected static int z6 = 3;  // WRONG final is missing
 
-   public static final int z7 = 1;     OK because static + final
-   private static final int z8 = 2;    OK its private (with static + final)
-   protected static final int z9 = 3;  OK because static + final
+   public static final int z7 = 1;     // OK because static + final
+   private static final int z8 = 2;    // OK its private (with static + final)
+   protected static final int z9 = 3;  // OK because static + final
 ]]>
       </example>
    </rule>
-   
+
 
    <!-- strictexeption.xml -->
    <rule name="SignatureDeclareThrowsException"
@@ -461,15 +461,15 @@ public class MembersMustBePrivateExample {
          since="3.1"
          message="A method/constructor shouldn't explicitly throw java.lang.Exception."
          class="org.codecop.pmd.rule.ExceptionSignatureDeclaration"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#SignatureDeclareThrowsException">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!signaturedeclarethrowsexception">
       <description>
-         It is unclear which exceptions that can be thrown from the methods. It might be difficult to document and 
+         It is unclear which exceptions that can be thrown from the methods. It might be difficult to document and
          understand the vague interfaces. Use either a class derived from RuntimeException or a checked exception.
       </description>
       <!-- Rule copied from PMD 3.1 (no type inference), but only allow exceptions for methods "setUp", "tearDown" -->
       <priority>2</priority>
       <properties>
-          <property name="ignoreTests" type="Boolean" description="Ignore test methods" value="false" />  
+          <property name="ignoreTests" type="Boolean" description="Ignore test methods" value="false" />
       </properties>
       <example>
 <![CDATA[
@@ -479,15 +479,15 @@ public void methodThrowingException() throws Exception { }
    </rule>
 
 
-   <!-- naming.xml --> 
+   <!-- naming.xml -->
    <rule name="ClassNamingConventions"
          language="java"
          since="3.1"
          message="Class names should begin with an uppercase character, not include underscores or dollar signs."
          class="org.codecop.pmd.rule.ClassNamingConventions"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#ClassNamingConventions">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!classnamingconventions">
       <description>
-         Class names should always begin with an upper case character, and should not contain underscores 
+         Class names should always begin with an upper case character, and should not contain underscores
          (but _Stub or _Core) or dollar signs. Class names should not be uppercase only.
       </description>
       <!-- Rule copied from PMD 3.1 and made it a bit more strict -->
@@ -507,14 +507,14 @@ public class Foo_Core {} // ok - Generation Gap Pattern
 ]]>
       </example>
    </rule>
-   
-   
+
+
    <!-- logging-java.xml -->
    <rule name="LoggerHasWrongCategory"
          language="java"
          message="Logger has wrong category."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#LoggerHasWrongCategory">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!loggerhaswrongcategory">
       <description>
          Logger is created for another category than the enclosing class. This is a typical copy-paste error.
       </description>
@@ -543,15 +543,15 @@ class BadExample {
 ]]>
       </example>
    </rule>
-   
-   
+
+
    <!-- strictexception.xml/controversial.xml/typeresolution.xml -->
    <rule name="AvoidThrowingCheckedException"
          language="java"
          message="Avoid throwing checked exceptions."
          class="org.codecop.pmd.rule.AvoidThrowingCheckedException"
          typeResolution="true"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#AvoidThrowingCheckedException">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!avoidthrowingcheckedexception">
       <description>
          Avoid throwing checked Exceptions - it's considered noise.
       </description>
@@ -566,15 +566,15 @@ public class Foo {
 ]]>
       </example>
    </rule>
-   
+
 
    <!-- naming.xml -->
-   <rule name="ShortVariableCustom" 
+   <rule name="ShortVariableCustom"
          language="java"
-         since="0.3" 
-         message="Avoid variables with short names like {0}." 
+         since="0.3"
+         message="Avoid variables with short names like {0}."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#ShortVariableCustom">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!shortvariablecustom">
        <description>
           Detects when a field, local, or parameter has a very short name.
        </description>
@@ -605,14 +605,14 @@ public class Something {
 ]]>
        </example>
    </rule>
-  
-   
+
+
    <!-- imports --> <!-- by Usman Ismail -->
-   <rule name="DontImportWild" 
+   <rule name="DontImportWild"
          language="java"
-         message="Please no wild card imports." 
+         message="Please no wild card imports."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#DontImportWild">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!dontimportwild">
       <description>
          Do not use wildcard imports such as java.net.*.
       </description>
@@ -632,24 +632,24 @@ import java.net.*; // is bad
 import java.net.URL; // is better
 ]]>
       </example>
-   </rule>   
+   </rule>
 
 
    <!-- design --> <!-- by Usman Ismail -->
-   <rule name="PrivateInjections" 
+   <rule name="PrivateInjections"
          language="java"
-         message="Please make injected fields private." 
+         message="Please make injected fields private."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#PrivateInjections">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!privateinjections">
       <description>
-         Set all injected fields to private. 
+         Set all injected fields to private.
       </description>
       <priority>1</priority>
       <properties>
          <property name="xpath">
             <value>
 <![CDATA[
-//ClassOrInterfaceBodyDeclaration[contains(Annotation//Name/@Image, 'Inject') and 
+//ClassOrInterfaceBodyDeclaration[contains(Annotation//Name/@Image, 'Inject') and
                                   contains(FieldDeclaration/@Private, 'false')]
 ]]>
             </value>
@@ -664,14 +664,14 @@ public String badParameter; // is bad
 private String goodParameter; // is better
 ]]>
       </example>
-   </rule>   
+   </rule>
 
 
    <!-- junit.xml --> <!-- by Florian and Roland of LOT team -->
    <rule name="JUnitTestsShouldIncludeAssertOrVerify"
          message="JUnit tests should include at least one assertion (assert(), fail() or verify())."
          class="org.codecop.pmd.rule.JUnitTestsShouldIncludeAssertOrVerify"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#JUnitTestsShouldIncludeAssertOrVerify">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!junittestsshouldincludeassertorverify">
       <description>
         JUnit tests should include at least one assertion.  This makes the tests more robust, and
         using assert with messages provide the developer a clearer idea of what the test does.
@@ -681,10 +681,10 @@ private String goodParameter; // is better
 <![CDATA[
 public class Foo extends TestCase {
   public void testSomething() {
-      Bar b = findBar();
-  // This is better than having a NullPointerException
-  // assertNotNull("bar not found", b);
-  b.work();
+    Bar b = findBar();
+    // This is better than having a NullPointerException
+    // assertNotNull("bar not found", b);
+    b.work();
   }
 }
 ]]>
@@ -698,16 +698,16 @@ public class Foo extends TestCase {
          since="5.0"
          message="Introduce a ValueObject in place of the primitive data."
          class="org.codecop.pmd.rule.PrimitiveObsession"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#PrimitiveObsession">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!primitiveobsession">
       <description>
-         You are likely using primitive data types to represent domain ideas. For example, a String to 
-         represent a message, an Integer to represent an amount of money, or a Struct/Dictionary/Hash to 
-         represent a specific object. You should introduce a ValueObject in place of the primitive data. 
+         You are likely using primitive data types to represent domain ideas. For example, a String to
+         represent a message, an Integer to represent an amount of money, or a Struct/Dictionary/Hash to
+         represent a specific object. You should introduce a ValueObject in place of the primitive data.
       </description>
       <priority>2</priority>
       <properties>
-          <property name="allowObject" type="Boolean" description="Allow plain java.lang.Object" value="true" />  
-          <property name="checkConstructors" type="Boolean" description="Check public constructors for more than one primitive" value="false" />  
+          <property name="allowObject" type="Boolean" description="Allow plain java.lang.Object" value="true" />
+          <property name="checkConstructors" type="Boolean" description="Check public constructors for more than one primitive" value="false" />
       </properties>
       <example>
 <![CDATA[
@@ -725,9 +725,9 @@ class BadObject {
          language="java"
          message="Avoid non final attributes in exceptions."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#MutableException">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!mutableexception">
       <description>
-         Exception instances should represent an error condition. Having non final fields allows 
+         Exception instances should represent an error condition. Having non final fields allows
          the state to be modified by accident and therefore mask the original condition.
       </description>
       <priority>2</priority>
@@ -735,7 +735,7 @@ class BadObject {
          <property name="xpath">
             <value>
 <![CDATA[
-//FieldDeclaration[@Final='false' and 
+//FieldDeclaration[@Final='false' and
                    ../../..[ends-with(@Image,'Exception') or ends-with(@Image,'Error')]]
 ]]>
             </value>
@@ -755,16 +755,16 @@ public class ChannelPolicyError {
       </example>
    </rule>
    <!-- might use Typeresolution to find super class instead of relying on class name -->
-   
-   
+
+
    <!-- design.xml -->
    <rule name="OneLevelOfIntention"
          language="java"
          message="Only one Level of intention per method."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#OneLevelOfIntention">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!onelevelofintention">
       <description>
-         Use only one level of intention per method. You cannot use if, loops or trys more than 
+         Use only one level of intention per method. You cannot use if, loops or trys more than
          once in a method. If used they need to be the first/outer statement of the method.
          This enforces SRP split on method level. This is rule 1 of Object Calisthenics.
       </description>
@@ -776,7 +776,7 @@ public class ChannelPolicyError {
 //MethodDeclaration[
         count( descendant::IfStatement | descendant::SwitchStatement | descendant::TryStatement |
                descendant::ForStatement | descendant::WhileStatement | descendant::DoStatement ) > 1
-        or Block/BlockStatement[ 
+        or Block/BlockStatement[
             count( Statement[IfStatement | SwitchStatement | TryStatement | ForStatement | WhileStatement | DoStatement] ) > 0 and
             count( parent::Block/BlockStatement ) > 1
                 ]
@@ -784,8 +784,8 @@ public class ChannelPolicyError {
 ]]>
             </value>
             <!--
-            find methods which 
-                have more than one If/Switch/.../Do Statement inside 
+            find methods which
+                have more than one If/Switch/.../Do Statement inside
                 or
                 has blocks with If/Switch/.../Do Statement which are in a group of more than one other block
             -->
@@ -796,26 +796,26 @@ public class ChannelPolicyError {
 public class Foo {
     public void okBecauseOneBlock() {
         if (true) {
-            // ok, only one block  
-        } 
+            // ok, only one block
+        }
     }
     public void failBecauseNested() {
         if (true) {
             while(true) {  }
-        } 
+        }
     }
 }
 ]]>
       </example>
    </rule>
-   
-   
+
+
    <!-- design.xml -->
    <rule name="FirstClassCollections"
          language="java"
          message="Any class that contains a collection (or array) should contain no other member variables."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://code.google.com/p/code-cop-code/wiki/PmdRulesCodecop#FirstClassCollections">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!firstclasscollections">
       <description>
          Each collection gets wrapped in its own class, so now behaviors related to the collection have a home.
          Constants do not count.
@@ -826,18 +826,18 @@ public class Foo {
          <property name="xpath">
             <value>
 <![CDATA[
-//FieldDeclaration[ 
+//FieldDeclaration[
         ( @Array='true' or
           Type[@TypeImage='List' or @TypeImage='Set' or @TypeImage='SortedSet' or @TypeImage='NavigableSet' or
-               @TypeImage='Map' or @TypeImage='SortedMap' or @TypeImage='NavigableMap' or 
-               @TypeImage='Collection' or @TypeImage='Deque' or @TypeImage='Queue' ] 
+               @TypeImage='Map' or @TypeImage='SortedMap' or @TypeImage='NavigableMap' or
+               @TypeImage='Collection' or @TypeImage='Deque' or @TypeImage='Queue' ]
         ) and
         count( //FieldDeclaration[@Static='false' or @Final='false'] ) > 1
-    ] 
+    ]
 ]]>
             </value>
             <!--
-            find collection fields which more than 1 sinblings 
+            find collection fields which more than 1 sinblings
             -->
          </property>
       </properties>
@@ -853,5 +853,5 @@ public class Mixup {
 ]]>
       </example>
    </rule>
-   
+
 </ruleset>
