@@ -16,65 +16,65 @@ Being lazy, of course I did not write these rule documentations by hand. I had i
 
 
 ## Usage ##
-Add the jar containing the rulesets to the PMD classpath, just copy the codecop-pmd-rules.jar into PMD's lib folder. Download the latest rules from [http://mvn2repo.code-cop-code.googlecode.com/hg/releases/org/codecop/pmd-rules/ here]. The current 1.2 branch is compatible with PMD 5. For the latest [http://maven.apache.org/plugins/maven-pmd-plugin/ Maven PMD plugin] this looks like:
-{{{
-<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-pmd-plugin</artifactId>
-    <version>3.3</version>
-    <dependencies>
-        <dependency>
-            <groupId>org.codecop</groupId>
-            <artifactId>pmd-rules</artifactId>
-            <version>1.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>net.sourceforge.pmd</groupId>
-            <artifactId>pmd-java</artifactId>
-            <version>5.2.2</version>
-        </dependency>
-    </dependencies>
-</plugin>
-}}}
-The rules also work with PMD 5.1,
-{{{
-<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-pmd-plugin</artifactId>
-    <version>3.2</version>
-    <dependencies>
-        <dependency>
-            <groupId>org.codecop</groupId>
-            <artifactId>pmd-rules</artifactId>
-            <version>1.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>net.sourceforge.pmd</groupId>
-            <artifactId>pmd</artifactId>
-            <version>5.1.3</version>
-        </dependency>
-    </dependencies>
-</plugin>
-}}}
-and there is an PMD 4.3 compatible 1.1-pmd4 release, which does not contain newer rules.
-{{{
-<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-pmd-plugin</artifactId>
-    <version>2.7.1</version>
-    <dependencies>
-        <dependency>
-            <groupId>org.codecop</groupId>
-            <artifactId>pmd-rules</artifactId>
-            <version>1.1-pmd4</version>
-        </dependency>
-        <dependency>
-            <groupId>pmd</groupId>
-            <artifactId>pmd</artifactId>
-            <version>4.3</version>
-        </dependency>
-    </dependencies>
-</plugin>
-}}}
+Add the jar containing the rule sets to the PMD classpath, just copy the `codecop-pmd-rules.jar` into PMD's `lib` folder. Download the latest rules from [here](http://www.code-cop.org/mvn2repo/releases/org/codecop/pmd-rules/). The current 1.2 branch is compatible with PMD 5. For the latest [Maven PMD plugin](http://maven.apache.org/plugins/maven-pmd-plugin/) this looks like:
 
-You have to add Mvn2Repo to your Maven repositories to get the releases. Check out the [GlobalRuleset global rule-set module] for a more detailed example of the proper settings.
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.3</version>
+        <dependencies>
+            <dependency>
+                <groupId>org.codecop</groupId>
+                <artifactId>pmd-rules</artifactId>
+                <version>1.2.1</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.pmd</groupId>
+                <artifactId>pmd-java</artifactId>
+                <version>5.2.2</version>
+            </dependency>
+        </dependencies>
+    </plugin>
+
+The rules also work with PMD 5.1,
+
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.2</version>
+        <dependencies>
+            <dependency>
+                <groupId>org.codecop</groupId>
+                <artifactId>pmd-rules</artifactId>
+                <version>1.2.1</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.pmd</groupId>
+                <artifactId>pmd</artifactId>
+                <version>5.1.3</version>
+            </dependency>
+        </dependencies>
+    </plugin>
+
+and there is an PMD 4.3 compatible 1.1-pmd4 release, which does not contain the newer rules.
+
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>2.7.1</version>
+        <dependencies>
+            <dependency>
+                <groupId>org.codecop</groupId>
+                <artifactId>pmd-rules</artifactId>
+                <version>1.1-pmd4</version>
+            </dependency>
+            <dependency>
+                <groupId>pmd</groupId>
+                <artifactId>pmd</artifactId>
+                <version>4.3</version>
+            </dependency>
+        </dependencies>
+    </plugin>
+
+
+You have to add my [Mvn2Repo](https://bitbucket.org/pkofler/mvn2repo) to your Maven repositories to get the releases. Check out the [global rule-set](https://bitbucket.org/pkofler/global-ruleset) for a more detailed example of the proper settings.
