@@ -104,7 +104,7 @@ rules_dir = 'src/main/resources/rulesets/java'
 sets = read_rules(rules_dir)
 sets.each_key do |name|
   lines = sets[name]
-  filename = 'target/' + name + '.txt'
+  filename = '../PMDRules Wiki/PmdRules' + name.capitalize.sub(/\.xml/, '') + '.wiki'
   File.open(filename, 'w') { |file|
     lines.each { |line| file.print line }
   }
