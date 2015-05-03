@@ -8,8 +8,8 @@ Custom rules for PMD code analysis.
 ## Rule Sets ##
 
  * Read my [motivation for first custom rules](http://blog.code-cop.org/2010/05/custom-pmd-rules.html).
- * [PmdRulesCodecop](https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop) - rules for various bugs and conventions. 
- * [PmdRulesConstraints](https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints) - rules for constraints in code katas, Coding Dojos and Code Retreats. 
+ * [PmdRulesCodecop](https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop) - rules for various bugs and conventions.
+ * [PmdRulesConstraints](https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints) - rules for constraints in code katas, Coding Dojos and Code Retreats.
  * [PmdRulesPrototype](https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype)
 
 Being lazy, of course I did not write these rule documentations by hand. I had it generated using a Ruby script `rule_summary_google_code.rb` that converts PMD's ruleset.xml format into wiki syntax.
@@ -26,7 +26,7 @@ Add the jar containing the rule sets to the PMD classpath, just copy the `codeco
             <dependency>
                 <groupId>org.codecop</groupId>
                 <artifactId>pmd-rules</artifactId>
-                <version>1.2.1</version>
+                <version>1.2.2</version>
             </dependency>
             <dependency>
                 <groupId>net.sourceforge.pmd</groupId>
@@ -46,7 +46,7 @@ The rules also work with PMD 5.1,
             <dependency>
                 <groupId>org.codecop</groupId>
                 <artifactId>pmd-rules</artifactId>
-                <version>1.2.1</version>
+                <version>1.2.2</version>
             </dependency>
             <dependency>
                 <groupId>net.sourceforge.pmd</groupId>
