@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <parent>
@@ -51,6 +51,12 @@
             </roles>
         </contributor>
     </contributors>
+
+    <scm>
+        <connection>scm:hg:https://bitbucket.org/pkofler/${project.artifactId}</connection>
+        <developerConnection>scm:hg:https://bitbucket.org/pkofler/${project.artifactId}</developerConnection>
+        <url>https://bitbucket.org/pkofler/${project.artifactId}/src</url>
+    </scm>
 
     <build>
         <finalName>codecop-${project.artifactId}-${project.version}</finalName>
