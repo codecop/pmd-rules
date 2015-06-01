@@ -38,6 +38,7 @@ public class CodeCopRulesTest extends SimpleAggregatorTst {
       addRule(RULESET, "MutableException");
       addRule(RULESET, "OneLevelOfIntention");
       addRule(RULESET, "FirstClassCollections");
+      addRule(RULESET, "AvoidClassNamingImpl");
    }
 
    public static junit.framework.Test suite() {

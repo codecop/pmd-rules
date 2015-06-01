@@ -854,4 +854,33 @@ public class Mixup {
       </example>
    </rule>
 
+
+   <!-- naming.xml --> 
+   <rule name="AvoidClassNamingImpl"
+         language="java"
+         message="Implementation classes should not end with 'Impl'."
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!avoidclassnamingimpl">
+      <description>
+         For better naming implementation classes should not end with 'Impl'. Rename the class!
+      </description>
+      <priority>2</priority>
+      <properties>
+         <property name="suffix" type="String" description="Mandatory forbidden suffix to class names" value="Impl" />
+         <property name="xpath">
+            <value>
+<![CDATA[
+//ClassOrInterfaceDeclaration[ends-with(@Image, $suffix)]
+]]>
+            </value>
+         </property>
+      </properties>
+      <example>
+<![CDATA[
+public class SomeImpl { }     // nok
+public class SomeClass { }    // ok
+]]>
+      </example>
+   </rule>
+
 </ruleset>

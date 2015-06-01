@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+wrong name
+     ]]></description>
+        <expected-problems>2</expected-problems>
+        <code><![CDATA[
+public class SomeImpl { }     
+public class Impl { }     
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+all is well
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class SomeClass { }   
+public class SomeImp { }   
+     ]]></code>
+    </test-code>
+</test-data>
+
+
