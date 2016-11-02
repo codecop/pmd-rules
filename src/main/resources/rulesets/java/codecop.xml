@@ -765,7 +765,7 @@ public class ChannelPolicyError {
          externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!onelevelofintention">
       <description>
          Use only one level of intention per method. You cannot use if, loops or trys more than
-         once in a method. If used they need to be the first/outer statement of the method.
+         once in a method. If used they need to be the first/last/outer statement of the method.
          This enforces SRP split on method level. This is rule 1 of Object Calisthenics.
       </description>
       <priority>2</priority>
@@ -855,7 +855,7 @@ public class Mixup {
    </rule>
 
 
-   <!-- naming.xml --> 
+   <!-- naming.xml -->
    <rule name="AvoidClassNamingImpl"
          language="java"
          message="Implementation classes should not end with 'Impl'."

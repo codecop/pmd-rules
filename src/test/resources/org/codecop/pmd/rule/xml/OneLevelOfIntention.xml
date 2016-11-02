@@ -8,13 +8,13 @@ One level alone, ok
         <code><![CDATA[
 public class Foo {
     public void mainIf() {
-        if (true) { } 
+        if (true) { }
     }
     public void mainWhile() {
         while(true) {  }
     }
     public void mainTry() {
-        try { 
+        try {
         } catch (Exception e) {
         }
     }
@@ -29,23 +29,23 @@ nested blocks, bad
         <code><![CDATA[
 public class Foo {
     public void main() {
-        if (true) {  
+        if (true) {
             while(true) {  }
-        } 
+        }
     }
 }
      ]]></code>
     </test-code>
     <test-code>
         <description><![CDATA[
-block not first statement, bad
+block not first statement, bad (maybe too strict)
      ]]></description>
         <expected-problems>1</expected-problems>
         <code><![CDATA[
 public class Foo {
     public void main() {
         System.out.println("Outer");
-        try { 
+        try {
         } catch (Exception e) {
         }
     }
@@ -54,13 +54,13 @@ public class Foo {
     </test-code>
     <test-code>
         <description><![CDATA[
-block not last statement, bad
+block not last statement, bad (maybe too strict)
      ]]></description>
         <expected-problems>1</expected-problems>
         <code><![CDATA[
 public class Foo {
     public void main() {
-        try { 
+        try {
         } catch (Exception e) {
         }
         System.out.println("Outer");
@@ -70,13 +70,13 @@ public class Foo {
     </test-code>
     <test-code>
         <description><![CDATA[
-block mixed, bad
+multiple blocks mixed, bad
      ]]></description>
         <expected-problems>1</expected-problems>
         <code><![CDATA[
 public class Foo {
     public void main() {
-        if (true) { } 
+        if (true) { }
         System.out.println("Outer");
         while(true) {  }
     }
