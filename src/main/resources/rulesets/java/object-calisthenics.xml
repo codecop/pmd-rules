@@ -41,7 +41,7 @@
     <!-- No Class Over 50 Lines (rule 7 of Object Calisthenics) -->
     <rule ref="rulesets/java/codesize.xml/NcssTypeCount">
         <properties>
-            <property name="minimum" value="51" />  
+            <property name="minimum" value="30" /> <!-- NCSS 50 ~ 90 LoC -->
         </properties>
     </rule>
 
