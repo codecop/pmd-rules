@@ -26,4 +26,29 @@ public class Size {
 }
      ]]></code>
     </test-code>
+    <test-code>
+        <description><![CDATA[
+qualified field access
+     ]]></description>
+        <expected-problems>2</expected-problems>
+        <code><![CDATA[
+public class Foo {
+    private Date date;
+    Date getDate() { return this.date; }
+    void setDate(Date d) { this.date = d; }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+simple expressions
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Foo {
+    int getSum() { return a + b; }
+    String getStr() { return a.toString(); }
+}
+     ]]></code>
+    </test-code>
 </test-data>
