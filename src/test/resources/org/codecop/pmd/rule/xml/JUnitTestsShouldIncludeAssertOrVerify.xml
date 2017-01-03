@@ -276,16 +276,35 @@ Junit 4 test using verify or Mockito.verify...
      ]]></description>
         <expected-problems>0</expected-problems>
         <code><![CDATA[
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.verify;
-public class AssertTest {
+public class MockitoTest {
   @Test public void testStaticImport() {
     verify(runner).run();
   }
   @Test public void testImport() {
     Mockito.verify(runner).run();
+  }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+Junit 4 test using Fest Assertions...
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import org.fest.assertions.Assertions;
+import static org.fest.assertions.Assertions.assertThat;
+import org.junit.Test;
+
+public class FestTest {
+  @Test public void testStaticImport() {
+    assertThat(reportChartDefinition.getName()).isEqualTo(REPORT_NAME);
+  }
+  @Test public void testImport() {
+    Assertions.assertThat(reportChartDefinition.getName()).isEqualTo(REPORT_NAME);
   }
 }
      ]]></code>
