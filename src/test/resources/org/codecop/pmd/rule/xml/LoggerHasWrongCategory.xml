@@ -39,6 +39,17 @@ class GoodExample {
 }
      ]]></code>
     </test-code>
+    <test-code>
+        <description><![CDATA[
+no logger, no problems
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class GoodExample {
+   
+   private void method() {
+   }
+}
+     ]]></code>
+    </test-code>
 </test-data>
-
-

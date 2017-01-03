@@ -523,14 +523,16 @@ public class Foo_Core {} // ok - Generation Gap Pattern
          <property name="xpath">
             <value>
 <![CDATA[
-//ClassOrInterfaceDeclaration[not (
-  //PrimaryExpression[//PrimaryPrefix/Name/@Image='Logger.getLogger']
-  //PrimarySuffix//ClassOrInterfaceType/@Image=@Image
-  )
+//PrimaryExpression
+[
+  (PrimaryPrefix/Name/@Image=$logFactory) and
+  (not (PrimarySuffix//ClassOrInterfaceType/@Image=ancestor::ClassOrInterfaceDeclaration/@Image))
 ]
 ]]>
             </value>
          </property>
+          <property name="logFactory" type="String" description="Invocation of logger factory" value="Logger.getLogger"/>
+          <!-- for Commons Logging: LogFactory.getLog -->
       </properties>
       <example>
 <![CDATA[
