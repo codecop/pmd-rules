@@ -3,20 +3,21 @@
 @pause
 
 @echo running with PMD 5.0
-call mvn clean verify site
-@start target\site\index.html
+call mvn2 clean verify
+rem mvn site
+rem @start target\site\index.html
 @pause
 
 @echo running with PMD 5.1
-call mvn clean verify -Dpmd=5.1
+call mvn2 clean verify -Dpmd=5.1
 @pause
 
 @echo running with PMD 5.2
-call mvn clean verify -Dpmd=5.2
+call mvn2 clean verify -Dpmd=5.2
 @pause
 
 @echo running with PMD 5.3
-call mvn clean verify -Dpmd=5.3
+call mvn2 clean verify -Dpmd=5.3
 @pause
 @endlocal
 
