@@ -30,7 +30,9 @@ public class PrimitiveObsession extends AbstractJavaRule {
             "float", "Float", "double", "Double", "Number", //
             "boolean", "Boolean", //
             "String", //
-            "List", "Map", "Set" //
+            "Collection", //
+            "List", "Map", "SortedMap", "Set", "SortedSet", 
+            "Queue", "Deque" // 
     );
 
     private boolean allowObject;
