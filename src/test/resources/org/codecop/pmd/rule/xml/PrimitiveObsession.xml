@@ -93,4 +93,17 @@ class GoodObject {
 }
      ]]></code>
     </test-code>
+    <test-code>
+        <description><![CDATA[
+equals method must be allowed for containers.
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class EqualObject {
+    public boolean equals(Object obj) {
+        return (this == obj);
+    }
+}
+     ]]></code>
+    </test-code>
 </test-data>

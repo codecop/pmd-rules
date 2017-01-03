@@ -76,6 +76,10 @@ public class PrimitiveObsession extends AbstractJavaRule {
 
         Object visit = super.visit(methodDeclaration, context);
 
+        if (isEqualsMethod(methodDeclaration)) {
+            return visit;
+        }
+        
         checkForPrimitiveReturnType(methodDeclaration);
 
         boolean isPublic = methodDeclaration.isPublic();
@@ -84,17 +88,32 @@ public class PrimitiveObsession extends AbstractJavaRule {
         return visit;
     }
 
+    private boolean isEqualsMethod(ASTMethodDeclaration methodDeclaration) {
+        boolean isPublic = methodDeclaration.isPublic();
+        boolean returnsBoolean = !methodDeclaration.isVoid() && returnTypeOf(methodDeclaration).getTypeImage().equals("boolean");
+        boolean namedEquals = declaratorOf(methodDeclaration).getImage().equals("equals");
+        boolean oneArgument = declaratorOf(methodDeclaration).getParameterCount() == 1;
+        return isPublic && returnsBoolean && namedEquals && oneArgument;
+    }
+
     private void resetTypeCheck() {
         wrongTypesDetected = false;
     }
 
     private void checkForPrimitiveReturnType(ASTMethodDeclaration methodDeclaration) {
         boolean hasReturnValue = !methodDeclaration.isVoid();
-        boolean hasParameters = methodDeclaration.getFirstChildOfType(ASTMethodDeclarator.class).getParameterCount() > 0;
+        boolean hasParameters = declaratorOf(methodDeclaration).getParameterCount() > 0;
         if (hasReturnValue && hasParameters) {
-            ASTType returnType = methodDeclaration.getResultType().getFirstChildOfType(ASTType.class);
-            checkForPrimitive(returnType);
+            checkForPrimitive(returnTypeOf(methodDeclaration));
         }
+    }
+
+    private ASTMethodDeclarator declaratorOf(ASTMethodDeclaration methodDeclaration) {
+        return methodDeclaration.getFirstChildOfType(ASTMethodDeclarator.class);
+    }
+
+    private ASTType returnTypeOf(ASTMethodDeclaration methodDeclaration) {
+        return methodDeclaration.getResultType().getFirstChildOfType(ASTType.class);
     }
 
     private void addViolationOnPrimitiveParameter(boolean condition, Object context, Node declaration) {
