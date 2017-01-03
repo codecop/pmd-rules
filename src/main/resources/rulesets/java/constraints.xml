@@ -204,14 +204,16 @@ public class Foo {
         MethodDeclarator/FormalParameters[count(FormalParameter)=1] and
         ResultType[count(Type)=0] and
         Block/BlockStatement/Statement/StatementExpression/Expression/PrimaryExpression[
-           count(PrimarySuffix/Arguments)=0
+           (count(PrimarySuffix/Arguments)=0) and
+           (count(descendant::Expression)=0)
         ] and
         //AssignmentOperator[@Image='=']
      ) or (
         MethodDeclarator/FormalParameters[count(FormalParameter)=0] and
         ResultType/Type[count(ReferenceType)=1] and
         Block/BlockStatement/Statement/ReturnStatement/Expression/PrimaryExpression[
-           count(PrimarySuffix)=0
+           (count(PrimarySuffix)=0) and
+           (count(descendant::Expression)=0)
         ] and
         count(Block/BlockStatement/Statement/ReturnStatement)=1
      )
