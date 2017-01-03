@@ -95,16 +95,21 @@ public class JUnitTestsShouldIncludeAssertOrVerify extends AbstractJUnitRule {
                 ASTPrimaryPrefix pp = (ASTPrimaryPrefix) pe.jjtGetChild(0);
                 if (pp.jjtGetNumChildren()>0 && pp.jjtGetChild(0) instanceof ASTName) {
                     String img = ((ASTName) pp.jjtGetChild(0)).getImage();                                              
-                    if (img != null && (img.startsWith("assert") || img.startsWith("fail") ||
-                                        img.startsWith("Assert.assert") || img.startsWith("Assert.fail") ||
-                                        img.startsWith("Mockito.verify") || img.startsWith("verify")|| 
-                                        img.contains(".expect"))) {                  
+                    if (img != null && isAssertOrFailMethodName(img)) {                  
                         return true;
                     }
                 }
             }
         }
         return false;
+    }
+
+    private boolean isAssertOrFailMethodName(String img) {
+        return img.startsWith("assert") || img.startsWith("fail") || // static import
+               img.startsWith("Assert.assert") || img.startsWith("Assert.fail") || // plain JUnit
+               img.startsWith("Mockito.verify") || // Mockito
+               img.startsWith("verify") || img.contains(".expect") || // static import
+               img.startsWith("Assertions.assert"); // Fest and AssertJ
     }
 
 }
