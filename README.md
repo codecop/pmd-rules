@@ -2,7 +2,7 @@
 
 Custom rules for PMD code analysis.
 
-[PMD](http://pmd.sourceforge.net/) scans Java source code and looks for potential problems. (Read about how it works [here](http://pmd.sourceforge.net/howitworks.html).) It comes with more than 200 [predefined rules](http://pmd.sourceforge.net/rules/index.html). It's possible to define your own rules; I have done so since 2004. This project contains a mixed set of custom rules for PMD 5.0.0 regarding basic bugs, design principles, JUnit test, naming and other rule groups as well as some useful templates to copy from. The `pmd-4.x` branch contains the same rules compatible with PMD 4.1 up to PMD 4.3.
+[PMD](https://pmd.github.io/) scans Java source code and looks for potential problems. (Read about how it works [here](https://pmd.github.io/pmd-5.5.4/customizing/howitworks.html).) It comes with more than 200 [predefined rules](https://pmd.github.io/pmd-5.5.4/pmd-java/index.html). It's possible to define your own rules; I have done so since 2004. This project contains a mixed set of custom rules for PMD 5.x regarding basic bugs, design principles, JUnit test, naming and other rule groups as well as some useful templates to copy from. The `pmd-4.x` branch contains the same rules compatible with PMD 4.1 up to PMD 4.3.
 
 
 ## Rule Sets ##
@@ -12,7 +12,7 @@ Custom rules for PMD code analysis.
  * [PmdRulesConstraints](https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints) - rules for constraints in code katas, Coding Dojos and Code Retreats.
  * [PmdRulesPrototype](https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype)
 
-Being lazy, of course I did not write these rule documentations by hand. I had it generated using a Ruby script `rule_summary_google_code.rb` that converts PMD's ruleset.xml format into wiki syntax.
+Being lazy, of course I did not write these rule documentations by hand. I had it generated using a Ruby script `rule_summary_bitbucket.rb` that converts PMD's ruleset.xml format into Bitbucket's wiki syntax.
 
 
 ## Usage ##
