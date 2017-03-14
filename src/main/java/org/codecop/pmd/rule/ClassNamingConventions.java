@@ -19,7 +19,7 @@ public class ClassNamingConventions extends AbstractJavaRule {
    
    public ClassNamingConventions() {
       // definePropertyDescriptor(UPPERCASE_LEN_DESCRIPTOR);
-      // defined in XML for better readbility
+      // defined in XML for better readability
    }
 
    @Override
@@ -37,7 +37,7 @@ public class ClassNamingConventions extends AbstractJavaRule {
          addViolation(data, node);
       }
 
-      // must not be uppercase only
+      // must not be upper case only
       if (className.toUpperCase().equals(className) && className.length() > upperCaseLen) {
          addViolation(data, node);
       }
