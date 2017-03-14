@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+short line/statement.
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Foo {
+    public void method(){ 
+        getSomeMethodThatHasAShortName();
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+long statements, wrapped or not.
+     ]]></description>
+        <expected-problems>2</expected-problems>
+        <code><![CDATA[
+public class Foo {
+    public void method(){
+        getSomeMethodThatHasALongName(andThenPutSomethingLargeIntoIt()).butWeAreNotDoneBecauseWeNeedLongLine(); 
+
+        getSomeMethodThatHasALongName(
+            andThenPutSomethingLargeIntoIt()).
+                butWeAreNotDoneBecauseWeNeedLongLine(); 
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+long declarations.
+     ]]></description>
+        <expected-problems>2</expected-problems>
+        <code><![CDATA[
+public class Foo {
+
+    // FieldDeclaration does not capture the modifiers, so not 100% accurate
+    private final AUsedTypeIsALongNameWithExtraMeatInIn theFieldNeedsToBeNamedAsWellAndWeAreAboveIt;
+
+    // MethodDeclarator does not capture the return type, so not 100% accurate
+    public void methodThatHasAVeryLongName(AndTheUsedTypeIsALongNameToo theParameterNeedsToBeNamed) {
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+exactly allowed line/statement length, intended.
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Foo {
+    public void method(){
+        a12345678901234567890123456789012345678901234567890123456789012345678901234567();
+    }
+}
+     ]]></code>
+    </test-code>
+</test-data>

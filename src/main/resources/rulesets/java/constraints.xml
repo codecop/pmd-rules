@@ -335,13 +335,13 @@ public class SomeClass {
   <!-- naming.xml -->
    <rule name="LooongIdentifiers"
          language="java"
-         message="Identifier minimum 20 characters (lines maximum 80 characters)."
+         message="Identifier minimum 20 characters."
          class="org.codecop.pmd.constraints.LooongIdentifiers"
          externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!looongidentifiers">
       <description>
          To enforce giving names meaningful names, every identifier shall be at least X characters. With X in the range of possibly 40. 
-         This forces people to let go of things like "num" or "x1" and "x2". 
-         See http://manynames.sevensuns.at/technojoy/2014/12/2080-a-coding-dojo-constraint-just-for-fun.html
+         This forces people to let go of things like "num" or "x1" and "x2". This is part 1 of 20/80, see         
+         http://manynames.sevensuns.at/technojoy/2014/12/2080-a-coding-dojo-constraint-just-for-fun.html
       </description>
       <priority>3</priority>
       <properties>
@@ -364,4 +364,32 @@ public class ReversiBoardPosition {
       </example>
    </rule>
 
+
+   <!-- codesize.xml -->
+   <rule name="ShortStatements"
+         language="java"
+         message="Lines maximum 80 characters."
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!shortstatements">
+      <description>
+         Keep statements (lines) short, so not many long identifiers can fit in. This is part 1 of 20/80, see         
+         http://manynames.sevensuns.at/technojoy/2014/12/2080-a-coding-dojo-constraint-just-for-fun.html
+      </description>
+      <priority>3</priority>
+      <properties>
+         <property name="lineMaxLen" type="Integer" description="Maximal length of lines" min="40" max="200" value="80" />
+         <property name="xpath">
+            <value>
+<![CDATA[
+//BlockStatement[ (@SingleLine='false') or (number(@EndColumn)-number(@BeginColumn) > $lineMaxLen) ] |
+//FieldDeclaration[ (@SingleLine='false') or (number(@EndColumn)-number(@BeginColumn) > $lineMaxLen) ] |
+//MethodDeclarator[ (@SingleLine='false') or (number(@EndColumn)-number(@BeginColumn) > $lineMaxLen) ]
+]]>
+                <!-- FieldDeclaration does not capture the modifiers, so not 100% accurate -->
+                <!-- MethodDeclarator does not capture the return type, so not 100% accurate -->
+            </value>
+         </property>
+      </properties>
+   </rule>
+   
 </ruleset>
