@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+Long class name, method name, field name, parameter name, local name.
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+package a1234567890123456789;
+
+public class A1234567890123456789 {
+    private int s1234567890123456789;
+    public void m1234567890123456789(int f1234567890123456789) {
+        int t1234567890123456789;
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+Short package, class name, method name, field name, parameter name, local name.
+     ]]></description>
+        <expected-problems>6</expected-problems>
+        <code><![CDATA[
+package calc;
+
+public class Calc {
+    private int sum;
+    public void main(int factor) {
+        int temp;
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+Short enum names.
+     ]]></description>
+        <expected-problems>2</expected-problems>
+        <code><![CDATA[
+public enum Calc {
+    BLA;
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+Short multiple packages.
+     ]]></description>
+        <expected-problems>2</expected-problems>
+        <code><![CDATA[
+package a.b;        
+public class A1234567890123456789 { }
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+Short exception, short try-resource.
+     ]]></description>
+        <expected-problems>2</expected-problems>
+        <code><![CDATA[
+public class A1234567890123456789 { 
+    public void m1234567890123456789() {
+        try (Writer w = getWriter()) {
+        } catch (Exception e) {
+        }
+    }
+}
+     ]]></code>
+    </test-code>
+</test-data>

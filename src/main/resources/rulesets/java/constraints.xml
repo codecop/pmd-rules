@@ -331,4 +331,37 @@ public class SomeClass {
       </example>
    </rule>
 
+
+  <!-- naming.xml -->
+   <rule name="LooongIdentifiers"
+         language="java"
+         message="Identifier minimum 20 characters (lines maximum 80 characters)."
+         class="org.codecop.pmd.constraints.LooongIdentifiers"
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!looongidentifiers">
+      <description>
+         To enforce giving names meaningful names, every identifier shall be at least X characters. With X in the range of possibly 40. 
+         This forces people to let go of things like "num" or "x1" and "x2". 
+         See http://manynames.sevensuns.at/technojoy/2014/12/2080-a-coding-dojo-constraint-just-for-fun.html
+      </description>
+      <priority>3</priority>
+      <properties>
+         <property name="identifierMinLen" type="Integer" description="Minimal length of identifier names" min="1" max="99" value="20" />
+      </properties>
+      <example>
+<![CDATA[
+package possiblenextmovesreversi;
+
+public class ReversiBoardPosition {
+    private final int xCoordOfReversiBoard;
+    private final int yCoordOfReversiBoard;
+
+    public ReversiBoardPosition(int xCoordOfReversiBoard, int yCoordOfReversiBoard) {
+        this.xCoordOfReversiBoard = xCoordOfReversiBoard;
+        this.yCoordOfReversiBoard = yCoordOfReversiBoard;
+    }
+}
+]]>
+      </example>
+   </rule>
+
 </ruleset>
