@@ -885,4 +885,43 @@ public class SomeClass { }    // ok
       </example>
    </rule>
 
+
+   <!-- junit.xml --> <!-- by Marek Budyn -->
+   <rule name="TestNameShouldStartWithShould"
+         language="java"
+         message="Test method must start with 'should'."
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!testnameshouldstartwithshould">
+      <description>
+         Write your tests in the  behaviour driven development style of testing, as it encourages you to write tests that 
+         read as specifications, and are more aligned with the behaviour of the class or system that you are testing. 
+      </description>
+      <priority>2</priority>
+      <properties>
+         <property name="xpath">
+            <value>
+<!-- PMD 5.1: //MethodDeclaration[(../Annotation/MarkerAnnotation/Name[@Image='Test']) and (not(starts-with(@Name, 'should')))] -->
+<![CDATA[
+//MethodDeclaration[(../Annotation/MarkerAnnotation/Name[@Image='Test']) and (not(starts-with(MethodDeclarator/@Image, 'should')))]
+]]>
+            </value>
+         </property>
+      </properties>
+      <example>
+<![CDATA[
+public class GoodNamedTest {
+  @Test
+  public void shouldRun() { // ok
+  }
+}
+
+public class BadNamedTest {
+  @Test
+  public void testRun() { // nok
+  }
+}
+]]>
+      </example>
+   </rule>
+
 </ruleset>

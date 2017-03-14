@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+No test.
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Some {
+   public void anything() { }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+Test with method named differently
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class BadNamedTest {
+  @Test
+  public void testRun() { // nok
+  }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+Test with method named should
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class GoodNamedTest {
+  @Test
+  public void shouldRun() { // ok
+  }
+}
+     ]]></code>
+    </test-code>
+</test-data>

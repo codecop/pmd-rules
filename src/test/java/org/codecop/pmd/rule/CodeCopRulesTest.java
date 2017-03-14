@@ -39,6 +39,7 @@ public class CodeCopRulesTest extends SimpleAggregatorTst {
       addRule(RULESET, "OneLevelOfIntention");
       addRule(RULESET, "FirstClassCollections");
       addRule(RULESET, "AvoidClassNamingImpl");
+      addRule(RULESET, "TestNameShouldStartWithShould");
    }
 
    public static junit.framework.Test suite() {
