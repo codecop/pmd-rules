@@ -20,8 +20,21 @@ factory method is no getter (false positive)
         <expected-problems>0</expected-problems>
         <code><![CDATA[
 public class Size {
-    public static Size defaultSize() {  
+    public static Size defaultSize() {
         return new Size(1);
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+default factory method is no getter (false positive)
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class A {
+    public static B aB() {
+        return new B();
     }
 }
      ]]></code>
