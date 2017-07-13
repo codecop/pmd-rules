@@ -30,6 +30,7 @@ import net.sourceforge.pmd.RuleContext;
 import net.sourceforge.pmd.RuleSet;
 import net.sourceforge.pmd.RuleSetFactory;
 import net.sourceforge.pmd.RuleSetNotFoundException;
+import net.sourceforge.pmd.RuleSetVersionAdapter;
 import net.sourceforge.pmd.RuleSets;
 import net.sourceforge.pmd.RuleViolation;
 //PK import net.sourceforge.pmd.lang.LanguageRegistry;
@@ -208,8 +209,7 @@ public abstract class RuleTst {
         ctx.setSourceCodeFilename("n/a");
         ctx.setLanguageVersion(languageVersion);
         //PK ctx.setIgnoreExceptions(false);
-        RuleSet rules = new RuleSet();
-        rules.addRule(rule);
+        RuleSet rules = RuleSetVersionAdapter.create(rule);
         p.getSourceCodeProcessor().processSourceCode(new StringReader(code), new RuleSets(rules), ctx);
     }
 
