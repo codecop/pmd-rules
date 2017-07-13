@@ -8,7 +8,6 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.codecop</groupId>
     <artifactId>pmd-rules</artifactId>
     <packaging>jar</packaging>
     <name>PMD Rules</name>
@@ -83,12 +82,11 @@
             </properties>
         </profile>
         <profile>
-            <!-- 5.1.3 ... 2014 -->
-            <id>pmd-51-compatibility</id>
+            <id>pmd-50-compatibility</id>
             <activation>
                 <property>
                     <name>pmd</name>
-                    <value>5.1</value>
+                    <value>5.0</value>
                 </property>
             </activation>
             <properties>
@@ -97,7 +95,6 @@
             </properties>
         </profile>
         <profile>
-            <!-- 5.2.3 ... 2014 -->
             <id>pmd-52-compatibility</id>
             <activation>
                 <property>
@@ -111,34 +108,6 @@
             </properties>
         </profile>
         <profile>
-            <!-- 5.3.8 ... 2016 -->
-            <id>pmd-53-compatibility</id>
-            <activation>
-                <property>
-                    <name>pmd</name>
-                    <value>5.3</value>
-                </property>
-            </activation>
-            <properties>
-                <pmd.version>5.3.8</pmd.version>
-                <pmd.dependency>pmd-java</pmd.dependency>
-            </properties>
-        </profile>
-        <profile>
-            <!-- 5.4.3 ... 2016 -->
-            <id>pmd-54-compatibility</id>
-            <activation>
-                <property>
-                    <name>pmd</name>
-                    <value>5.4</value>
-                </property>
-            </activation>
-            <properties>
-                <pmd.version>5.4.5</pmd.version>
-                <pmd.dependency>pmd-java</pmd.dependency>
-            </properties>
-        </profile>
-        <profile>
             <id>latest-compatibility</id>
             <activation>
                 <property>
@@ -147,7 +116,7 @@
                 </property>
             </activation>
             <properties>
-                <pmd.version>5.5.4</pmd.version>
+                <pmd.version>5.8.1</pmd.version>
                 <pmd.dependency>pmd-java</pmd.dependency>
             </properties>
         </profile>
