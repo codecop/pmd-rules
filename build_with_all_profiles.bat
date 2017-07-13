@@ -38,4 +38,20 @@ call mvn clean verify -Dpmd=5.2 -Dpmd.version=5.4.6
 call mvn clean test -Dpmd=5.2 -Dpmd.version=5.5.7
 @pause
 
+rem BREAKING BREAKING BREAKING BREAKING
+@rem 5.6.1 ... 2017
+@echo running with PMD 5.6
+call mvn clean verify -Dpmd=5.2 -Dpmd.version=5.6.1
+@pause
+
+@rem 5.7.0 ... 2017
+@echo running with PMD 5.7
+call mvn clean test -Dpmd=5.2 -Dpmd.version=5.7.0
+@pause
+
+@rem 5.8.1 ... 2017
+@echo running with PMD 5.8
+call mvn clean test -Dpmd=5.2 -Dpmd.version=5.8.1
+@pause
+
 @endlocal

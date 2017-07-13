@@ -31,12 +31,12 @@ Add the jar containing the rule sets to the PMD classpath, just copy the `codeco
             <dependency>
                 <groupId>net.sourceforge.pmd</groupId>
                 <artifactId>pmd-java</artifactId>
-                <version>5.2.2</version>
+                <version>5.8.1</version>
             </dependency>
         </dependencies>
     </plugin>
 
-The rules also work with PMD 5.1,
+The rules also work with any earlier PMD down to PMD 5.1,
 
     <plugin>
         <groupId>org.apache.maven.plugins</groupId>
