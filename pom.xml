@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <parent>
@@ -11,7 +11,7 @@
     <artifactId>pmd-rules</artifactId>
     <packaging>jar</packaging>
     <name>PMD Rules</name>
-    <version>1.2.3-SNAPSHOT</version>
+    <version>1.2.3</version>
     <description>A mixed set of PMD rules created since 2004 regarding basic bugs, design principles, JUnit test, naming and other things.</description>
     <url>https://bitbucket.org/pkofler/${project.artifactId}/</url>
     <inceptionYear>2004</inceptionYear>
@@ -62,7 +62,8 @@
         <connection>scm:hg:https://bitbucket.org/pkofler/${project.artifactId}</connection>
         <developerConnection>scm:hg:https://bitbucket.org/pkofler/${project.artifactId}</developerConnection>
         <url>https://bitbucket.org/pkofler/${project.artifactId}/src</url>
-    </scm>
+      <tag>pmd-rules-1.2.3</tag>
+  </scm>
 
     <build>
         <finalName>codecop-${project.artifactId}-${project.version}</finalName>
