@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ruleset name="TwentyEighty"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+    <description>
+        Collection of rules for the Naming 20-80 by Christian Haas (Coding Dojo).
+        See http://manynames.sevensuns.at/technojoy/2014/12/2080-a-coding-dojo-constraint-just-for-fun.html
+    </description>
+
+    <rule ref="rulesets/java/constraints.xml/ShortStatements" />
+    <rule ref="rulesets/java/constraints.xml/LooongIdentifiers" />
+
+</ruleset>
