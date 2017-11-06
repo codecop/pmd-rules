@@ -10,7 +10,7 @@
    </description>
 
 
-   <!-- basic.xml, by Richard Beitelmair -->
+   <!-- basic.xml --> <!-- by Richard Beitelmair -->
    <rule name="JumbledIterator"
          language="java"
          message="Non matching iterator identifier found in for loop."
@@ -893,8 +893,8 @@ public class SomeClass { }    // ok
          class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!testnameshouldstartwithshould">
       <description>
-         Write your tests in the  behaviour driven development style of testing, as it encourages you to write tests that 
-         read as specifications, and are more aligned with the behaviour of the class or system that you are testing. 
+         Write your tests in the  behaviour driven development style of testing, as it encourages you to write tests that
+         read as specifications, and are more aligned with the behaviour of the class or system that you are testing.
       </description>
       <priority>2</priority>
       <properties>

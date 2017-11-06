@@ -204,7 +204,7 @@ public class Foo {
         MethodDeclarator/FormalParameters[count(FormalParameter)=1] and
         ResultType[count(Type)=0] and
         Block/BlockStatement/Statement/StatementExpression/Expression/PrimaryExpression[
-           (count(PrimarySuffix/Arguments)=0) and 
+           (count(PrimarySuffix/Arguments)=0) and
            (count(descendant::Expression)=0)
         ] and
         //AssignmentOperator[@Image='=']
@@ -333,15 +333,15 @@ public class SomeClass {
    </rule>
 
 
-  <!-- naming.xml -->
+  <!-- naming.xml --> <!-- idea by Christian Haas -->
    <rule name="LooongIdentifiers"
          language="java"
          message="Identifier minimum 20 characters."
          class="org.codecop.pmd.constraints.LooongIdentifiers"
          externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!looongidentifiers">
       <description>
-         To enforce giving names meaningful names, every identifier shall be at least X characters. With X in the range of possibly 40. 
-         This forces people to let go of things like "num" or "x1" and "x2". This is part 1 of 20/80, see         
+         To enforce giving names meaningful names, every identifier shall be at least X characters. With X in the range of possibly 40.
+         This forces people to let go of things like "num" or "x1" and "x2". This is part 1 of 20/80, see
          http://manynames.sevensuns.at/technojoy/2014/12/2080-a-coding-dojo-constraint-just-for-fun.html
       </description>
       <priority>3</priority>
@@ -366,14 +366,14 @@ public class ReversiBoardPosition {
    </rule>
 
 
-   <!-- codesize.xml -->
+   <!-- codesize.xml --> <!-- idea by Christian Haas -->
    <rule name="ShortStatements"
          language="java"
          message="Lines maximum 80 characters."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!shortstatements">
       <description>
-         Keep statements (lines) short, so not many long identifiers can fit in. This is part 1 of 20/80, see         
+         Keep statements (lines) short, so not many long identifiers can fit in. This is part 1 of 20/80, see
          http://manynames.sevensuns.at/technojoy/2014/12/2080-a-coding-dojo-constraint-just-for-fun.html
       </description>
       <priority>3</priority>
@@ -392,5 +392,5 @@ public class ReversiBoardPosition {
          </property>
       </properties>
    </rule>
-   
+
 </ruleset>
