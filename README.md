@@ -78,3 +78,6 @@ and there is an PMD 4.3 compatible 1.1-pmd4 release, which does not contain the 
 
 
 You have to add my [Mvn2Repo](https://bitbucket.org/pkofler/mvn2repo) to your Maven repositories to get the releases. Check out the [global rule-set](https://bitbucket.org/pkofler/global-ruleset) for a more detailed example of the proper settings.
+
+### License ###
+[New BSD License](http://opensource.org/licenses/bsd-license.php), see `license.txt` in repository.
