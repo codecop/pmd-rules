@@ -36,6 +36,19 @@ class BadObject {
     </test-code>
     <test-code>
         <description><![CDATA[
+collections are primitive
+     ]]></description>
+        <expected-problems>2</expected-problems>
+        <code><![CDATA[
+import java.util.Set;
+class BadObject {
+   public void sad1(java.util.List buf, Date when) { };
+   public void sad2(Set buf, Date when) { };
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
 private constructors and methods can do anything.
      ]]></description>
         <expected-problems>0</expected-problems>
@@ -101,6 +114,19 @@ equals method must be allowed for containers.
         <code><![CDATA[
 class EqualObject {
     public boolean equals(Object obj) {
+        return (this == obj);
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+wrong equals method uses primitive.
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+class EqualObject {
+    public boolean equals(String obj, String another) {
         return (this == obj);
     }
 }
