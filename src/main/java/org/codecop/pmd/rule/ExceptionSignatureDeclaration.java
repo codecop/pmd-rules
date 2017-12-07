@@ -30,7 +30,7 @@ public class ExceptionSignatureDeclaration extends AbstractJavaRule {
 
    public ExceptionSignatureDeclaration() {
       // definePropertyDescriptor(IGNORE_TESTS_DESCRIPTOR);
-      // defined in XML for better readbility
+      // defined in XML for better readability
    }
 
    @Override

@@ -60,6 +60,17 @@ public class Foo {
     </test-code>
     <test-code>
         <description><![CDATA[
+outside tests, flag setUp method
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class Foo {
+ void setUp() throws Exception {}
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
 Generics
      ]]></description>
         <expected-problems>0</expected-problems>
@@ -90,6 +101,54 @@ skip Spring onSetUp method
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 public class DaoTest extends AbstractDependencyInjectionSpringContextTests {
     protected void onSetUp() throws Exception { }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+understand junit 4 import
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import org.junit.Test;
+
+public class FooTest {
+    @Test
+    void setUp() throws Exception {
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+method throws specific Exception
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Foo {
+ void foo() throws IOException {}
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+method throws Error
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Foo {
+ void foo() throws Error {}
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+constructor OK
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Foo {
+ Foo() {}
 }
      ]]></code>
     </test-code>
