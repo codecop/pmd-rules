@@ -309,4 +309,49 @@ public class FestTest {
 }
      ]]></code>
     </test-code>
+    <test-code>
+        <description><![CDATA[
+Missing JUnit 4 assert
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+import org.junit.Test;
+
+public class FooTest {
+    @Test
+    public void shouldSomething() {
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+Bug: Missing assert with timeout
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+import org.junit.Test;
+
+public class FooTest {
+    @Test(timeout = 100)
+    public void shouldSomething() {
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+Missing assert but expects exception
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import org.junit.Test;
+
+public class FooTest {
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldSomething() {
+    }
+}
+     ]]></code>
+    </test-code>
 </test-data>
