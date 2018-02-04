@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+found a cast
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class OneCast {
+  private void run(Object param) {
+    Integer var = (Integer) param; 
+  }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+precision truncate
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class NoCast {
+  private void run(long param) {
+    int var = (int) param; 
+  }
+}
+     ]]></code>
+    </test-code>
+</test-data>

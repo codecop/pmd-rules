@@ -56,6 +56,13 @@
                 <role>Rule Creator</role>
             </roles>
         </contributor>
+        <contributor>
+            <name>Dieter Herndlhofer</name>
+            <!-- TODO url -->
+            <roles>
+                <role>Rule Creator</role>
+            </roles>
+        </contributor>
     </contributors>
 
     <scm>

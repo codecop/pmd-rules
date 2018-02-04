@@ -893,7 +893,7 @@ public class SomeClass { }    // ok
          class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!testnameshouldstartwithshould">
       <description>
-         Write your tests in the  behaviour driven development style of testing, as it encourages you to write tests that
+         Write your tests in the behaviour driven development style of testing, as it encourages you to write tests that
          read as specifications, and are more aligned with the behaviour of the class or system that you are testing.
       </description>
       <priority>2</priority>
@@ -918,6 +918,40 @@ public class GoodNamedTest {
 public class BadNamedTest {
   @Test
   public void testRun() { // nok
+  }
+}
+]]>
+      </example>
+   </rule>
+
+
+   <!-- design.xml --> <!-- by Dieter Herndlhofer -->
+   <rule name="NoCasts"
+         language="java"
+         message="Do not cast objects, use polymorphy."
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!nocasts">
+      <description>
+         Type casting an object to a subclass' type is not object oriented. Use polymorphy to access the behaviour you need.
+      </description>
+      <priority>2</priority>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//CastExpression/Type/ReferenceType
+]]>
+            </value>
+         </property>
+      </properties>
+      <example>
+<![CDATA[
+public class OneCast {
+  private void run(Object param) {
+    Integer var = (Integer) param; // Don't do that
+  }
+  private void run(long param) {
+    int var = (int) param; // truncating is ok 
   }
 }
 ]]>
