@@ -2,15 +2,16 @@
 @call profile160
 @pause
 
+@rem 5.0.5 ... 2013
 @echo running with PMD 5.0
-call mvn2 clean verify
+call mvn2 clean verify -Dpmd=5.0
 rem mvn site
 rem @start target\site\index.html
 @pause
 
 @rem 5.1.3 ... 2014
 @echo running with PMD 5.1
-call mvn2 clean test -Dpmd=5.0
+call mvn2 clean test -Dpmd=5.0 -Dpmd.version=5.1.3
 @pause
 
 @rem 5.2.3 ... 2014
