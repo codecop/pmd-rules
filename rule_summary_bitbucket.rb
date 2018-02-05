@@ -13,7 +13,7 @@ def puts(msg)
   @lines << "#{msg}\n"
 end
 
-# Get the contents from _text_ DOM and normalize it.
+# Get the contents from _text_ DOM and normalise it.
 def norm_text(text)
   text.to_s.strip.gsub(/\s+/,' ').
        gsub(/(RuntimeException|RelationShip|ValueObject|OperationNotSupportedException)/, '`\1`')
@@ -104,6 +104,7 @@ rules_dir = 'src/main/resources/rulesets/java'
 sets = read_rules(rules_dir)
 sets.each_key do |name|
   lines = sets[name]
+  next if lines.size <= 3
   filename = '../PMDRules Wiki/PmdRules' + name.capitalize.sub(/\.xml/, '') + '.wiki'
   File.open(filename, 'w') { |file|
     lines.each { |line| file.print line }
