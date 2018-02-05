@@ -54,5 +54,7 @@
 
     <!-- No getters/setters/properties (rule 9 of Object Calisthenics) -->
     <rule ref="rulesets/java/constraints.xml/NoGetterAndSetter" />
+    <!-- also no public fields -->
+    <rule ref="rulesets/java/codecop.xml/MembersMustBePrivate" />
 
 </ruleset>
