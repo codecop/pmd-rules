@@ -759,6 +759,37 @@ public class ChannelPolicyError {
    <!-- might use Typeresolution to find super class instead of relying on class name -->
 
 
+   <!-- design.xml --> <!-- by Richard Beitelmair -->
+   <rule name="ImmutablesOnly"
+         language="java"
+         message="Avoid mutable state."
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!immutablesonly">
+      <description>
+         Immutable data structures are easier to reason about and have no concurrency issues.
+         Only final fields are allowed. (Mutable field references should be copied when passed in or out, but that is not checked.)
+      </description>
+      <priority>3</priority>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//FieldDeclaration[@Final='false']
+]]>
+            </value>
+         </property>
+      </properties>
+      <example>
+<![CDATA[
+public class SomeClass {
+   private final String channel; // ok
+   private boolean showIfSearchedInRegion; // not ok
+}
+]]>
+      </example>
+   </rule>
+
+
    <!-- design.xml -->
    <rule name="OneLevelOfIntention"
          language="java"

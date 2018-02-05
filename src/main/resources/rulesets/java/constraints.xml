@@ -273,37 +273,6 @@ public class Foo {
    </rule>
 
 
-   <!-- design.xml -->
-   <rule name="ImmutablesOnly"
-         language="java"
-         message="Avoid mutable state."
-         class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!immutablesonly">
-      <description>
-         Immutable data structures are easier to reason about and have no concurrency issues.
-         Only final fields are allowed. (Mutable field references should be copied when passed in or out, but that is not checked.)
-      </description>
-      <priority>3</priority>
-      <properties>
-         <property name="xpath">
-            <value>
-<![CDATA[
-//FieldDeclaration[@Final='false']
-]]>
-            </value>
-         </property>
-      </properties>
-      <example>
-<![CDATA[
-public class SomeClass {
-   private final String channel; // ok
-   private boolean showIfSearchedInRegion; // not ok
-}
-]]>
-      </example>
-   </rule>
-
-
    <rule name="OnlyStaticFields"
          language="java"
          message="All fields must be static."
@@ -333,7 +302,7 @@ public class SomeClass {
    </rule>
 
 
-  <!-- naming.xml --> <!-- idea by Christian Haas -->
+   <!-- naming.xml --> <!-- idea by Christian Haas -->
    <rule name="LooongIdentifiers"
          language="java"
          message="Identifier minimum 20 characters."
