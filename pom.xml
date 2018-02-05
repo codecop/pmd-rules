@@ -77,7 +77,7 @@
     </build>
 
     <profiles>
-        <!-- These basic rules will work since PMD 5.0 -->
+        <!-- These basic rules will work since PMD 5.0.1 -->
         <profile>
             <id>pmd-50-compatibility</id> <!-- also 5.1 -->
             <activation>
@@ -88,7 +88,7 @@
                 </property>
             </activation>
             <properties>
-                <pmd.version>5.0.1</pmd.version>
+                <pmd.version>5.0.5</pmd.version>
                 <pmd.dependency>pmd</pmd.dependency>
             </properties>
         </profile>

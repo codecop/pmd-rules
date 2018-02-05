@@ -326,7 +326,7 @@ public class FooTest {
     </test-code>
     <test-code>
         <description><![CDATA[
-Bug: Missing assert with timeout
+Bug: Missing assert with timeout (this was a bug in PMD 5.0.1, fixed in 5.0.5, maybe earlier)
      ]]></description>
         <expected-problems>1</expected-problems>
         <code><![CDATA[
