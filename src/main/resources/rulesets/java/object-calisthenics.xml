@@ -13,11 +13,11 @@
     1. One level of indentation per method
     2. Don’t use the ELSE keyword
     3. Wrap all primitives and Strings
-    4. First class collections
-    5. One dot per line - used Law of Demeter instead
-    6. Don’t abbreviate - not checked
-    7. Keep all entities small
-    8. No classes with more than two instance variables
+    4. One dot per line / Law of Demeter
+    5. Don’t abbreviate - not checked
+    6. Keep all entities small
+    7. No classes with more than two instance variables
+    8. First class collections
     9. No getters/setters/properties
     -->
 
@@ -30,27 +30,27 @@
     <!-- Wrap all primitives and Strings (rule 3 of Object Calisthenics) -->
     <rule ref="rulesets/java/codecop.xml/PrimitiveObsession" />
 
-    <!-- First class collections (rule 4 of Object Calisthenics) -->
-    <rule ref="rulesets/java/codecop.xml/FirstClassCollections" />
-
-    <!-- One dot per line (rule 5 of Object Calisthenics), not quite but similar -->
+    <!-- One dot per line (rule 4 of Object Calisthenics) -->
     <rule ref="rulesets/java/coupling.xml/LawOfDemeter" />
 
-    <!-- can't check rule 6 -->
+    <!-- can't check rule 5 -->
 
-    <!-- No Class Over 50 Lines (rule 7 of Object Calisthenics) -->
+    <!-- No Class Over 50 Lines (rule 6 of Object Calisthenics) -->
     <rule ref="rulesets/java/codesize.xml/NcssTypeCount">
         <properties>
             <property name="minimum" value="30" /> <!-- NCSS 50 ~ 90 LoC -->
         </properties>
     </rule>
 
-    <!-- No More Than 2 instance variables (rule 8 of Object Calisthenics) -->
+    <!-- No More Than 2 instance variables (rule 7 of Object Calisthenics) -->
     <rule ref="rulesets/java/codesize.xml/TooManyFields">
         <properties>
             <property name="maxfields" value="2" />  
         </properties>
     </rule>
+
+    <!-- First class collections (rule 8 of Object Calisthenics) -->
+    <rule ref="rulesets/java/codecop.xml/FirstClassCollections" />
 
     <!-- No getters/setters/properties (rule 9 of Object Calisthenics) -->
     <rule ref="rulesets/java/constraints.xml/NoGetterAndSetter" />
