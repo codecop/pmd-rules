@@ -8,7 +8,7 @@
       Special (likely controversial) rules for constraints in code katas, Coding Dojos and Code Retreats.
       See http://coderetreat.org/facilitating/activity-catalog
       Some less extreme rules like PrimitiveObsession or FirstClassCollections are located in the regular
-      codecop.xml ruleset.
+      codecop.xml rule set.
    </description>
 
 
@@ -53,6 +53,7 @@ public class Foo {
          externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!novoidmethods">
       <description>
          As an exercise no void methods are allowed. This is the functional style. Only JUnit tests and custom asserts can have void methods.
+         Allows implementing Runnable.
       </description>
       <priority>3</priority>
       <properties>
@@ -245,7 +246,8 @@ class AvoidGetterAndSetterExample {
          class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!onlystaticmethods">
       <description>
-         As an exercise only static methods are allowed. This exaggerates the common mistake to have too many static methods. Only inherited Object methods can be non-static.
+         As an exercise only static methods are allowed. This exaggerates the common mistake to have too many static methods. 
+         Only inherited Object methods can be non-static.
       </description>
       <priority>3</priority>
       <properties>
@@ -254,8 +256,8 @@ class AvoidGetterAndSetterExample {
 <![CDATA[
 //MethodDeclaration[ @Static='false' and
         not(@MethodName='hashCode' or @MethodName='equals' or
-            @MethodName='toString' or @MethodName='clone' or
-            @MethodName='compare')
+            @MethodName='toString' or @MethodName='clone'  or
+            @MethodName='compare'  or @MethodName='run')
     ]
 ]]>
             </value>
