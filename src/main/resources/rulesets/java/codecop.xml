@@ -103,7 +103,8 @@ class ParameterNameWithPExample {
          class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!unintendedenvusage">
       <description>
-         The methods getBoolean, getInteger and getLong read from environment (System Properties) and do not parse. Use Integer.parseInt() instead.
+         The methods getBoolean, getInteger and getLong read from environment (System Properties) and do not parse.
+         Use Integer.parseInt() instead.
       </description>
       <priority>2</priority>
       <properties>
@@ -141,7 +142,8 @@ class UnintendedEnvUsageExample {
          class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!junitsetupdoesnotcallsuper">
       <description>
-         The framework methods setUp() and tearDown() of JUnit's Testcase must always call super.setUp() and super.tearDown() to enable proper preparing and cleaning of resources.
+         The framework methods setUp() and tearDown() of JUnit's Testcase must always call super.setUp() and 
+         super.tearDown() to enable proper preparing and cleaning of resources.
       </description>
       <priority>2</priority>
       <properties>
@@ -340,11 +342,12 @@ public class CharInstantiationExample {
       </description>
       <priority>2</priority>
       <properties>
+         <property name="suffix" type="String" description="Suffix of Exception names (to identify)" value="Exception" />
          <property name="xpath">
             <value>
 <![CDATA[
 //FieldDeclaration[ @Final='false' and
-                    ../../../../ClassOrInterfaceDeclaration[ends-with(@Image, 'Exception')] ]
+                    ../../../../ClassOrInterfaceDeclaration[ends-with(@Image, $suffix)] ]
 ]]>
             </value>
          </property>
@@ -387,13 +390,18 @@ public class BadException extends Exception {
         MethodDeclarator/FormalParameters[count(FormalParameter)=1] and
         ResultType[count(Type)=0] and
         Block/BlockStatement/Statement/StatementExpression/Expression/PrimaryExpression[
-           count(PrimarySuffix/Arguments)=0
+           (count(PrimarySuffix/Arguments)=0) and
+           (count(descendant::Expression)=0)
         ] and //AssignmentOperator[@Image='=']
      ) or (
         MethodDeclarator[starts-with(@Image,'get') or starts-with(@Image,'is')] and
         MethodDeclarator/FormalParameters[count(FormalParameter)=0] and
         ResultType/Type[count(ReferenceType)=1] and
-        Block/BlockStatement/Statement/ReturnStatement/Expression/PrimaryExpression[count(PrimarySuffix)=0] and
+        Block/BlockStatement/Statement/ReturnStatement/Expression/PrimaryExpression[
+           (count(PrimarySuffix/descendant::*)=0) and
+           (count(descendant::Expression)=0) and
+           (count(descendant::AllocationExpression)=0)
+        ] and
         count(Block/BlockStatement/Statement/ReturnStatement)=1
      )
   )
@@ -488,7 +496,7 @@ public void methodThrowingException() throws Exception { }
          externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!classnamingconventions">
       <description>
          Class names should always begin with an upper case character, and should not contain underscores
-         (but _Stub or _Core) or dollar signs. Class names should not be uppercase only.
+         (but _Stub or _Core) or dollar signs. Class names should not be upper case only.
       </description>
       <!-- Rule copied from PMD 3.1 and made it a bit more strict -->
       <priority>2</priority>
@@ -520,6 +528,8 @@ public class Foo_Core {} // ok - Generation Gap Pattern
       </description>
       <priority>2</priority>
       <properties>
+         <property name="logFactory" type="String" description="Invocation of logger factory" value="Logger.getLogger" />
+         <!-- for Commons Logging: LogFactory.getLog -->
          <property name="xpath">
             <value>
 <![CDATA[
@@ -531,8 +541,6 @@ public class Foo_Core {} // ok - Generation Gap Pattern
 ]]>
             </value>
          </property>
-          <property name="logFactory" type="String" description="Invocation of logger factory" value="Logger.getLogger"/>
-          <!-- for Commons Logging: LogFactory.getLog -->
       </properties>
       <example>
 <![CDATA[
@@ -612,11 +620,11 @@ public class Something {
    <!-- imports --> <!-- by Usman Ismail -->
    <rule name="DontImportWild"
          language="java"
-         message="Please no wild card imports."
+         message="No wild card imports."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!dontimportwild">
       <description>
-         Do not use wildcard imports such as java.net.*.
+         Do not use wild card imports such as java.net.*.
       </description>
       <priority>1</priority>
       <properties>
@@ -640,7 +648,7 @@ import java.net.URL; // is better
    <!-- design --> <!-- by Usman Ismail -->
    <rule name="PrivateInjections"
          language="java"
-         message="Please make injected fields private."
+         message="Make injected fields private."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!privateinjections">
       <description>
@@ -648,10 +656,11 @@ import java.net.URL; // is better
       </description>
       <priority>1</priority>
       <properties>
+         <property name="inject" type="String" description="Name of Inject annotation" value="Inject" />
          <property name="xpath">
             <value>
 <![CDATA[
-//ClassOrInterfaceBodyDeclaration[contains(Annotation//Name/@Image, 'Inject') and
+//ClassOrInterfaceBodyDeclaration[contains(Annotation//Name/@Image, $inject) and
                                   contains(FieldDeclaration/@Private, 'false')]
 ]]>
             </value>
@@ -675,7 +684,7 @@ private String goodParameter; // is better
          class="org.codecop.pmd.rule.JUnitTestsShouldIncludeAssertOrVerify"
          externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!junittestsshouldincludeassertorverify">
       <description>
-        JUnit tests should include at least one assertion.  This makes the tests more robust, and
+        JUnit tests should include at least one assertion. This makes the tests more robust, and
         using assert with messages provide the developer a clearer idea of what the test does.
       </description>
       <priority>3</priority>
@@ -734,11 +743,12 @@ class BadObject {
       </description>
       <priority>2</priority>
       <properties>
+         <property name="suffix" type="String" description="Suffix of Exception names (to identify)" value="Exception" />
          <property name="xpath">
             <value>
 <![CDATA[
 //FieldDeclaration[@Final='false' and
-                   ../../..[ends-with(@Image,'Exception') or ends-with(@Image,'Error')]]
+                   ../../..[ends-with(@Image, $suffix) or ends-with(@Image, 'Error')]]
 ]]>
             </value>
          </property>
@@ -756,13 +766,13 @@ public class ChannelPolicyError {
 ]]>
       </example>
    </rule>
-   <!-- might use Typeresolution to find super class instead of relying on class name -->
+   <!-- might use Type resolution to find super class instead of relying on class name -->
 
 
    <!-- design.xml --> <!-- by Richard Beitelmair -->
    <rule name="ImmutablesOnly"
          language="java"
-         message="Avoid mutable state."
+         message="Avoid mutable state, make all fields final."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!immutablesonly">
       <description>
@@ -797,7 +807,7 @@ public class SomeClass {
          class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!onelevelofintention">
       <description>
-         Use only one level of intention per method. You cannot use if, loops or trys more than
+         Use only one level of intention per method. You cannot use if, loops or try more than
          once in a method. If used they need to be the first/last/outer statement of the method.
          This enforces SRP split on method level. This is rule 1 of Object Calisthenics.
       </description>
@@ -850,13 +860,14 @@ public class Foo {
          class="net.sourceforge.pmd.lang.rule.XPathRule"
          externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!firstclasscollections">
       <description>
-         Each collection gets wrapped in its own class, so now behaviors related to the collection have a home.
+         Each collection gets wrapped in its own class, so now behaviour related to the collection have a home.
          Constants do not count.
          This is rule 4 of Object Calisthenics.
       </description>
       <priority>2</priority>
       <properties>
          <property name="xpath">
+            <!-- find collection fields with more than 1 siblings -->
             <value>
 <![CDATA[
 //FieldDeclaration[
@@ -869,9 +880,6 @@ public class Foo {
     ]
 ]]>
             </value>
-            <!--
-            find collection fields which more than 1 sinblings
-            -->
          </property>
       </properties>
       <example>
@@ -899,7 +907,7 @@ public class Mixup {
       </description>
       <priority>2</priority>
       <properties>
-         <property name="suffix" type="String" description="Mandatory forbidden suffix to class names" value="Impl" />
+         <property name="suffix" type="String" description="Forbidden suffix to class names" value="Impl" />
          <property name="xpath">
             <value>
 <![CDATA[
@@ -929,11 +937,17 @@ public class SomeClass { }    // ok
       </description>
       <priority>2</priority>
       <properties>
+         <property name="classSuffix" type="String" description="Suffix to test class names (to identify)" value="Test" />
+         <property name="methodPrefix" type="String" description="Mandatory prefix to test methods" value="should" />
          <property name="xpath">
             <value>
 <!-- PMD 5.1: //MethodDeclaration[(../Annotation/MarkerAnnotation/Name[@Image='Test']) and (not(starts-with(@Name, 'should')))] -->
 <![CDATA[
-//MethodDeclaration[(../Annotation/MarkerAnnotation/Name[@Image='Test']) and (not(starts-with(MethodDeclarator/@Image, 'should')))]
+//MethodDeclaration[
+    (../Annotation/MarkerAnnotation/Name[@Image=$classSuffix])
+    and 
+    (not(starts-with(MethodDeclarator/@Image, $methodPrefix)))
+]
 ]]>
             </value>
          </property>
