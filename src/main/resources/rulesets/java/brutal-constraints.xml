@@ -20,7 +20,7 @@
 
     <rule ref="rulesets/java/constraints.xml/NoConditionals" />
     <rule ref="rulesets/java/constraints.xml/NoLoops" />
-    <rule ref="rulesets/java/constraints.xml/ImmutablesOnly" />
+    <rule ref="rulesets/java/codecop.xml/ImmutablesOnly" />
     <rule ref="rulesets/java/constraints.xml/NoVoidMethods" />
     <rule ref="rulesets/java/codecop.xml/PrimitiveObsession">
         <properties>
