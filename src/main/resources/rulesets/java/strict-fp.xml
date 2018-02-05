@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<ruleset name="TwentyEighty"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+    <description>
+        Collection of rules for "strict" FP. This forces you to use functional style.
+        See https://bitbucket.org/pkofler/lcd-numbers-fp-java-setup
+    </description>
+
+    <!-- only (static) functions -->
+    <rule ref="rulesets/java/constraints.xml/NoVoidMethods" />
+    <rule ref="rulesets/java/constraints.xml/OnlyStaticMethods" />
+    
+    <!-- max 3 arguments, use higher order functions instead -->
+    <rule ref="rulesets/java/codesize.xml/ExcessiveParameterList">
+        <properties>
+            <property name="minimum" value="4" />
+        </properties>
+    </rule>
+    
+    <!-- small functions -->
+    <rule ref="rulesets/java/codesize.xml/ExcessiveMethodLength">
+        <properties>
+            <property name="minimum" value="8" />
+        </properties>
+    </rule>
+
+    <!-- recursion instead of loops -->
+    <rule ref="rulesets/java/constraints.xml/NoLoops" />
+
+    <!-- immutable data -->
+    <rule ref="rulesets/java/constraints.xml/ImmutablesOnly" />
+    <rule ref="rulesets/java/design.xml/AvoidReassigningParameters" />
+    <rule ref="rulesets/java/sunsecure.xml/ArrayIsStoredDirectly" />
+    <rule ref="rulesets/java/sunsecure.xml/MethodReturnsInternalArray" />
+    <!-- TODO all local variables must be final -->
+
+</ruleset>
