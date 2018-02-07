@@ -9,7 +9,7 @@ import net.sourceforge.pmd.lang.java.ast.ASTName;
 import net.sourceforge.pmd.lang.java.ast.ASTPackageDeclaration;
 import net.sourceforge.pmd.lang.java.ast.ASTVariableDeclaratorId;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
-import net.sourceforge.pmd.lang.rule.properties.IntegerProperty;
+import net.sourceforge.pmd.properties.IntegerProperty;
 
 /**
  * Force all identifiers to be at least that looong.

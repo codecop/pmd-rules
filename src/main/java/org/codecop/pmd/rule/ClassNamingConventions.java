@@ -2,7 +2,7 @@ package org.codecop.pmd.rule;
 
 import net.sourceforge.pmd.lang.java.ast.ASTClassOrInterfaceDeclaration;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
-import net.sourceforge.pmd.lang.rule.properties.IntegerProperty;
+import net.sourceforge.pmd.properties.IntegerProperty;
 
 /**
  * Changed Class name rule to allow underscore before _Stub and _Core (RMI). Added some additional tests.

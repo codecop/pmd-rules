@@ -23,7 +23,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import net.sourceforge.pmd.PMD;
 import net.sourceforge.pmd.PMDException;
-import net.sourceforge.pmd.PropertyDescriptor;
 import net.sourceforge.pmd.Report;
 import net.sourceforge.pmd.Rule;
 import net.sourceforge.pmd.RuleContext;
@@ -35,6 +34,7 @@ import net.sourceforge.pmd.RuleSets;
 import net.sourceforge.pmd.RuleViolation;
 //PK import net.sourceforge.pmd.lang.LanguageRegistry;
 import net.sourceforge.pmd.lang.LanguageVersion;
+import net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.renderers.TextRenderer;
 
 import org.w3c.dom.Document;

@@ -81,7 +81,6 @@
         <profile>
             <id>pmd-50-compatibility</id> <!-- also 5.1 -->
             <activation>
-                <activeByDefault>true</activeByDefault>
                 <property>
                     <name>pmd</name>
                     <value>5.0</value>
@@ -95,13 +94,14 @@
         <profile>
             <id>pmd-52-compatibility</id>
             <activation>
+                <activeByDefault>true</activeByDefault>
                 <property>
                     <name>pmd</name>
                     <value>5.2</value>
                 </property>
             </activation>
             <properties>
-                <pmd.version>5.2.3</pmd.version>
+                <pmd.version>6.0.1</pmd.version>
                 <pmd.dependency>pmd-java</pmd.dependency>
             </properties>
         </profile>

@@ -10,7 +10,7 @@ import net.sourceforge.pmd.lang.java.ast.ASTImportDeclaration;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclaration;
 import net.sourceforge.pmd.lang.java.ast.ASTName;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
-import net.sourceforge.pmd.lang.rule.properties.BooleanProperty;
+import net.sourceforge.pmd.properties.BooleanProperty;
 
 /**
  * Changed Exception Signature rule to allow also Spring mock.
