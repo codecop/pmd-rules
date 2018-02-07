@@ -251,7 +251,7 @@ class AvoidGetterAndSetterExample {
          externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!onlystaticmethods">
       <description>
          As an exercise only static methods are allowed. This exaggerates the common mistake to have too many static methods. 
-         Only inherited Object methods can be non-static, Comparable and Compoarators.
+         Only inherited Object methods can be non-static, Comparable and Comparator.
       </description>
       <priority>3</priority>
       <properties>
@@ -358,7 +358,7 @@ public class ReversiBoardPosition {
          <property name="xpath">
             <value>
 <![CDATA[
-//BlockStatement[ (@SingleLine='false') or (number(@EndColumn)-number(@BeginColumn) > $lineMaxLen) ] |
+//BlockStatement[   (@SingleLine='false') or (number(@EndColumn)-number(@BeginColumn) > $lineMaxLen) ] |
 //FieldDeclaration[ (@SingleLine='false') or (number(@EndColumn)-number(@BeginColumn) > $lineMaxLen) ] |
 //MethodDeclarator[ (@SingleLine='false') or (number(@EndColumn)-number(@BeginColumn) > $lineMaxLen) ]
 ]]>
@@ -367,6 +367,67 @@ public class ReversiBoardPosition {
             </value>
          </property>
       </properties>
+   </rule>
+
+
+   <!-- design.xml -->
+   <rule name="NoStaticFields"
+         language="java"
+         message="No fields must be static."
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!nostaticfields">
+      <description>
+         As an exercise no static fields are allowed. This fights the common mistake to have too many static fields.
+      </description>
+      <priority>3</priority>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//FieldDeclaration[@Static='true']
+]]>
+            </value>
+         </property>
+      </properties>
+      <example>
+<![CDATA[
+public class SomeClass {
+   private static String channel; // not ok
+   private boolean showIfSearchedInRegion; // ok
+}
+]]>
+      </example>
+   </rule>
+
+
+   <!-- design.xml -->
+   <rule name="NoStaticMethods"
+         language="java"
+         message="No methods must be static."
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!nostaticmethods">
+      <description>
+         As an exercise no static methods are allowed. This fights the common mistake to have too many static methods. 
+      </description>
+      <priority>3</priority>
+      <properties>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//MethodDeclaration[@Static='true']
+]]>
+            </value>
+         </property>
+      </properties>
+      <example>
+<![CDATA[
+public class Foo {
+    public static int staticMethod(byte b){
+        return 1;
+    }
+}
+]]>
+      </example>
    </rule>
 
 </ruleset>

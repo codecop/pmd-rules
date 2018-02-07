@@ -26,6 +26,8 @@ public class ConstraintsRulesTest extends SimpleAggregatorTst {
         addRule(RULESET, "OnlyStaticFields");
         addRule(RULESET, "LooongIdentifiers");
         addRule(RULESET, "ShortStatements");
+        addRule(RULESET, "NoStaticMethods");
+        addRule(RULESET, "NoStaticFields");
     }
 
     public static junit.framework.Test suite() {
