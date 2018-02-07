@@ -6,9 +6,11 @@ import java.util.List;
 import org.codecop.pmd.versions.BooleanPropertyAdapter;
 
 import net.sourceforge.pmd.lang.ast.Node;
+import net.sourceforge.pmd.lang.java.ast.ASTClassOrInterfaceType;
 import net.sourceforge.pmd.lang.java.ast.ASTCompilationUnit;
 import net.sourceforge.pmd.lang.java.ast.ASTConstructorDeclaration;
 import net.sourceforge.pmd.lang.java.ast.ASTFormalParameter;
+import net.sourceforge.pmd.lang.java.ast.ASTImplementsList;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclaration;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclarator;
 import net.sourceforge.pmd.lang.java.ast.ASTType;
@@ -17,7 +19,6 @@ import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 /**
  * Look for usages of primitives other than in value object/wrappers.
  * 
- * @author PMD 5.0
  * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
  */
 public class PrimitiveObsession extends AbstractJavaRule {
@@ -39,10 +40,12 @@ public class PrimitiveObsession extends AbstractJavaRule {
     private boolean allowObject;
     private boolean checkConstructors;
     private boolean wrongTypesDetected;
+    private boolean isComparator;
 
     @Override
     public Object visit(ASTCompilationUnit node, Object context) {
         configure();
+        isComparator = false;
         return super.visit(node, context);
     }
 
@@ -51,6 +54,20 @@ public class PrimitiveObsession extends AbstractJavaRule {
         checkConstructors = BooleanPropertyAdapter.getProperty(this, CHECK_CONSTRUCTORS);
     }
 
+    @Override
+    public Object visit(ASTImplementsList implementsList, Object context) {
+        for (int i = 0; i < implementsList.jjtGetNumChildren(); i++) {
+            Node child = implementsList.jjtGetChild(i);
+            if (child instanceof ASTClassOrInterfaceType) {
+                if ("Comparator".equals(child.getImage())) {
+                    isComparator = true;
+                    break;
+                }
+            }
+        }
+        return super.visit(implementsList, context);
+    }
+    
     /**
      * The constructor allows primitive types if they are the only parameter. This is to set the internal value.
      */
@@ -70,7 +87,7 @@ public class PrimitiveObsession extends AbstractJavaRule {
 
     /**
      * The methods do not allow any primitive arguments. Primitive return values are allowed if there are no arguments.
-     * This is true for hashCode, toString and plain getters.
+     * This is true for hashCode, toString and plain getters. There are extra checks for equals, compareTo and compare methods.
      */
     @Override
     public Object visit(ASTMethodDeclaration methodDeclaration, Object context) {
@@ -85,6 +102,10 @@ public class PrimitiveObsession extends AbstractJavaRule {
         if (isCompareToMethod(methodDeclaration)) {
             return visit;
         }
+
+        if (isComparator && isComparatorMethod(methodDeclaration)) {
+            return visit;
+        }
         
         checkForPrimitiveReturnType(methodDeclaration);
 
@@ -97,19 +118,30 @@ public class PrimitiveObsession extends AbstractJavaRule {
     private boolean isEqualsMethod(ASTMethodDeclaration methodDeclaration) {
         boolean isPublic = methodDeclaration.isPublic();
         boolean returnsBoolean = !methodDeclaration.isVoid() && returnTypeOf(methodDeclaration).getTypeImage().equals("boolean");
-        boolean namedEquals = declaratorOf(methodDeclaration).getImage().equals("equals");
-        boolean oneArgument = declaratorOf(methodDeclaration).getParameterCount() == 1;
+        ASTMethodDeclarator declarator = declaratorOf(methodDeclaration);
+        boolean namedEquals = declarator.getImage().equals("equals");
+        boolean oneArgument = declarator.getParameterCount() == 1;
         return isPublic && returnsBoolean && namedEquals && oneArgument;
     }
 
     private boolean isCompareToMethod(ASTMethodDeclaration methodDeclaration) {
         boolean isPublic = methodDeclaration.isPublic();
         boolean returnsInt = !methodDeclaration.isVoid() && returnTypeOf(methodDeclaration).getTypeImage().equals("int");
-        boolean namedCompareTo = declaratorOf(methodDeclaration).getImage().equals("compareTo");
-        boolean oneArgument = declaratorOf(methodDeclaration).getParameterCount() == 1;
+        ASTMethodDeclarator declarator = declaratorOf(methodDeclaration);
+        boolean namedCompareTo = declarator.getImage().equals("compareTo");
+        boolean oneArgument = declarator.getParameterCount() == 1;
         return isPublic && returnsInt && namedCompareTo && oneArgument;
     }
 
+    private boolean isComparatorMethod(ASTMethodDeclaration methodDeclaration) {
+        boolean isPublic = methodDeclaration.isPublic();
+        boolean returnsInt = !methodDeclaration.isVoid() && returnTypeOf(methodDeclaration).getTypeImage().equals("int");
+        ASTMethodDeclarator declarator = declaratorOf(methodDeclaration);
+        boolean namedCompare = declarator.getImage().equals("compare");
+        boolean twoSameArguments = declarator.getParameterCount() == 2;
+        return isPublic && returnsInt && namedCompare && twoSameArguments;
+    }
+    
     private void resetTypeCheck() {
         wrongTypesDetected = false;
     }

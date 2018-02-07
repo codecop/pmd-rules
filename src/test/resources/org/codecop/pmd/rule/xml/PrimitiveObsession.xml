@@ -233,4 +233,47 @@ class Comp2 {
 }
      ]]></code>
     </test-code>
+    <test-code>
+        <description><![CDATA[
+comparator needs to use primitive.
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class Comp implements Comparator<Date> {
+    @Override
+    public int compare(Date o1, Date o2) {
+        return 0;
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+similar to comparator must not use primitives.
+     ]]></description>
+        <expected-problems>2</expected-problems>
+        <code><![CDATA[
+class Comp1 implements Comparator<Date> {
+    public int compare(Date o1) {
+        return 0;
+    }
+    public int compare(Date o1) {
+        return 0;
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+missing Comparator interface, must not use primitives.
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+class Comp2 {
+    public int compare(Date o1, Date o2) {
+        return 0;
+    }
+}
+     ]]></code>
+    </test-code>
 </test-data>
