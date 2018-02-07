@@ -1,7 +1,5 @@
 package net.sourceforge.pmd;
 
-import net.sourceforge.pmd.properties.PropertyDescriptor;
-
 /**
  * Wrapper around changed API used in testing framework. <br>
  * <br>
