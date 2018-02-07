@@ -984,7 +984,9 @@ public class BadNamedTest {
          <property name="xpath">
             <value>
 <![CDATA[
-//CastExpression/Type/ReferenceType
+//CastExpression/Type/ReferenceType[
+  not (ancestor::MethodDeclaration/@MethodName='equals') 
+]
 ]]>
             </value>
          </property>

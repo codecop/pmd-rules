@@ -26,4 +26,22 @@ public class NoCast {
 }
      ]]></code>
     </test-code>
+    <test-code>
+        <description><![CDATA[
+cast in equals is necessary
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class HMS {
+   @Override
+   public boolean equals(Object obj) {
+      if (obj instanceof HMS) {
+         final HMS hms = (HMS) obj;
+         return true;
+      }
+      return false;
+   }
+}
+     ]]></code>
+    </test-code>
 </test-data>
