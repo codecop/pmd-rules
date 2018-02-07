@@ -29,6 +29,7 @@ public class PropertyDescriptorAdapter {
         // return ((net.sourceforge.pmd.PropertyDescriptor) propertyDescriptor).valueFrom(strValue);
         // return ((net.sourceforge.pmd.properties.PropertyDescriptor) propertyDescriptor).valueFrom(strValue);
         Method valueFromMethod = propertyDescriptor.getClass().getMethod("valueFrom", new Class[] { String.class });
+        valueFromMethod.setAccessible(true); // PMD 6
         return valueFromMethod.invoke(propertyDescriptor, strValue);
     }
 

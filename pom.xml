@@ -93,7 +93,7 @@
             </properties>
         </profile>
         <profile>
-            <id>pmd-52-compatibility</id>
+            <id>pmd-52-compatibility</id> <!-- also 6.0 -->
             <activation>
                 <property>
                     <name>pmd</name>
