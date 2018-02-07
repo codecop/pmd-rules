@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+Constructor and method uses Map.
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import java.util.Map;
+
+public class Sandbox {
+  public Sandbox(Map<?, ?> a) { } 
+  public void run(Map<?, ?> a) { }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+Object methods are allowed.
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Sandbox {
+  public boolean equals(Object obj) { return false; }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+Private code is not checked.
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Sandbox {
+  private Sandbox(int a) { } 
+  private void later(String i) { } 
+  private void more(Map a, Map b) { } 
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+Public non single Map methods are found.
+     ]]></description>
+        <expected-problems>6</expected-problems>
+        <code><![CDATA[
+import java.util.Map;
+
+public class Sandbox {
+  public Sandbox(int a) { } 
+  public Sandbox(Date a) { } 
+  public Sandbox(Map<?, ?> a, Map<?, ?> b) { } 
+  public void run1(int a) { } 
+  public void run2(Date a) { } 
+  public void run3(Map<?, ?> a, Map<?, ?> b) { } 
+}
+     ]]></code>
+    </test-code>
+</test-data>

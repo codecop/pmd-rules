@@ -26,9 +26,9 @@
             <value>
 <![CDATA[
 //MethodDeclaration[ @Void='false' and
-        not(@MethodName='hashCode' or @MethodName='equals' or
-            @MethodName='toString' or @MethodName='clone' or
-            @MethodName='compare')
+        not(@MethodName='hashCode' or @MethodName='equals'    or
+            @MethodName='toString' or @MethodName='clone'     or
+            @MethodName='compare'  or @MethodName='compareTo' )
     ]
 ]]>
             </value>
@@ -425,6 +425,59 @@ public class Foo {
     public static int staticMethod(byte b){
         return 1;
     }
+}
+]]>
+      </example>
+   </rule>
+
+
+   <!-- design.xml -->
+   <rule name="OnlyMapsAsParameters"
+         language="java"
+         message="Use Maps as single parameter of public methods."
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!onlymapsasparameters">
+      <description>
+         According to POODR, use Maps as single argument in public API to make your code the most extensible without
+         breaking callers because the API never changes. Also use default values in the Maps as much as possible.
+      </description>
+      <priority>2</priority>
+      <properties>
+         <property name="paramType" type="String" description="Simple name of the Map type allowed for public arguments" value="Map" />
+         <property name="xpath">
+            <value>
+<![CDATA[
+//ConstructorDeclaration[ 
+    @Public='true' and
+    (
+        FormalParameters[@ParameterCount > 1]  |
+        FormalParameters/FormalParameter/Type/PrimitiveType  |
+        FormalParameters/FormalParameter/Type/ReferenceType/ClassOrInterfaceType[ not (@Image=$paramType) ] 
+    )
+]
+|
+//MethodDeclaration[ 
+    @Public='true' and
+    not(@MethodName='equals' or @MethodName='compare' or @MethodName='compareTo' ) and
+    (
+        MethodDeclarator/FormalParameters[@ParameterCount > 1]  |
+        MethodDeclarator/FormalParameters/FormalParameter/Type/PrimitiveType  |
+        MethodDeclarator/FormalParameters/FormalParameter/Type/ReferenceType/ClassOrInterfaceType[ not (@Image=$paramType) ] 
+    )
+]
+]]>
+            </value>
+         </property>
+      </properties>
+      <example>
+<![CDATA[
+import java.util.Map;
+
+public class Sandbox {
+  public Sandbox(Map<?, ?> a) { } // public can only have Map
+  public void run(Map<?, ?> a) { } // public can only have Map
+  private void later(int i) { } // private can do anything
+  public boolean equals(Object obj) { return false; } // equals is allowed
 }
 ]]>
       </example>

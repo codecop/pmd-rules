@@ -28,6 +28,7 @@ public class ConstraintsRulesTest extends SimpleAggregatorTst {
         addRule(RULESET, "ShortStatements");
         addRule(RULESET, "NoStaticMethods");
         addRule(RULESET, "NoStaticFields");
+        addRule(RULESET, "OnlyMapsAsParameters");
     }
 
     public static junit.framework.Test suite() {
