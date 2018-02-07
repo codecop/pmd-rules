@@ -34,6 +34,9 @@ non-static Object method, ok
 public class Foo {
     public boolean equals(Object other) { return false; }
     public int hashCode() { return 1; }
+    public int compareTo(Foo other) { return 1; }
+    public Foo clone() { return this; }
+    public void run() { }
 }
      ]]></code>
     </test-code>

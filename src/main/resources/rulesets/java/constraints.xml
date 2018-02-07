@@ -251,7 +251,7 @@ class AvoidGetterAndSetterExample {
          externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!onlystaticmethods">
       <description>
          As an exercise only static methods are allowed. This exaggerates the common mistake to have too many static methods. 
-         Only inherited Object methods can be non-static.
+         Only inherited Object methods can be non-static, Comparable and Compoarators.
       </description>
       <priority>3</priority>
       <properties>
@@ -259,9 +259,10 @@ class AvoidGetterAndSetterExample {
             <value>
 <![CDATA[
 //MethodDeclaration[ @Static='false' and
-        not(@MethodName='hashCode' or @MethodName='equals' or
-            @MethodName='toString' or @MethodName='clone'  or
-            @MethodName='compare'  or @MethodName='run')
+        not(@MethodName='hashCode' or @MethodName='equals'    or
+            @MethodName='toString' or @MethodName='clone'     or
+            @MethodName='compare'  or @MethodName='compareTo' or
+            @MethodName='run')
     ]
 ]]>
             </value>
