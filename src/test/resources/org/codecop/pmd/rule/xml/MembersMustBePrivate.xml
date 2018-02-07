@@ -4,13 +4,14 @@
         <description><![CDATA[
 public fields
      ]]></description>
-        <expected-problems>4</expected-problems>
+        <expected-problems>5</expected-problems>
         <code><![CDATA[
 public class MembersMustBePrivateExample {
    public int z1 = 1;      
    protected int z3;       
    public static int z4 = 1;     
    protected static int z6 = 3;  
+   final int z7 = 3;  
 }
      ]]></code>
     </test-code>
