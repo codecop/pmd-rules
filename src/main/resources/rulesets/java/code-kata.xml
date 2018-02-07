@@ -37,7 +37,7 @@
     <rule ref="rulesets/java/constraints.xml/OnlyStaticMethods" />
     <rule ref="rulesets/java/constraints.xml/OnlyStaticFields" />
 
-    <!-- Design -->
+    <!-- Design OO -->
 
     <!-- Law of Demeter -->
     <rule ref="rulesets/java/coupling.xml/LawOfDemeter" />
@@ -52,5 +52,20 @@
     <rule ref="rulesets/java/codecop.xml/FirstClassCollections" />
     <rule ref="rulesets/java/codecop.xml/ImmutablesOnly" />
     <rule ref="rulesets/java/constraints.xml/NoGetterAndSetter" />
+    <rule ref="rulesets/java/constraints.xml/NoStaticFields" />
+    <rule ref="rulesets/java/constraints.xml/NoStaticMethods" />
+
+    <!-- ISP -->
+    
+    <rule ref="rulesets/java/codecop.xml/TooManyPublicMethods">
+        <properties>
+            <property name="maxMethods" value="1" />  
+        </properties>
+    </rule>
+    <rule ref="rulesets/java/codecop.xml/TooManyInterfaceMethods">
+        <properties>
+            <property name="maxMethods" value="1" />  
+        </properties>
+    </rule>
 
 </ruleset>
