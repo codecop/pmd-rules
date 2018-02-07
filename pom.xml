@@ -76,31 +76,31 @@
     </build>
 
     <profiles>
-        <!-- These basic rules will work since PMD 5.0.1 -->
+        <!-- These basic rules will work since PMD 6.0.1 -->
         <profile>
-            <id>pmd-50-compatibility</id> <!-- also 5.1 -->
+            <id>pmd-60-compatibility</id> 
             <activation>
                 <activeByDefault>true</activeByDefault>
                 <property>
                     <name>pmd</name>
-                    <value>5.0</value>
+                    <value>6.0</value>
                 </property>
             </activation>
             <properties>
-                <pmd.version>5.0.5</pmd.version>
-                <pmd.dependency>pmd</pmd.dependency>
+                <pmd.version>6.0.1</pmd.version>
+                <pmd.dependency>pmd-java</pmd.dependency>
             </properties>
         </profile>
         <profile>
-            <id>pmd-52-compatibility</id> <!-- also 6.0 -->
+            <id>pmd-52-compatibility</id>
             <activation>
                 <property>
                     <name>pmd</name>
-                    <value>5.2</value>
+                    <value>6.2</value>
                 </property>
             </activation>
             <properties>
-                <pmd.version>5.2.3</pmd.version>
+                <pmd.version>6.0.1</pmd.version>
                 <pmd.dependency>pmd-java</pmd.dependency>
             </properties>
         </profile>
@@ -122,7 +122,7 @@
     </dependencies>
 
     <properties>
-        <project.build.java.target>1.6</project.build.java.target>
+        <project.build.java.target>1.8</project.build.java.target>
     </properties>
 
 </project>
