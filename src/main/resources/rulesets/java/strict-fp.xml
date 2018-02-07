@@ -31,10 +31,10 @@
     <rule ref="rulesets/java/constraints.xml/NoLoops" />
 
     <!-- immutable data -->
-    <rule ref="rulesets/java/constraints.xml/ImmutablesOnly" />
+    <rule ref="rulesets/java/codecop.xml/ImmutablesOnly" />
     <rule ref="rulesets/java/design.xml/AvoidReassigningParameters" />
+    <!-- TODO <rule ref="rulesets/java/codecop.xml/ImmutableLocalVariables" /> -->
     <rule ref="rulesets/java/sunsecure.xml/ArrayIsStoredDirectly" />
     <rule ref="rulesets/java/sunsecure.xml/MethodReturnsInternalArray" />
-    <!-- TODO all local variables must be final -->
 
 </ruleset>
