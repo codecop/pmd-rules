@@ -34,7 +34,7 @@ import net.sourceforge.pmd.RuleSets;
 import net.sourceforge.pmd.RuleViolation;
 //PK import net.sourceforge.pmd.lang.LanguageRegistry;
 import net.sourceforge.pmd.lang.LanguageVersion;
-import net.sourceforge.pmd.properties.PropertyDescriptor;
+import net.sourceforge.pmd.PropertyDescriptorAdapter;
 import net.sourceforge.pmd.renderers.TextRenderer;
 
 import org.w3c.dom.Document;
@@ -68,7 +68,6 @@ public abstract class RuleTst {
     /**
      * Run the rule on the given code, and check the expected number of violations.
      */
-    @SuppressWarnings("unchecked")
     public void runTest(TestDescriptor test) {
         Rule rule = test.getRule();
 
@@ -76,7 +75,7 @@ public abstract class RuleTst {
             rule = findRule(rule.getRuleSetName(), rule.getName());
         }
 
-        Map<PropertyDescriptor<?>, Object> oldProperties = rule.getPropertiesByPropertyDescriptor();
+        Map<?, Object> oldProperties = rule.getPropertiesByPropertyDescriptor();
         try {
             int res;
             Report report;
@@ -86,12 +85,12 @@ public abstract class RuleTst {
                     for (Map.Entry<Object, Object> entry : test.getProperties().entrySet()) {
                     String propertyName = (String)entry.getKey();
                     String strValue = (String)entry.getValue();
-                    PropertyDescriptor propertyDescriptor = rule.getPropertyDescriptor(propertyName);
+                    Object propertyDescriptor = rule.getPropertyDescriptor(propertyName);
                     if (propertyDescriptor == null) {
                             throw new IllegalArgumentException("No such property '" + propertyName + "' on Rule " + rule.getName());
                     }
-                    Object value = propertyDescriptor.valueFrom(strValue);
-                    rule.setProperty(propertyDescriptor, value);
+                    Object value = PropertyDescriptorAdapter.valueFrom(propertyDescriptor, strValue);
+                    PropertyDescriptorAdapter.setProperty(rule, propertyDescriptor, value);
                     }
                 }
 
@@ -113,7 +112,7 @@ public abstract class RuleTst {
             // TODO Tried to use generics here, but there's a compiler bug doing so in a finally block.
             // Neither 1.5.0_16-b02 or 1.6.0_07-b06 works, but 1.7.0-ea-b34 seems to work.   
             for (Map.Entry entry: oldProperties.entrySet()) {
-            rule.setProperty((PropertyDescriptor)entry.getKey(), entry.getValue());
+                PropertyDescriptorAdapter.setProperty(rule, entry.getKey(), entry.getValue());
             }
         }
     }
