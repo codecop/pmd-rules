@@ -1,6 +1,6 @@
 package org.codecop.pmd.rule;
 
-import org.codecop.pmd.IntegerPropertyAdapter;
+import org.codecop.pmd.versions.IntegerPropertyAdapter;
 
 import net.sourceforge.pmd.lang.java.ast.ASTClassOrInterfaceDeclaration;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;

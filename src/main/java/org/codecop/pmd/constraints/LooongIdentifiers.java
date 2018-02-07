@@ -1,6 +1,6 @@
 package org.codecop.pmd.constraints;
 
-import org.codecop.pmd.IntegerPropertyAdapter;
+import org.codecop.pmd.versions.IntegerPropertyAdapter;
 
 import net.sourceforge.pmd.lang.ast.Node;
 import net.sourceforge.pmd.lang.java.ast.ASTClassOrInterfaceDeclaration;

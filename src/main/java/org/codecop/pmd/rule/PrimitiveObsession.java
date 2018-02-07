@@ -3,7 +3,7 @@ package org.codecop.pmd.rule;
 import java.util.Arrays;
 import java.util.List;
 
-import org.codecop.pmd.BooleanPropertyAdapter;
+import org.codecop.pmd.versions.BooleanPropertyAdapter;
 
 import net.sourceforge.pmd.lang.ast.Node;
 import net.sourceforge.pmd.lang.java.ast.ASTCompilationUnit;
