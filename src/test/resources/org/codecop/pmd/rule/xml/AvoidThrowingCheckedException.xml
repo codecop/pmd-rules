@@ -17,13 +17,65 @@ public class Foo {
     </test-code>
     <test-code>
         <description><![CDATA[
-unchecked Exception, ok
+subclass of unchecked Exception, ok
      ]]></description>
         <expected-problems>0</expected-problems>
         <code><![CDATA[
 public class Foo {
   void bar() {
     throw new IllegalArgumentException();
+  }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+RuntimeException, ok
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Foo {
+  void bar() {
+    throw new RuntimeException();
+  }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+subclass of Error, ok
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Foo {
+  void bar() {
+    throw new OutOfMemoryError();
+  }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+Error, ok
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Foo {
+  void bar() {
+    throw new Error();
+  }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+any allocation, ok
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Foo {
+  void bar() {
+    new String();
   }
 }
      ]]></code>

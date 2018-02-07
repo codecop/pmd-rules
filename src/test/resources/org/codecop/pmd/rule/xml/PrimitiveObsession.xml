@@ -54,8 +54,19 @@ private constructors and methods can do anything.
         <expected-problems>0</expected-problems>
         <code><![CDATA[
 class HiddenObject {
-   private HiddenObject(String a, String b) { };
+   private HiddenObject(String a) { };
    private void hidden(int a, int b) { };
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+private constructors with too many arguments, can do anything.
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class HiddenObject {
+   private HiddenObject(String a, String b, String c) { };
 }
      ]]></code>
     </test-code>
@@ -102,6 +113,17 @@ constructor can take everything because we need to wrap it inside, e.g. Coordina
         <expected-problems>0</expected-problems>
         <code><![CDATA[
 class GoodObject {
+   public GoodObject(String a) { };
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+constructor with too many arguments, not checked by default
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class GoodObject {
    public GoodObject(String a, String b) { };
 }
      ]]></code>
@@ -129,6 +151,54 @@ class EqualObject {
     public boolean equals(String obj, String another) {
         return (this == obj);
     }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+property test constructors: with too many arguments
+     ]]></description>
+        <rule-property name="checkConstructors">true</rule-property>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+class Foo {
+   public Foo(String a, String b) { };
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+property test constructors: only one argument
+     ]]></description>
+        <rule-property name="checkConstructors">true</rule-property>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class Foo {
+   public Foo(String a) { };
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+property no object: Object is forbidden
+     ]]></description>
+        <rule-property name="allowObject">false</rule-property>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+class SomeObject {
+   public void someMethod(Object a, Object b) { };
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+property no object: my own value is ok
+     ]]></description>
+        <rule-property name="allowObject">false</rule-property>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class SomeObject {
+   public void someMethod(DomainValue a, DomainValue b) { };
 }
      ]]></code>
     </test-code>

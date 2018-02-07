@@ -61,7 +61,8 @@ public class PrimitiveObsession extends AbstractJavaRule {
 
         boolean isPublic = constructorDeclaration.isPublic();
         boolean tooManyArguments = constructorDeclaration.getParameterCount() > 1;
-        addViolationOnPrimitiveParameter(checkConstructors && isPublic && tooManyArguments, context, constructorDeclaration);
+        boolean badConstructor = isPublic && tooManyArguments;
+        addViolationOnPrimitiveParameter(checkConstructors && badConstructor, context, constructorDeclaration);
 
         return visit;
     }

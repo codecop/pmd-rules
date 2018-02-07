@@ -2,7 +2,7 @@
 <test-data>
     <test-code>
         <description><![CDATA[
-Contains assert
+Contains 3.x assert
      ]]></description>
         <expected-problems>0</expected-problems>
         <code><![CDATA[
@@ -29,7 +29,7 @@ public class FooTest extends TestCase {
     </test-code>
     <test-code>
         <description><![CDATA[
-All ok
+Setup does not need assert
      ]]></description>
         <expected-problems>0</expected-problems>
         <code><![CDATA[
@@ -48,7 +48,7 @@ public class FooTest extends TestCase {
     </test-code>
     <test-code>
         <description><![CDATA[
-Two wrong
+Two wrong tests 3.x
      ]]></description>
         <expected-problems>2</expected-problems>
         <code><![CDATA[
@@ -81,7 +81,7 @@ public class FooTest extends TestCase {
     </test-code>
     <test-code>
         <description><![CDATA[
-One wrong
+One wrong, one ok.
      ]]></description>
         <expected-problems>1</expected-problems>
         <code><![CDATA[
@@ -105,8 +105,8 @@ Skip interfaces
      ]]></description>
         <expected-problems>0</expected-problems>
         <code><![CDATA[
-import junit.framework.TestCase;
-public class FooTest extends TestCase {
+import junit.framework.Test;
+public interface FooTest extends Test {
  public void setUp() throws Exception;
 }
      ]]></code>
@@ -125,7 +125,7 @@ public class FooTest extends TestCase {
     </test-code>
     <test-code>
         <description><![CDATA[
-Another fail() case
+Another abstract case
      ]]></description>
         <expected-problems>0</expected-problems>
         <code><![CDATA[
@@ -250,6 +250,9 @@ public class AssertTest {
   @Test public void testTrue() {
     Assert.assertTrue(1 != 2);
   }
+  @Test public void testFail() {
+    Assert.fail("bla");
+  }
 }
      ]]></code>
     </test-code>
@@ -350,6 +353,29 @@ import org.junit.Test;
 public class FooTest {
     @Test(expected = IllegalArgumentException.class)
     public void shouldSomething() {
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+Missing assert but uses ExpectedException rule
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+package snippet;
+
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+public class Snippet {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void shouldTestExceptionMessage() {
+        thrown.expect(IndexOutOfBoundsException.class);
     }
 }
      ]]></code>

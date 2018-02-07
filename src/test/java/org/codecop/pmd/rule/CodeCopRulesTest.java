@@ -49,5 +49,3 @@ public class CodeCopRulesTest extends SimpleAggregatorTst {
    }
 
 }
-
-// TODO idee generate this file with ruby from xml in test folders (3x)

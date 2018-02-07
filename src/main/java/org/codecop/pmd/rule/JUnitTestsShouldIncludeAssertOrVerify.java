@@ -35,76 +35,69 @@ public class JUnitTestsShouldIncludeAssertOrVerify extends AbstractJUnitRule {
     @Override
     public Object visit(ASTMethodDeclaration method, Object data) {
         if (isJUnitMethod(method, data)) {
-            if (!containsAssert(method.getBlock(), false)
-                    && !containsExpect(method.jjtGetParent())) {
+            if (!containsAssertOrFailOrVerify(method.getBlock()) &&
+                    !containsTestAnnotationWithExpectedException(method.jjtGetParent())) {
                 addViolation(data, method);
             }
         }
         return data;
     }
 
-    private boolean containsAssert(Node n, boolean assertFound) {
-        if (!assertFound) {
-            if (n instanceof ASTStatementExpression) {
-                if (isAssertOrFailStatement((ASTStatementExpression) n)) {
-                    return true;
-                }
+    private boolean containsAssertOrFailOrVerify(Node n) {
+        if (n instanceof ASTStatementExpression) {
+            if (isAssertOrFailOrVerifyStatement((ASTStatementExpression) n)) {
+                return true;
             }
-            if (!assertFound) {
-                for (int i = 0; i < n.jjtGetNumChildren() && !assertFound; i++) {
-                    Node c = n.jjtGetChild(i);
-                    if (containsAssert(c, assertFound)) {
-                        return true;
-                    }
-                }
+        }
+        for (int i = 0; i < n.jjtGetNumChildren(); i++) {
+            Node c = n.jjtGetChild(i);
+            if (containsAssertOrFailOrVerify(c)) {
+                return true;
             }
         }
         return false;
     }
 
-    /**
-     * Tells if the node contains a Test annotation with an expected exception.
-     */
-    private boolean containsExpect(Node methodParent) {
+    private boolean containsTestAnnotationWithExpectedException(Node methodParent) {
         List<ASTNormalAnnotation> annotations = methodParent.findDescendantsOfType(ASTNormalAnnotation.class);
         for (ASTNormalAnnotation annotation : annotations) {
             ASTName name = annotation.getFirstChildOfType(ASTName.class);
             if (name != null && ("Test".equals(name.getImage())
                     || (name.getType() != null && name.getType().equals(JUNIT4_CLASS)))) {
                 List<ASTMemberValuePair> memberValues = annotation.findDescendantsOfType(ASTMemberValuePair.class);
+                
                 for (ASTMemberValuePair pair : memberValues) {
                     if ("expected".equals(pair.getImage())) {
                         return true;
                     }
                 }
+                
             }
         }
         return false;
     }
     
-    /**
-     * Tells if the expression is an assert/verify statement or not.
-     */
-    private boolean isAssertOrFailStatement(ASTStatementExpression expression) {
+    private boolean isAssertOrFailOrVerifyStatement(ASTStatementExpression expression) {
         if (expression != null && 
                 expression.jjtGetNumChildren() > 0 &&
-                expression.jjtGetChild(0) instanceof ASTPrimaryExpression
-            ) {
+                expression.jjtGetChild(0) instanceof ASTPrimaryExpression) {
             ASTPrimaryExpression pe = (ASTPrimaryExpression) expression.jjtGetChild(0);
             if (pe.jjtGetNumChildren()> 0 && pe.jjtGetChild(0) instanceof ASTPrimaryPrefix) {
                 ASTPrimaryPrefix pp = (ASTPrimaryPrefix) pe.jjtGetChild(0);
                 if (pp.jjtGetNumChildren()>0 && pp.jjtGetChild(0) instanceof ASTName) {
+                    
                     String img = ((ASTName) pp.jjtGetChild(0)).getImage();                                              
-                    if (img != null && isAssertOrFailMethodName(img)) {                  
+                    if (img != null && isAssertOrFailOrVerifyMethodName(img)) {                  
                         return true;
                     }
+                    
                 }
             }
         }
         return false;
     }
 
-    private boolean isAssertOrFailMethodName(String img) {
+    private boolean isAssertOrFailOrVerifyMethodName(String img) {
         return img.startsWith("assert") || img.startsWith("fail") || // static import
                img.startsWith("Assert.assert") || img.startsWith("Assert.fail") || // plain JUnit
                img.startsWith("Mockito.verify") || // Mockito
