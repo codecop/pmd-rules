@@ -1,5 +1,8 @@
 package net.sourceforge.pmd;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 /**
  * Wrapper around changed API used in testing framework. <br>
  * <br>
@@ -7,19 +10,50 @@ package net.sourceforge.pmd;
  * moved to <br>
  * import net.sourceforge.pmd.properties.PropertyDescriptor; <br>
  * 
- * @author PMD 6.0
  * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
  */
 public class PropertyDescriptorAdapter {
 
-    @SuppressWarnings("rawtypes")
     public static Object valueFrom(Object propertyDescriptor, String strValue) {
-        return ((PropertyDescriptor) propertyDescriptor).valueFrom(strValue);
+        try {
+            return valueFromReflection(propertyDescriptor, strValue);
+        } catch (Exception reflectionFailed) {
+            String combinedMessage = "PMD API:\n" + reflectionFailed.getMessage();
+            UnsupportedOperationException failed = new UnsupportedOperationException(combinedMessage, reflectionFailed);
+            throw failed;
+        }
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    private static Object valueFromReflection(Object propertyDescriptor, String strValue)
+            throws SecurityException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        // return ((net.sourceforge.pmd.PropertyDescriptor) propertyDescriptor).valueFrom(strValue);
+        // return ((net.sourceforge.pmd.properties.PropertyDescriptor) propertyDescriptor).valueFrom(strValue);
+        Method valueFromMethod = propertyDescriptor.getClass().getMethod("valueFrom", new Class[] { String.class });
+        return valueFromMethod.invoke(propertyDescriptor, strValue);
+    }
+
     public static void setProperty(Rule rule, Object propertyDescriptor, Object value) {
-        rule.setProperty((PropertyDescriptor) propertyDescriptor, value);
+        try {
+            setPropertyReflection(rule, propertyDescriptor, value);
+        } catch (Exception reflectionFailed) {
+            String combinedMessage = "PMD API:\n" + reflectionFailed.getMessage();
+            UnsupportedOperationException failed = new UnsupportedOperationException(combinedMessage, reflectionFailed);
+            throw failed;
+        }
+    }
+
+    private static void setPropertyReflection(Rule rule, Object propertyDescriptor, Object value)
+            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        // rule.setProperty((net.sourceforge.pmd.PropertyDescriptor) propertyDescriptor, value);
+        // rule.setProperty((net.sourceforge.pmd.properties.PropertyDescriptor) propertyDescriptor, value);
+        for (Method method : rule.getClass().getMethods()) {
+            if (method.getName().equals("setProperty") && method.getParameterTypes().length == 2) {
+                method.invoke(rule, new Object[] { propertyDescriptor, value });
+                return;
+            }
+        }
+        throw new NoSuchMethodException("setProperty");
+
     }
 
 }
