@@ -1041,4 +1041,41 @@ public class Foo {
       </example>
    </rule>
 
+
+   <!-- codesize.xml -->
+   <rule name="TooManyInterfaceMethods"
+         language="java"
+         message="This interface has too many public methods, consider splitting it."
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!toomanyinterfacemethods">
+      <description>
+        An interface with too many methods is an ISP (SOLID) violation and needs to be refactored, 
+        to reduce its complexity and find a way to have more fine grained objects.
+      </description>
+      <priority>2</priority>
+      <properties>
+         <property name="maxMethods" type="Integer" description="The method count reporting threshold" min="1" max="1000" value="3"/>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//ClassOrInterfaceDeclaration[
+    (@Interface='true') and
+    (ClassOrInterfaceBody[ count(descendant::MethodDeclaration) > $maxMethods ])
+]
+]]>
+            </value>
+         </property>
+      </properties>
+      <example>
+<![CDATA[
+public interface Foo {
+  void one();
+  void two();
+  void three();
+  void four(); // too many
+}
+]]>
+      </example>
+   </rule>
+
 </ruleset>

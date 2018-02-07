@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+less methods than given
+     ]]></description>
+        <rule-property name="maxMethods">1</rule-property>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public interface Foo {
+  void one();
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+more methods than given
+     ]]></description>
+        <rule-property name="maxMethods">1</rule-property>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public interface Foo {
+  public void one();
+  public void two();
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+methods in class
+     ]]></description>
+        <rule-property name="maxMethods">1</rule-property>
+        <expected-problems>0</expected-problems> 
+        <code><![CDATA[
+public class Foo {
+    public void one() {}
+    public void two() {}
+}
+     ]]></code>
+    </test-code>
+</test-data>
