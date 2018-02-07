@@ -3,6 +3,8 @@ package org.codecop.pmd.rule;
 import java.util.Arrays;
 import java.util.List;
 
+import org.codecop.pmd.BooleanPropertyAdapter;
+
 import net.sourceforge.pmd.lang.ast.Node;
 import net.sourceforge.pmd.lang.java.ast.ASTCompilationUnit;
 import net.sourceforge.pmd.lang.java.ast.ASTConstructorDeclaration;
@@ -10,7 +12,6 @@ import net.sourceforge.pmd.lang.java.ast.ASTImportDeclaration;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclaration;
 import net.sourceforge.pmd.lang.java.ast.ASTName;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
-import net.sourceforge.pmd.lang.rule.properties.BooleanProperty;
 
 /**
  * Changed Exception Signature rule to allow also Spring mock.
@@ -26,7 +27,7 @@ public class ExceptionSignatureDeclaration extends AbstractJavaRule {
    private boolean ignoreTests;
    private boolean junitImported;
 
-   private static final BooleanProperty IGNORE_TESTS_DESCRIPTOR = new BooleanProperty("ignoreTests", "Ignore test methods", false, 1.0f);
+   private static final BooleanPropertyAdapter IGNORE_TESTS_DESCRIPTOR = new BooleanPropertyAdapter("ignoreTests", "Ignore test methods", false, 1.0f);
 
    public ExceptionSignatureDeclaration() {
       // definePropertyDescriptor(IGNORE_TESTS_DESCRIPTOR);
@@ -36,7 +37,7 @@ public class ExceptionSignatureDeclaration extends AbstractJavaRule {
    @Override
    public Object visit(ASTCompilationUnit node, Object o) {
       junitImported = false;
-      ignoreTests = getProperty(IGNORE_TESTS_DESCRIPTOR);
+      ignoreTests = BooleanPropertyAdapter.getProperty(this, IGNORE_TESTS_DESCRIPTOR);
       return super.visit(node, o);
    }
 

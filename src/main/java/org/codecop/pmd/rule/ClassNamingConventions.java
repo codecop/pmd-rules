@@ -1,8 +1,9 @@
 package org.codecop.pmd.rule;
 
+import org.codecop.pmd.IntegerPropertyAdapter;
+
 import net.sourceforge.pmd.lang.java.ast.ASTClassOrInterfaceDeclaration;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
-import net.sourceforge.pmd.lang.rule.properties.IntegerProperty;
 
 /**
  * Changed Class name rule to allow underscore before _Stub and _Core (RMI). Added some additional tests.
@@ -15,7 +16,7 @@ public class ClassNamingConventions extends AbstractJavaRule {
 
    private int upperCaseLen;
 
-   private static final IntegerProperty UPPERCASE_LEN_DESCRIPTOR = new IntegerProperty("upperCaseLen", "Allowed length of upper case only names", 1, 99, 3, 1.0f);
+   private static final IntegerPropertyAdapter UPPERCASE_LEN_DESCRIPTOR = new IntegerPropertyAdapter("upperCaseLen", "Allowed length of upper case only names", 1, 99, 3, 1.0f);
    
    public ClassNamingConventions() {
       // definePropertyDescriptor(UPPERCASE_LEN_DESCRIPTOR);
@@ -24,7 +25,7 @@ public class ClassNamingConventions extends AbstractJavaRule {
 
    @Override
    public Object visit(ASTClassOrInterfaceDeclaration node, Object data) {
-      upperCaseLen = getProperty(UPPERCASE_LEN_DESCRIPTOR);
+      upperCaseLen = IntegerPropertyAdapter.getProperty(this, UPPERCASE_LEN_DESCRIPTOR);
 
       final String className = node.getImage();
 

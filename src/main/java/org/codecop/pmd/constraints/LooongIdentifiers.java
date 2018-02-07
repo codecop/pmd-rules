@@ -1,5 +1,7 @@
 package org.codecop.pmd.constraints;
 
+import org.codecop.pmd.IntegerPropertyAdapter;
+
 import net.sourceforge.pmd.lang.ast.Node;
 import net.sourceforge.pmd.lang.java.ast.ASTClassOrInterfaceDeclaration;
 import net.sourceforge.pmd.lang.java.ast.ASTEnumConstant;
@@ -9,7 +11,6 @@ import net.sourceforge.pmd.lang.java.ast.ASTName;
 import net.sourceforge.pmd.lang.java.ast.ASTPackageDeclaration;
 import net.sourceforge.pmd.lang.java.ast.ASTVariableDeclaratorId;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
-import net.sourceforge.pmd.lang.rule.properties.IntegerProperty;
 
 /**
  * Force all identifiers to be at least that looong.
@@ -19,7 +20,7 @@ import net.sourceforge.pmd.lang.rule.properties.IntegerProperty;
  */
 public class LooongIdentifiers extends AbstractJavaRule {
 
-    private static final IntegerProperty IDENTIFIER_MIN_LEN_DESCRIPTOR = new IntegerProperty("identifierMinLen",
+    private static final IntegerPropertyAdapter IDENTIFIER_MIN_LEN_DESCRIPTOR = new IntegerPropertyAdapter("identifierMinLen",
             "Minimal length of Identifier names", 1, 99, 20, 1.0f);
 
     private int minLen;
@@ -66,7 +67,7 @@ public class LooongIdentifiers extends AbstractJavaRule {
 
     private void check(final String name, Node node, Object data) {
         if (minLen == 0) {
-            minLen = getProperty(IDENTIFIER_MIN_LEN_DESCRIPTOR);
+            minLen = IntegerPropertyAdapter.getProperty(this, IDENTIFIER_MIN_LEN_DESCRIPTOR);
         }
         if (name.length() < minLen) {
             addViolation(data, node);

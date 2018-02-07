@@ -3,6 +3,8 @@ package org.codecop.pmd.rule;
 import java.util.Arrays;
 import java.util.List;
 
+import org.codecop.pmd.BooleanPropertyAdapter;
+
 import net.sourceforge.pmd.lang.ast.Node;
 import net.sourceforge.pmd.lang.java.ast.ASTCompilationUnit;
 import net.sourceforge.pmd.lang.java.ast.ASTConstructorDeclaration;
@@ -11,7 +13,6 @@ import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclaration;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclarator;
 import net.sourceforge.pmd.lang.java.ast.ASTType;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
-import net.sourceforge.pmd.lang.rule.properties.BooleanProperty;
 
 /**
  * Look for usages of primitives other than in value object/wrappers.
@@ -21,8 +22,8 @@ import net.sourceforge.pmd.lang.rule.properties.BooleanProperty;
  */
 public class PrimitiveObsession extends AbstractJavaRule {
 
-    private static final BooleanProperty ALLOW_OBJECT = new BooleanProperty("allowObject", "Allow plain java.lang.Object", true, 1.0f);
-    private static final BooleanProperty CHECK_CONSTRUCTORS = new BooleanProperty("checkConstructors", "Check public constructors for more than one primitive", false, 1.0f);
+    private static final BooleanPropertyAdapter ALLOW_OBJECT = new BooleanPropertyAdapter("allowObject", "Allow plain java.lang.Object", true, 1.0f);
+    private static final BooleanPropertyAdapter CHECK_CONSTRUCTORS = new BooleanPropertyAdapter("checkConstructors", "Check public constructors for more than one primitive", false, 1.0f);
 
     private static final List<String> FORBIDDEN_TYPES = Arrays.asList( //
             "char", "Character", // 
@@ -46,8 +47,8 @@ public class PrimitiveObsession extends AbstractJavaRule {
     }
 
     private void configure() {
-        allowObject = getProperty(ALLOW_OBJECT);
-        checkConstructors = getProperty(CHECK_CONSTRUCTORS);
+        allowObject = BooleanPropertyAdapter.getProperty(this, ALLOW_OBJECT);
+        checkConstructors = BooleanPropertyAdapter.getProperty(this, CHECK_CONSTRUCTORS);
     }
 
     /**
