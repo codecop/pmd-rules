@@ -1005,4 +1005,40 @@ public class OneCast {
       </example>
    </rule>
 
+
+   <!-- codesize.xml -->
+   <rule name="TooManyPublicMethods"
+         language="java"
+         message="This class has too many public methods, consider refactoring it."
+         class="net.sourceforge.pmd.lang.rule.XPathRule"
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!toomanypublicmethods">
+      <description>
+        A class with too many public methods is probably a good suspect for refactoring, 
+        to reduce its complexity and find a way to have more fine grained objects.
+      </description>
+      <priority>2</priority>
+      <properties>
+         <property name="maxMethods" type="Integer" description="The method count reporting threshold" min="1" max="1000" value="3"/>
+         <property name="xpath">
+            <value>
+<![CDATA[
+//ClassOrInterfaceDeclaration/ClassOrInterfaceBody[
+    count(descendant::MethodDeclaration[@Public = 'true']) > $maxMethods
+]
+]]>
+            </value>
+         </property>
+      </properties>
+      <example>
+<![CDATA[
+public class Foo {
+  public void one() {}
+  public void two() {}
+  public void three() {}
+  public void four() {} // too many
+}
+]]>
+      </example>
+   </rule>
+
 </ruleset>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+less methods than given
+     ]]></description>
+        <rule-property name="maxMethods">1</rule-property>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Foo {
+  public void one() {}
+  private void two() {}
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+more methods than given
+     ]]></description>
+        <rule-property name="maxMethods">1</rule-property>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class Foo {
+  public void one() {}
+  public void two() {}
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+more methods in inner class
+     ]]></description>
+        <rule-property name="maxMethods">1</rule-property>
+        <expected-problems>2</expected-problems> <!-- false positive: is counted twice, but ok -->
+        <code><![CDATA[
+public class Foo {
+  static class Bar {
+    public void one() {}
+    public void two() {}
+  }
+}
+     ]]></code>
+    </test-code>
+</test-data>
