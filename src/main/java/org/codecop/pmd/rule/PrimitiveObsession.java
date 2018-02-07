@@ -80,6 +80,10 @@ public class PrimitiveObsession extends AbstractJavaRule {
         if (isEqualsMethod(methodDeclaration)) {
             return visit;
         }
+
+        if (isCompareToMethod(methodDeclaration)) {
+            return visit;
+        }
         
         checkForPrimitiveReturnType(methodDeclaration);
 
@@ -95,6 +99,14 @@ public class PrimitiveObsession extends AbstractJavaRule {
         boolean namedEquals = declaratorOf(methodDeclaration).getImage().equals("equals");
         boolean oneArgument = declaratorOf(methodDeclaration).getParameterCount() == 1;
         return isPublic && returnsBoolean && namedEquals && oneArgument;
+    }
+
+    private boolean isCompareToMethod(ASTMethodDeclaration methodDeclaration) {
+        boolean isPublic = methodDeclaration.isPublic();
+        boolean returnsInt = !methodDeclaration.isVoid() && returnTypeOf(methodDeclaration).getTypeImage().equals("int");
+        boolean namedCompareTo = declaratorOf(methodDeclaration).getImage().equals("compareTo");
+        boolean oneArgument = declaratorOf(methodDeclaration).getParameterCount() == 1;
+        return isPublic && returnsInt && namedCompareTo && oneArgument;
     }
 
     private void resetTypeCheck() {

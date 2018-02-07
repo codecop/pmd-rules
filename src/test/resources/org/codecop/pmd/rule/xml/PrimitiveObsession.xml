@@ -202,4 +202,35 @@ class SomeObject {
 }
      ]]></code>
     </test-code>
+    <test-code>
+        <description><![CDATA[
+compare method must be allowed for containers.
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class Comp implements Comparable<Comp> {
+   public int compareTo(Comp o) {
+      return -1;
+   }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+wrong compare method uses primitive.
+     ]]></description>
+        <expected-problems>2</expected-problems>
+        <code><![CDATA[
+class Comp1 {
+   public int compareTo(Comp o1, Comp o2) {
+      return -1;
+   }
+}
+class Comp2 {
+   public long compareTo(Comp o1) {
+      return -1;
+   }
+}
+     ]]></code>
+    </test-code>
 </test-data>
