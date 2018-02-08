@@ -24,6 +24,30 @@ class DontImportWildExample {
 }
      ]]></code>
     </test-code>
+    <test-code>
+        <description><![CDATA[
+package-info should not crash Xpath
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+package org.codecop.pmd.rule;
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+should not crash Xpath
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+package org.codecop.pmd.versions;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+
+import net.sourceforge.pmd.Rule;
+
+public class PropertyAdapter {
+}
+     ]]></code>
+    </test-code>
 </test-data>
-
-
