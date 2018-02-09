@@ -801,6 +801,39 @@ public class SomeClass {
 
 
    <!-- design.xml -->
+   <rule name="OneLevelOfIntention"
+         language="java"
+         message="Maximum nesting of one per method."
+         class="org.codecop.pmd.rule.LevelOfIntentation"
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!onelevelofintention">
+      <description>
+         Use only a maximum of one level of intention per method. You cannot nest if, loops or trys-
+         This enforces SRP split on method level. This is rule 1 of Object Calisthenics.
+      </description>
+      <priority>2</priority>
+      <properties>
+         <property name="problemDepth" type="Integer" description="Maximum allowed nesting depth." min="1" max="25" value="1" />
+      </properties>
+      <example>
+<![CDATA[
+public class Foo {
+    public void okBecauseOneBlock() {
+        if (true) {
+            // ok, only one block
+        }
+    }
+    public void failBecauseNested() {
+        if (true) {
+            while(true) {  } // nesting 2
+        }
+    }
+}
+]]>
+      </example>
+   </rule>
+   
+   
+   <!-- design.xml -->
    <rule name="ZeroLevelOfIntention"
          language="java"
          message="Only one Level of intention per method."
@@ -809,11 +842,15 @@ public class SomeClass {
       <description>
          Use only one level of intention per method. You cannot use if, loops or try more than
          once in a method. If used they need to be the first/last/outer statement of the method.
-         This enforces SRP split on method level. This is rule 1 of Object Calisthenics.
+         This enforces SRP split on method level. This is rule 1 of (strict) Object Calisthenics.
       </description>
       <priority>2</priority>
       <properties>
          <property name="xpath">
+            <!-- xpath: find methods which
+                             have more than one If/Switch/.../Do Statement inside
+                             or have blocks with If/Switch/.../Do Statement which are in a group of more than one other block
+            -->
             <value>
 <![CDATA[
 //MethodDeclaration[
@@ -826,12 +863,6 @@ public class SomeClass {
     ]
 ]]>
             </value>
-            <!--
-            find methods which
-                have more than one If/Switch/.../Do Statement inside
-                or
-                has blocks with If/Switch/.../Do Statement which are in a group of more than one other block
-            -->
          </property>
       </properties>
       <example>
@@ -867,7 +898,7 @@ public class Foo {
       <priority>2</priority>
       <properties>
          <property name="xpath">
-            <!-- find collection fields with more than 1 siblings -->
+            <!-- xpath: find collection fields with more than 1 siblings -->
             <value>
 <![CDATA[
 //FieldDeclaration[

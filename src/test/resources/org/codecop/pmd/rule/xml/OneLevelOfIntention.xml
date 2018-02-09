@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+All not nested constructs are ok
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class Foo {
+    public void mainIf() {
+        System.out.println("Outer");
+        if (true) { 
+            System.out.println("Outer");
+        } else {
+            System.out.println("Outer");
+        }        
+        while(true) {  
+            System.out.println("Outer");
+        }
+        try {
+            System.out.println("Outer");
+        } catch (Exception e) {
+            System.out.println("Outer");
+        }
+        System.out.println("Outer");
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+nested blocks, bad
+     ]]></description>
+        <expected-problems>3</expected-problems>
+        <code><![CDATA[
+public class Foo {
+    public void main() {
+        if (true) {
+            if (true) {
+            }
+        }
+        if (true) {
+        } else {
+            while(true) {  }
+        }
+        if (true) {
+            try {
+                System.out.println("Outer");
+            } catch (Exception e) {
+                System.out.println("Outer");
+            }
+        }
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+switch nested blocks, bad
+     ]]></description>
+        <expected-problems>2</expected-problems>
+        <code><![CDATA[
+public class Foo {
+    public void main() {
+        int i = 0;
+        switch (i) {
+          case 1:
+            if (true) {
+            }
+            break;
+          case 2:
+            do {
+            } while(true);
+            break;
+          default:
+            System.out.println("Outer");
+        }
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+bug: statements at beginning and end are allowed
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class Foo {        
+    public <T> T repeat(T identity, UnaryOperator<T> code) {
+        T current = identity;
+        for (int i = 2; i <= count; i++) {
+            current = code.apply(current);
+        }
+        return current;
+    }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+deeply nested blocks, bad
+     ]]></description>
+        <rule-property name="problemDepth">2</rule-property>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+public class Foo {
+    public void main() {
+        if (true) {
+            if (true) {
+                // still OK
+            }
+        }
+        if (true) {
+        } else {
+            while(true) {  
+                try {
+                    System.out.println("Outer");
+                } catch (Exception e) {
+                    System.out.println("Outer");
+                }
+            }
+        }
+    }
+}
+     ]]></code>
+    </test-code>
+
+
+</test-data>
