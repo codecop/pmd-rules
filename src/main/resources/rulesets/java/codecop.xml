@@ -1121,7 +1121,7 @@ public interface Foo {
       </description>
       <priority>2</priority>
       <properties>
-         <property name="maxClasses" type="Integer" description="Maximum allowed classes in package." min="1" max="999" value="10" />
+         <property name="maxClasses" type="Integer" description="Maximum allowed classes in package." min="1" max="999" value="20" />
       </properties>
    </rule>
 

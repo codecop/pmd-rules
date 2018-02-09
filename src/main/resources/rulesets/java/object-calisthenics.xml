@@ -46,6 +46,12 @@
             <property name="minimum" value="30" /> <!-- NCSS 50 ~ 90 LoC -->
         </properties>
     </rule>
+    <!-- also not more than 10 classes per package -->
+    <rule ref="rulesets/java/codecop.xml/ExcessiveClassCount">
+        <properties>
+            <property name="maxClasses" value="10" /> 
+        </properties>
+    </rule>
 
     <!-- No More Than 2 instance variables (rule 7 of Object Calisthenics) -->
     <rule ref="rulesets/java/codesize.xml/TooManyFields">
