@@ -28,12 +28,15 @@ public class PrimitiveObsession extends AbstractJavaRule {
 
     private static final List<String> FORBIDDEN_TYPES = Arrays.asList( //
             "char", "Character", // 
-            "byte", "Byte", "short", "Short", "int", "Integer", "long", "Long", //
+            "byte", "Byte", "short", "Short", "int", "Integer", "AtomicInteger", "long", "Long", "AtomicLong", //  
             "float", "Float", "double", "Double", "Number", //
-            "boolean", "Boolean", //
-            "String", //
+            "boolean", "Boolean", "AtomicBoolean",  //
+            "BigInteger", "java.math.BigInteger", "BigDecimal", "java.math.BigDecimal",
+
+            "String", "StringBuffer", "StringBuilder", //
+            
             "Collection", //
-            "List", "Map", "SortedMap", "Set", "SortedSet", 
+            "List", "ArrayList", "Map", "HashMap", "SortedMap", "TreeMap", "Set", "HashSet", "SortedSet", "TreeSet", 
             "Queue", "Deque" // 
     );
 
@@ -69,7 +72,7 @@ public class PrimitiveObsession extends AbstractJavaRule {
     }
     
     /**
-     * The constructor allows primitive types if they are the only parameter. This is to set the internal value.
+     * The constructor allows primitive types if they are the only parameters. This is to set the internal value.
      */
     @Override
     public Object visit(ASTConstructorDeclaration constructorDeclaration, Object context) {
@@ -187,6 +190,9 @@ public class PrimitiveObsession extends AbstractJavaRule {
         }
         if (parameterType.startsWith("java.util.")) {
             checkForPrimitive(parameterType.substring(10));
+        }
+        if (parameterType.startsWith("java.util.concurrent.atomic.")) {
+            checkForPrimitive(parameterType.substring(28));
         }
     }
 

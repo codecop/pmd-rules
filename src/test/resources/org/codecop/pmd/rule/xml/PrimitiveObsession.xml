@@ -60,6 +60,19 @@ class BadObject {
     </test-code>
     <test-code>
         <description><![CDATA[
+BigInteger, BigDecimal
+     ]]></description>
+        <expected-problems>2</expected-problems>
+        <code><![CDATA[
+import java.math.BigInteger;
+public class Foo {
+    public void bar(BigInteger a, BigInteger b) { }
+    public void baz(java.math.BigDecimal a, java.math.BigDecimal b) { }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
 all is well, a real value object
      ]]></description>
         <expected-problems>0</expected-problems>
