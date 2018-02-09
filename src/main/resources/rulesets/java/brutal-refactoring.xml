@@ -30,7 +30,7 @@
     -->
 
     <!-- 7 -->
-    <rule ref="rulesets/java/codecop.xml/OneLevelOfIntention" />
+    <rule ref="rulesets/java/codecop.xml/ZeroLevelOfIntention" />
 
     <!-- 8 -->
     <rule ref="rulesets/java/codecop.xml/PrimitiveObsession" />

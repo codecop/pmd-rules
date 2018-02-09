@@ -19,6 +19,7 @@
     </rule>
 
     <!-- Only one Level of intention -->
+    <rule ref="rulesets/java/codecop.xml/ZeroLevelOfIntention" />
     <rule ref="rulesets/java/codecop.xml/OneLevelOfIntention" />
 
     <!-- Only four lines per method -->

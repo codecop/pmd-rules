@@ -70,7 +70,7 @@ public class Foo {
     </test-code>
     <test-code>
         <description><![CDATA[
-multiple blocks mixed, bad
+multiple blocks in sequence, bad
      ]]></description>
         <expected-problems>1</expected-problems>
         <code><![CDATA[

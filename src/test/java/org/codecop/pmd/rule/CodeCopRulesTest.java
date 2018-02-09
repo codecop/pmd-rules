@@ -37,7 +37,7 @@ public class CodeCopRulesTest extends SimpleAggregatorTst {
       addRule(RULESET, "PrimitiveObsession");
       addRule(RULESET, "MutableException");
       addRule(RULESET, "ImmutablesOnly");
-      addRule(RULESET, "OneLevelOfIntention");
+      addRule(RULESET, "ZeroLevelOfIntention");
       addRule(RULESET, "FirstClassCollections");
       addRule(RULESET, "AvoidClassNamingImpl");
       addRule(RULESET, "TestNameShouldStartWithShould");

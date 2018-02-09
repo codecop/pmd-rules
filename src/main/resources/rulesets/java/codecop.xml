@@ -801,11 +801,11 @@ public class SomeClass {
 
 
    <!-- design.xml -->
-   <rule name="OneLevelOfIntention"
+   <rule name="ZeroLevelOfIntention"
          language="java"
          message="Only one Level of intention per method."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!onelevelofintention">
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!zerolevelofintention">
       <description>
          Use only one level of intention per method. You cannot use if, loops or try more than
          once in a method. If used they need to be the first/last/outer statement of the method.
