@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+single class
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+package a.b.c; 
+
+class Alone {
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+single compilation unit has too many classes
+     ]]></description>
+        <rule-property name="maxClasses">2</rule-property>
+        <expected-problems>1</expected-problems>
+        <expected-messages><message>Package a.b.d has too many classes.</message></expected-messages>
+        <code><![CDATA[
+package a.b.d; 
+
+public class A1 { }
+class A2 { }
+class A3 { } // too many
+     ]]></code>
+    </test-code>
+</test-data>

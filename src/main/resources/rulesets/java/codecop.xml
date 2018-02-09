@@ -1109,4 +1109,20 @@ public interface Foo {
       </example>
    </rule>
 
+
+   <!-- codesize.xml -->
+   <rule name="ExcessiveClassCount"
+         language="java"
+         message="Package {0} has too many classes."
+         class="org.codecop.pmd.rule.ExcessiveClassCount"
+         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesCodecop.wiki#!excessiveclasscount">
+      <description>
+         Limit the number of classes per package. Keep packages small and focused.
+      </description>
+      <priority>2</priority>
+      <properties>
+         <property name="maxClasses" type="Integer" description="Maximum allowed classes in package." min="1" max="999" value="10" />
+      </properties>
+   </rule>
+
 </ruleset>

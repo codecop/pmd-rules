@@ -45,6 +45,7 @@ public class CodeCopRulesTest extends SimpleAggregatorTst {
       addRule(RULESET, "NoCasts");
       addRule(RULESET, "TooManyPublicMethods");
       addRule(RULESET, "TooManyInterfaceMethods");
+      addRule(RULESET, "ExcessiveClassCount");
    }
 
    public static junit.framework.Test suite() {
