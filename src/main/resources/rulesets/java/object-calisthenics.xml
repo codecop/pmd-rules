@@ -14,7 +14,7 @@
     2. Don’t use the ELSE keyword
     3. Wrap all primitives and Strings
     4. One dot per line / Law of Demeter
-    5. Don’t abbreviate - not checked
+    5. Don’t abbreviate
     6. Keep all entities small
     7. No classes with more than two instance variables
     8. First class collections
@@ -33,7 +33,12 @@
     <!-- One dot per line (rule 4 of Object Calisthenics) -->
     <rule ref="rulesets/java/coupling.xml/LawOfDemeter" />
 
-    <!-- can't check rule 5 -->
+    <!-- Don’t abbreviate - can't check (rule 5 of Object Calisthenics) -->
+    <rule ref="rulesets/java/codecop.xml/ShortVariableCustom">
+        <properties>
+            <property name="minLen" value="4" /> <!-- at least 4 characters -->
+        </properties>
+    </rule>
 
     <!-- No Class Over 50 Lines (rule 6 of Object Calisthenics) -->
     <rule ref="rulesets/java/codesize.xml/NcssTypeCount">
