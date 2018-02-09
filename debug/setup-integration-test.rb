@@ -71,11 +71,11 @@ if __FILE__ == $0
   rule_ref = 'rulesets/java/' + given_rule
   header_lines << "testing #{rule_ref}"
 
-  rule_file = './src/main/resources/' + skip_last_part(rule_ref, '/')
+  rule_file = '../src/main/resources/' + skip_last_part(rule_ref, '/')
   raise rule_file unless File.exists? rule_file
   header_lines << "in file  #{rule_file}"
 
-  xml_tests_file = './src/test/resources/org/codecop/pmd/' + given_rule.sub(/codecop/, 'rule').sub(/\.xml/, '/xml') + '.xml'
+  xml_tests_file = '../src/test/resources/org/codecop/pmd/' + given_rule.sub(/codecop/, 'rule').sub(/\.xml/, '/xml') + '.xml'
   raise xml_tests_file unless File.exists? xml_tests_file
   header_lines << "test cases #{xml_tests_file}"
 
