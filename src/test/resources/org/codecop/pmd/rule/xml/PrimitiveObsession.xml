@@ -2,12 +2,13 @@
 <test-data>
     <test-code>
         <description><![CDATA[
-too many Strings in method
+Strings in method
      ]]></description>
-        <expected-problems>1</expected-problems>
+        <expected-problems>2</expected-problems>
         <code><![CDATA[
 class BadObject {
-   public void badMethod(String a, String b) { };
+   public void badMethod(String a, String b) { }
+   public void more(java.lang.String b) { }
 }
      ]]></code>
     </test-code>
@@ -15,58 +16,45 @@ class BadObject {
         <description><![CDATA[
 int in method
      ]]></description>
-        <expected-problems>2</expected-problems>
+        <expected-problems>1</expected-problems>
         <code><![CDATA[
 class BadObject {
-   public void sad(int a) { };
-   public void more(java.lang.String b) { };
+   public void sad(int a) { }
 }
      ]]></code>
     </test-code>
     <test-code>
         <description><![CDATA[
-primitive arrays are primitive
+primitive array in method
      ]]></description>
         <expected-problems>1</expected-problems>
         <code><![CDATA[
 class BadObject {
-   public void sad(byte[] buf, Date when) { };
+   public void sad(byte[] buf, Date when) { }
 }
      ]]></code>
     </test-code>
     <test-code>
         <description><![CDATA[
-collections are primitive
+array in method
+     ]]></description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+class BadObject {
+   public void sad(String[] buf) { }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+collections in method
      ]]></description>
         <expected-problems>2</expected-problems>
         <code><![CDATA[
 import java.util.Set;
 class BadObject {
-   public void sad1(java.util.List buf, Date when) { };
-   public void sad2(Set buf, Date when) { };
-}
-     ]]></code>
-    </test-code>
-    <test-code>
-        <description><![CDATA[
-private constructors and methods can do anything.
-     ]]></description>
-        <expected-problems>0</expected-problems>
-        <code><![CDATA[
-class HiddenObject {
-   private HiddenObject(String a) { };
-   private void hidden(int a, int b) { };
-}
-     ]]></code>
-    </test-code>
-    <test-code>
-        <description><![CDATA[
-private constructors with too many arguments, can do anything.
-     ]]></description>
-        <expected-problems>0</expected-problems>
-        <code><![CDATA[
-class HiddenObject {
-   private HiddenObject(String a, String b, String c) { };
+   public void sad1(java.util.List buf, Date when) { }
+   public void sad2(Set buf, Date when) { }
 }
      ]]></code>
     </test-code>
@@ -77,21 +65,23 @@ all is well, a real value object
         <expected-problems>0</expected-problems>
         <code><![CDATA[
 class ValueObject {
-   public ValueObject(int number) { };
+   public ValueObject(int number) { }
    public int getNumber() { return 0; }
    public boolean getBranch() { return false; }
    public String toString() { return "0"; }
 }
      ]]></code>
     </test-code>
+    <!-- ********** private ********** -->
     <test-code>
         <description><![CDATA[
-Object is allowed in default
+private constructors and methods can do anything.
      ]]></description>
         <expected-problems>0</expected-problems>
         <code><![CDATA[
-class SomeObject {
-   public void someMethod(Object a, Object b) { };
+class HiddenObject {
+   private HiddenObject(String a) { }
+   private void hidden(int a, int b) { }
 }
      ]]></code>
     </test-code>
@@ -102,7 +92,19 @@ primitive return types only in plain getters, no parameters
         <expected-problems>1</expected-problems>
         <code><![CDATA[
 class BadObject {
-   public String sad(Date when) { };
+   public String sad(Date when) { }
+}
+     ]]></code>
+    </test-code>
+    <!-- ********** constructors ********** -->
+    <test-code>
+        <description><![CDATA[
+private constructors with too many arguments, can do anything.
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class HiddenObject {
+   private HiddenObject(String a, String b, String c) { }
 }
      ]]></code>
     </test-code>
@@ -113,21 +115,11 @@ constructor can take everything because we need to wrap it inside, e.g. Coordina
         <expected-problems>0</expected-problems>
         <code><![CDATA[
 class GoodObject {
-   public GoodObject(String a) { };
+   public GoodObject(String a) { }
 }
      ]]></code>
     </test-code>
-    <test-code>
-        <description><![CDATA[
-constructor with too many arguments, not checked by default
-     ]]></description>
-        <expected-problems>0</expected-problems>
-        <code><![CDATA[
-class GoodObject {
-   public GoodObject(String a, String b) { };
-}
-     ]]></code>
-    </test-code>
+    <!-- ********** equals ********** -->
     <test-code>
         <description><![CDATA[
 equals method must be allowed for containers.
@@ -154,6 +146,18 @@ class EqualObject {
 }
      ]]></code>
     </test-code>
+    <!-- ********** property checkConstructors ********** -->
+    <test-code>
+        <description><![CDATA[
+constructor with too many arguments, not checked by default
+     ]]></description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+class GoodObject {
+   public GoodObject(String a, String b) { }
+}
+     ]]></code>
+    </test-code>
     <test-code>
         <description><![CDATA[
 property test constructors: with too many arguments
@@ -162,49 +166,64 @@ property test constructors: with too many arguments
         <expected-problems>1</expected-problems>
         <code><![CDATA[
 class Foo {
-   public Foo(String a, String b) { };
+   public Foo(String a, String b) { }
 }
      ]]></code>
     </test-code>
     <test-code>
         <description><![CDATA[
-property test constructors: only one argument
+property test constructors: only one argument is needed for value object
      ]]></description>
         <rule-property name="checkConstructors">true</rule-property>
         <expected-problems>0</expected-problems>
         <code><![CDATA[
 class Foo {
-   public Foo(String a) { };
+   public Foo(String a) { }
 }
      ]]></code>
     </test-code>
+    <!-- ********** property allowObject ********** -->
     <test-code>
         <description><![CDATA[
-property no object: Object is forbidden
+Object is allowed in default
      ]]></description>
-        <rule-property name="allowObject">false</rule-property>
-        <expected-problems>1</expected-problems>
+        <expected-problems>0</expected-problems>
         <code><![CDATA[
 class SomeObject {
-   public void someMethod(Object a, Object b) { };
+   public void someMethod(Object a, Object b) { }
 }
      ]]></code>
     </test-code>
     <test-code>
         <description><![CDATA[
-property no object: my own value is ok
+property no object: Object is primitive
+     ]]></description>
+        <rule-property name="allowObject">false</rule-property>
+        <expected-problems>2</expected-problems>
+        <code><![CDATA[
+class SomeObject {
+   public SomeObject(Object a, Object b) { } // no constructors check
+   public void someMethod(Object a, Object b) { }
+   public Object other(Date d) { return null; }
+}
+     ]]></code>
+    </test-code>
+    <test-code>
+        <description><![CDATA[
+property no object: another instance is ok
      ]]></description>
         <rule-property name="allowObject">false</rule-property>
         <expected-problems>0</expected-problems>
         <code><![CDATA[
 class SomeObject {
-   public void someMethod(DomainValue a, DomainValue b) { };
+   public void someMethod(DomainValue a, DomainValue b) { }
 }
      ]]></code>
     </test-code>
+    <!-- ********** compareTo:int ********** -->
     <test-code>
         <description><![CDATA[
-compare method must be allowed for containers.
+compare method needs to use primitive.
      ]]></description>
         <expected-problems>0</expected-problems>
         <code><![CDATA[
@@ -217,7 +236,7 @@ class Comp implements Comparable<Comp> {
     </test-code>
     <test-code>
         <description><![CDATA[
-wrong compare method uses primitive.
+Wrong compare method must not uses primitive.
      ]]></description>
         <expected-problems>2</expected-problems>
         <code><![CDATA[
@@ -233,9 +252,10 @@ class Comp2 {
 }
      ]]></code>
     </test-code>
+    <!-- ********** Comparator ********** -->
     <test-code>
         <description><![CDATA[
-comparator needs to use primitive.
+Comparator needs to use primitive.
      ]]></description>
         <expected-problems>0</expected-problems>
         <code><![CDATA[
@@ -249,7 +269,7 @@ class Comp implements Comparator<Date> {
     </test-code>
     <test-code>
         <description><![CDATA[
-similar to comparator must not use primitives.
+similar to Comparator, must not use primitives.
      ]]></description>
         <expected-problems>2</expected-problems>
         <code><![CDATA[
@@ -265,7 +285,7 @@ class Comp1 implements Comparator<Date> {
     </test-code>
     <test-code>
         <description><![CDATA[
-missing Comparator interface, must not use primitives.
+Comparator but missing interface, must not use primitives.
      ]]></description>
         <expected-problems>1</expected-problems>
         <code><![CDATA[
