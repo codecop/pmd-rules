@@ -28,10 +28,24 @@ def format_rule(rule)
   puts ''
   puts "== #{rule.attributes['name']} =="
   puts ''
+
+  is_deprecated = rule.attributes['deprecated'] == 'true'
+  if is_deprecated
+    puts '**Deprecated**'
+    puts ''
+    
+    ref = rule.attributes['ref'].sub(/rulesets\/java\//, '') 
+    name = ref[/[^\/]+$/]
+    ruleset = ref[/^[^\.]+/]
+    puts "This rule has been renamed or moved. Use instead: [#{name}]{PmdRules#{ruleset.capitalize}.wiki##{name.downcase}}"
+    
+    return
+  end
+  
   puts "  #{norm_text(rule.get_text('description'))}"
   puts ''
 
-  isxpath = rule.attributes['class']=='net.sourceforge.pmd.lang.rule.XPathRule'
+  isxpath = rule.attributes['class'] == 'net.sourceforge.pmd.lang.rule.XPathRule'
   if isxpath
     puts 'This rule is defined by the following XPath expression:'
     puts '{{{'
@@ -42,21 +56,21 @@ def format_rule(rule)
     href = "https://bitbucket.org/pkofler/pmd-rules/src/tip/src/main/java/#{classname.gsub(/\./,'/')}.java"
     puts "This rule is defined by the following Java class: [[#{href}|#{classname}]]"
   end
-  puts ''
 
   rule.elements.each('example') do |example|
+    puts ''
     puts '=== Example: ==='
     puts '{{{'
     puts '#!java'
     puts ''
     puts example.texts.join.strip
     puts '}}}'
-    puts ''
   end
 
   properties = rule.elements['count(properties/property)']
   properties -= 1 if isxpath
   if properties > 0
+    puts ''
     puts 'This rule has the following properties:'
     puts ''
     puts '|=Heading Name |=Heading Default value |=Heading Description |'
