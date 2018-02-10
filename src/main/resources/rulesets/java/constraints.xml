@@ -240,10 +240,6 @@ class AvoidGetterAndSetterExample {
    </rule>
 
 
-   <!-- design.xml -->
-   <rule deprecated="true" name="ImmutablesOnly" ref="rulesets/java/codecop.xml/ImmutablesOnly" />
-
-
    <rule name="OnlyStaticMethods"
          language="java"
          message="All methods must be static."
@@ -278,6 +274,10 @@ public class Foo {
 ]]>
       </example>
    </rule>
+
+
+   <!-- design.xml -->
+   <rule deprecated="true" name="ImmutablesOnly" ref="rulesets/java/codecop.xml/ImmutablesOnly" />
 
 
    <rule name="OnlyStaticFields"
