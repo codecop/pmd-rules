@@ -1,12 +1,12 @@
-
-syntax: glob
 target
+
+# Eclipse
 .classpath
 .project
 .settings
-sourceforge.net
 .checkstyle
 
+sourceforge.net
 Idee - *
 TODO *
 
