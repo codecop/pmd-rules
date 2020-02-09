@@ -1,0 +1,14 @@
+target
+
+# Eclipse
+.classpath
+.project
+.settings
+.checkstyle
+
+sourceforge.net
+Idee - *
+TODO *
+
+# integration test data
+debug/it
