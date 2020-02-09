@@ -14,7 +14,7 @@
     <name>PMD Rules</name>
     <version>1.2-pmd4-SNAPSHOT</version>
     <description>Code Cop PMD rules are a mixed set of PMD rules created since 2004 regarding basic bugs, design principles, junit test, naming and other rule groups.</description>
-    <url>http://code.google.com/p/code-cop-code/wiki/PmdRules</url>
+    <url>https://github.com/codecop/${project.artifactId}/</url>
     <inceptionYear>2004</inceptionYear>
 
     <contributors>
@@ -53,9 +53,10 @@
     </contributors>
 
     <scm>
-        <connection>scm:hg:https://bitbucket.org/pkofler/${project.artifactId}</connection>
-        <developerConnection>scm:hg:https://bitbucket.org/pkofler/${project.artifactId}</developerConnection>
-        <url>https://bitbucket.org/pkofler/${project.artifactId}/src</url>
+        <connection>scm:git:https://github.com/codecop/${project.artifactId}.git</connection>
+        <developerConnection>scm:git:git@github.com:codecop/${project.artifactId}.git</developerConnection>
+        <url>https://github.com/codecop/pmd-rules</url>
+        <tag>HEAD</tag>
     </scm>
 
     <build>
