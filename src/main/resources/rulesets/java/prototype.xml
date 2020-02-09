@@ -16,7 +16,7 @@
          message="Entities must define all attributes with RelationShips."
          class="org.codecop.pmd.prototype.EntityWithReferences"
          typeResolution="true"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!entitywithreferences">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesPrototype#entitywithreferences">
       <description>
          In a specific Rich Domain Model all Entities (subclasses of Entity) must define their attributes as (subclasses of) RelationShips.
          Simple attributes are not allowed. To fix this rule, wrap all simple attributes with a RelationShip of proper type accordingly.
@@ -45,7 +45,7 @@ public class BadEntity extends BetterEntity {
          message="ValueObjects must not define RelationShips and be immutable."
          class="org.codecop.pmd.prototype.ImmutableValueObject"
          typeResolution="true"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!immutablevalueobject">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesPrototype#immutablevalueobject">
       <description>
          In a specific Rich Domain Model all Value Objects (subclasses of ValueObjects) must not define their attributes as (subclasses of)
          RelationShips. Just simple attributes are allowed.
@@ -71,7 +71,7 @@ public class BadValueObject extends ValueObject {
          language="java"
          message="The given method must be implemented and not just return null."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!emptyfunction">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesPrototype#emptyfunction">
       <description>
          Some methods, e.g. toString or getName() in subclasses of Action, must not just return null.
          If they will never be called, throw a OperationNotSupportedException.
@@ -106,7 +106,7 @@ public class FooAction {
          language="java"
          message="Classes in DB layer must not call Connection.commit."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!commitindblayer">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesPrototype#commitindblayer">
       <description>
          Services are responsible for maintaining transactions, so classes in the DB layer are not allowed to call
          Connection.commit. commit is a reserved word and should also not be used as identifier.
@@ -166,7 +166,7 @@ public class CommitInDBLayerExample {
          language="java"
          message="Only Classes in $package packages may call *$method() methods."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!call4methodnotinpackage">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesPrototype#call4methodnotinpackage">
       <description>
          Only certain classes in $package packages are allowed to call special methods on objects, which are suffixed by $method.
       </description>
@@ -216,7 +216,7 @@ public class BadGuy {
          since="2.0"
          message="Class contains more than one logger."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!morethanonecustomlogger">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesPrototype#morethanonecustomlogger">
       <description>
          Normally only one logger is used in each class.
       </description>
@@ -253,7 +253,7 @@ class Foo {
          since="2.0"
          message="The Logger variable declaration does not contain the static and final modifiers."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!customloggerisnotstaticfinal">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesPrototype#customloggerisnotstaticfinal">
       <description>
          In most cases, the Logger can be declared private, static and final.
       </description>
@@ -290,7 +290,7 @@ class Foo {
          language="java"
          message="Avoid non final attributes in this class."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!noattrinclass">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesPrototype#noattrinclass">
       <description>
          This class is shared by threads but not threadsafe. Therefore it must only have final members.
       </description>
@@ -327,7 +327,7 @@ public class AdWorxChannelPolicyKey {
          language="java"
          message="The use of this type is not allowed."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!typenotallowed">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesPrototype#typenotallowed">
       <description>
          The use of this type is not allowed.
       </description>
@@ -365,7 +365,7 @@ class MyClass extends OtherClass {
          language="java"
          message="All concrete (not abstract) actions must implement the $method method."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!actionhasnoshortname">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesPrototype#actionhasnoshortname">
       <description>
          Certain classes need to define and redefine a method on their own regardless of superclasses have provided it or not.
       </description>
@@ -404,7 +404,7 @@ public class FooAction {
          language="java"
          message="All concrete JUnit tests must be named ending with Test."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!junittesthaswrongname">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesPrototype#junittesthaswrongname">
       <description>
          All concrete JUnit tests must be named to the sheme of ending with Test to be identified and run automatically.
       </description>
@@ -451,7 +451,7 @@ class GoodTest {
          language="java"
          message="Enums must only be instantiated inside its own Enum class."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesPrototype.wiki#!newenumonlyinside">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesPrototype#newenumonlyinside">
       <description>
          Enums are special instances and not meant to be created by other classes, instead use a getEnumFor(value) on the Enum itself.
       </description>

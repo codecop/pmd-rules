@@ -16,7 +16,7 @@
          language="java"
          message="All methods must be void."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!onlyvoidmethods">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesConstraints#onlyvoidmethods">
       <description>
          As an exercise only void methods are allowed. This enforces Tell, Don't Ask design. Only inherited Object methods can be non-void.
       </description>
@@ -50,7 +50,7 @@ public class Foo {
          language="java"
          message="All methods must be non void."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!novoidmethods">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesConstraints#novoidmethods">
       <description>
          As an exercise no void methods are allowed. This is the functional style. Only JUnit tests and custom asserts can have void methods.
          Allows implementing Runnable.
@@ -87,7 +87,7 @@ public class OkClass {
          language="java"
          message="No loops."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!noloops">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesConstraints#noloops">
       <description>
          As an exercise no loop constructs are allowed. You cannot use for, do or while.
       </description>
@@ -120,7 +120,7 @@ public void main() {
          language="java"
          message="No else keyword."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!noelsekeyword">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesConstraints#noelsekeyword">
       <description>
          As an exercise no else statement is allowed. This is rule 2 of Object Calisthenics.
       </description>
@@ -154,7 +154,7 @@ public class Foo {
          language="java"
          message="No conditional statements."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!noconditionals">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesConstraints#noconditionals">
       <description>
          As an exercise no conditional statements are allowed. You cannot use if, while, switch or ?:.
       </description>
@@ -188,7 +188,7 @@ public class Foo {
          language="java"
          message="Don't use getters or setters."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!nogetterandsetter">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesConstraints#nogetterandsetter">
       <description>
          Do not use getter or setter to enforces encapsulation. This is rule 9 of Object Calisthenics.
       </description>
@@ -244,9 +244,9 @@ class AvoidGetterAndSetterExample {
          language="java"
          message="All methods must be static."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!onlystaticmethods">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesConstraints#onlystaticmethods">
       <description>
-         As an exercise only static methods are allowed. This exaggerates the common mistake to have too many static methods. 
+         As an exercise only static methods are allowed. This exaggerates the common mistake to have too many static methods.
          Only inherited Object methods can be non-static, Comparable and Comparator.
       </description>
       <priority>3</priority>
@@ -284,7 +284,7 @@ public class Foo {
          language="java"
          message="All fields must be static."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!onlystaticfields">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesConstraints#onlystaticfields">
       <description>
          As an exercise only static fields are allowed. This exaggerates the common mistake to have too many static fields.
       </description>
@@ -314,7 +314,7 @@ public class SomeClass {
          language="java"
          message="Identifier minimum 20 characters."
          class="org.codecop.pmd.constraints.LooongIdentifiers"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!looongidentifiers">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesConstraints#looongidentifiers">
       <description>
          To enforce giving names meaningful names, every identifier shall be at least x characters. With x in the range of possibly 40.
          This forces people to let go of things like "num" or "i1" and "i2". This is part 1 of 20/80, see
@@ -347,7 +347,7 @@ public class ReversiBoardPosition {
          language="java"
          message="Lines maximum 80 characters."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!shortstatements">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesConstraints#shortstatements">
       <description>
          Keep statements (lines) short, so not many long identifiers can fit in. This is part 2 of 20/80, see
          http://manynames.sevensuns.at/technojoy/2014/12/2080-a-coding-dojo-constraint-just-for-fun.html
@@ -375,7 +375,7 @@ public class ReversiBoardPosition {
          language="java"
          message="No fields must be static."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!nostaticfields">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesConstraints#nostaticfields">
       <description>
          As an exercise no static fields are allowed. This fights the common mistake to have too many static fields.
       </description>
@@ -405,9 +405,9 @@ public class SomeClass {
          language="java"
          message="No methods must be static."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!nostaticmethods">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesConstraints#nostaticmethods">
       <description>
-         As an exercise no static methods are allowed. This fights the common mistake to have too many static methods. 
+         As an exercise no static methods are allowed. This fights the common mistake to have too many static methods.
       </description>
       <priority>3</priority>
       <properties>
@@ -436,7 +436,7 @@ public class Foo {
          language="java"
          message="Use Maps as single parameter of public methods."
          class="net.sourceforge.pmd.lang.rule.XPathRule"
-         externalInfoUrl="https://bitbucket.org/pkofler/pmd-rules/wiki/PmdRulesConstraints.wiki#!onlymapsasparameters">
+         externalInfoUrl="https://github.com/codecop/pmd-rules/wiki/PmdRulesConstraints#onlymapsasparameters">
       <description>
          According to POODR, use Maps as single argument in public API to make your code the most extensible without
          breaking callers because the API never changes. Also use default values in the Maps as much as possible.
@@ -447,22 +447,22 @@ public class Foo {
          <property name="xpath">
             <value>
 <![CDATA[
-//ConstructorDeclaration[ 
+//ConstructorDeclaration[
     @Public='true' and
     (
         FormalParameters[@ParameterCount > 1]  |
         FormalParameters/FormalParameter/Type/PrimitiveType  |
-        FormalParameters/FormalParameter/Type/ReferenceType/ClassOrInterfaceType[ not (@Image=$paramType) ] 
+        FormalParameters/FormalParameter/Type/ReferenceType/ClassOrInterfaceType[ not (@Image=$paramType) ]
     )
 ]
 |
-//MethodDeclaration[ 
+//MethodDeclaration[
     @Public='true' and
     not(@MethodName='equals' or @MethodName='compare' or @MethodName='compareTo' ) and
     (
         MethodDeclarator/FormalParameters[@ParameterCount > 1]  |
         MethodDeclarator/FormalParameters/FormalParameter/Type/PrimitiveType  |
-        MethodDeclarator/FormalParameters/FormalParameter/Type/ReferenceType/ClassOrInterfaceType[ not (@Image=$paramType) ] 
+        MethodDeclarator/FormalParameters/FormalParameter/Type/ReferenceType/ClassOrInterfaceType[ not (@Image=$paramType) ]
     )
 ]
 ]]>
