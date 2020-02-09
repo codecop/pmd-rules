@@ -6,20 +6,19 @@
 
     <description>
         Collection of rules for "strict" FP. This forces you to use functional style.
-        See https://bitbucket.org/pkofler/lcd-numbers-fp-java-setup
     </description>
 
     <!-- only (static) functions -->
     <rule ref="rulesets/java/constraints.xml/NoVoidMethods" />
     <rule ref="rulesets/java/constraints.xml/OnlyStaticMethods" />
-    
+
     <!-- max 3 arguments, use higher order functions instead -->
     <rule ref="rulesets/java/codesize.xml/ExcessiveParameterList">
         <properties>
             <property name="minimum" value="4" />
         </properties>
     </rule>
-    
+
     <!-- small functions -->
     <rule ref="rulesets/java/codesize.xml/ExcessiveMethodLength">
         <properties>
