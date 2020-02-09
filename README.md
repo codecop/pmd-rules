@@ -8,7 +8,7 @@ Custom rules for PMD code analysis.
 
 * Read my [motivation for first custom rules](https://blog.code-cop.org/2010/05/custom-pmd-rules.html).
 * [PmdRulesCodecop](https://github.com/codecop/pmd-rules/wiki/PmdRulesCodecop) - rules for various bugs and conventions.
-* [PmdRulesConstraints](https://github.com/codecop/pmd-rules/wiki/wiki/PmdRulesConstraints) - rules for constraints in code katas, Coding Dojos and Code Retreats.
+* [PmdRulesConstraints](https://github.com/codecop/pmd-rules/wiki/PmdRulesConstraints) - rules for constraints in code katas, Coding Dojos and Code Retreats.
 * [PmdRulesPrototype](https://github.com/codecop/pmd-rules/wiki/PmdRulesPrototype)
 
 Being lazy, of course I did not write these rule documentations by hand. I had it generated using a Ruby script `rule_summary_*.rb` that converts PMD's `ruleset.xml` format into wiki syntax.
