@@ -31,13 +31,13 @@ def format_rule(rule)
 
   is_deprecated = rule.attributes['deprecated'] == 'true'
   if is_deprecated
-    puts '**Deprecated**'
+    puts "'''Deprecated'''"
     puts ''
     
     ref = rule.attributes['ref'].sub(/rulesets\/java\//, '') 
     name = ref[/[^\/]+$/]
     ruleset = ref[/^[^\.]+/]
-    puts "This rule has been renamed or moved. Use instead: [#{name}]{PmdRules#{ruleset.capitalize}.wiki##{name.downcase}}"
+    puts "This rule has been renamed or moved. Use instead: [[PmdRules#{ruleset.capitalize}##{name.downcase}|#{name}]]"
     
     return
   end
@@ -54,7 +54,7 @@ def format_rule(rule)
   else
     classname = rule.attributes['class']
     href = "https://github.com/codecop/pmd-rules/tree/master/src/main/java/#{classname.gsub(/\./,'/')}.java"
-    puts "This rule is defined by the following Java class: [[#{href}|#{classname}]]"
+    puts "This rule is defined by the following Java class: [#{href} #{classname}]"
   end
 
   rule.elements.each('example') do |example|
