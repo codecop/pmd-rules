@@ -2,7 +2,9 @@
 
 Custom rules for PMD code analysis.
 
-[PMD](https://pmd.github.io/) scans Java source code and looks for potential problems. (Read about how it works [here](https://pmd.github.io/pmd-5.5.4/customizing/howitworks.html).) It comes with more than 200 [predefined rules](https://pmd.github.io/pmd-5.5.4/pmd-java/index.html). It's possible to define your own rules; I have done so since 2004. This project contains a mixed set of custom rules for PMD 5.x regarding basic bugs, design principles, JUnit test, naming and other rule groups as well as some useful templates to copy from. The `pmd-4.x` branch contains the same rules compatible with PMD 4.1 up to PMD 4.3.
+[PMD](https://pmd.github.io/) scans Java source code and looks for potential problems. (Read about how it works [here](https://pmd.github.io/pmd-5.5.4/customizing/howitworks.html).) It comes with more than 200 [predefined rules](https://pmd.github.io/pmd-5.5.4/pmd-java/index.html). It's possible to define your own rules; I have done so since 2004. This project contains a mixed set of custom rules for PMD regarding basic bugs, design principles, JUnit test, naming and other rule groups as well as some useful templates to copy from.
+
+The `pmd-4.x` branch contains some early rules compatible with PMD 4.1 up to PMD 4.3 and its last release is `1.1-pmd4`. The `pmd-5.x` branch contains rules for versions 5.0.5 to 5.8.1 and last release is `1.2.4-pmd5`. PMD 6 is the current one.   
 
 ## Rule Sets
 
@@ -15,7 +17,7 @@ Being lazy, of course I did not write these rule documentations by hand. I had i
 
 ## Usage
 
-Add the jar containing the rule sets to the PMD classpath, just copy the `codecop-pmd-rules.jar` into PMD's `lib` folder. Download the latest rules from [here](https://www.code-cop.org/mvn2repo/releases/org/codecop/pmd-rules/). The current 1.2 version is compatible with PMD 5. For the latest [Maven PMD plugin](http://maven.apache.org/plugins/maven-pmd-plugin/) this looks like:
+Add the jar containing the rule sets to the PMD classpath, just copy the `codecop-pmd-rules.jar` into PMD's `lib` folder. Download the latest rules from [here](https://www.code-cop.org/mvn2repo/releases/org/codecop/pmd-rules/). For example the 1.2 version is compatible with PMD 5. For the latest [Maven PMD plugin](http://maven.apache.org/plugins/maven-pmd-plugin/) this looks like:
 
     <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -35,27 +37,7 @@ Add the jar containing the rule sets to the PMD classpath, just copy the `codeco
         </dependencies>
     </plugin>
 
-The rules also work with any earlier PMD down to PMD 5.1,
-
-    <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.2</version>
-        <dependencies>
-            <dependency>
-                <groupId>org.codecop</groupId>
-                <artifactId>pmd-rules</artifactId>
-                <version>1.2.2</version>
-            </dependency>
-            <dependency>
-                <groupId>net.sourceforge.pmd</groupId>
-                <artifactId>pmd</artifactId>
-                <version>5.1.3</version>
-            </dependency>
-        </dependencies>
-    </plugin>
-
-and there is an PMD 4.3 compatible 1.1-pmd4 release, which does not contain the newer rules.
+There is an PMD 4.3 compatible 1.1-pmd4 release, which does not contain the newer rules.
 
     <plugin>
         <groupId>org.apache.maven.plugins</groupId>
