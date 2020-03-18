@@ -66,8 +66,8 @@
 
     <scm>
         <connection>scm:git:https://github.com/codecop/${project.artifactId}.git</connection>
-        <developerConnection>scm:git:git@github.com:codecop/${project.artifactId}.git</developerConnection>
-        <url>https://github.com/codecop/pmd-rules</url>
+        <developerConnection>scm:git:ssh://git@github.com:codecop/${project.artifactId}.git</developerConnection>
+        <url>scm:git:https://github.com/codecop/${project.artifactId}.git</url>
         <tag>HEAD</tag>
     </scm>
 
