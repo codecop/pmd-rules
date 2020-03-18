@@ -91,19 +91,6 @@
                 <pmd.dependency>pmd-java</pmd.dependency>
             </properties>
         </profile>
-        <profile>
-            <id>pmd-52-compatibility</id>
-            <activation>
-                <property>
-                    <name>pmd</name>
-                    <value>6.2</value>
-                </property>
-            </activation>
-            <properties>
-                <pmd.version>6.0.1</pmd.version>
-                <pmd.dependency>pmd-java</pmd.dependency>
-            </properties>
-        </profile>
     </profiles>
 
     <dependencies>
