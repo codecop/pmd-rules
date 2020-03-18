@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
  * Wrapper around changed API used in testing framework.
  * 
  * @author PMD 5.6
- * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
+ * @author <a href="https://www.code-cop.org/">Peter Kofler</a>
  */
 public class RuleSetVersionAdapter {
 

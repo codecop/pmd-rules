@@ -5,8 +5,8 @@ import net.sourceforge.pmd.Rule;
 /**
  * Wrapper around changed API of IntegerProperty.
  * 
- * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
- * @see net.sourceforge.pmd.lang.rule.properties.IntegerProperty
+ * @author <a href="https://www.code-cop.org/">Peter Kofler</a>
+ * @see net.sourceforge.pmd.properties.IntegerProperty
  */
 public class IntegerPropertyAdapter extends PropertyAdapter {
 

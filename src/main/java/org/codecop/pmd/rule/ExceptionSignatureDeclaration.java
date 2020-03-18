@@ -17,8 +17,8 @@ import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
  * Changed Exception Signature rule to allow also Spring mock.
  * @author PMD 3.1 - Copied from PMD 3.1 Source Edition.
  * @author PMD 3.7 - updated
- * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
- * @see net.sourceforge.pmd.lang.java.rule.strictexception.SignatureDeclareThrowsExceptionRule
+ * @author <a href="https://www.code-cop.org/">Peter Kofler</a>
+ * @see net.sourceforge.pmd.lang.java.rule.design.SignatureDeclareThrowsExceptionRule
  */
 public class ExceptionSignatureDeclaration extends AbstractJavaRule {
 

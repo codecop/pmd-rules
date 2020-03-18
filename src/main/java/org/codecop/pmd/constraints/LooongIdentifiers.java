@@ -16,7 +16,7 @@ import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
  * Force all identifiers to be at least that looong.
  * 
  * @author PMD 5.0
- * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
+ * @author <a href="https://www.code-cop.org/">Peter Kofler</a>
  */
 public class LooongIdentifiers extends AbstractJavaRule {
 

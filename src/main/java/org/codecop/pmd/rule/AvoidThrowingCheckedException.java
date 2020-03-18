@@ -6,7 +6,7 @@ import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 
 /**
  * Avoid throwing checked Exceptions - it's considered noise.
- * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
+ * @author <a href="https://www.code-cop.org/">Peter Kofler</a>
  */
 public class AvoidThrowingCheckedException extends AbstractJavaRule {
 

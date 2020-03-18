@@ -10,7 +10,7 @@ import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 
 /**
  * Entities must define all attributes with RelationShips.
- * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
+ * @author <a href="https://www.code-cop.org/">Peter Kofler</a>
  */
 public class EntityWithReferences extends AbstractJavaRule {
 

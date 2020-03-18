@@ -16,7 +16,7 @@ import org.jaxen.JaxenException;
 /**
  * ValueObjects must not define RelationShips and be immutable.
  *
- * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
+ * @author <a href="https://www.code-cop.org/">Peter Kofler</a>
  */
 public class ImmutableValueObject extends AbstractJavaRule {
 

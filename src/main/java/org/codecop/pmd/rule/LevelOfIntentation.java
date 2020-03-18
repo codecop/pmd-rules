@@ -16,7 +16,7 @@ import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
  * Avoid deep nesting.
  * 
  * @author PMD 5.0 - Partly copied from PMD 5.0 source.
- * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
+ * @author <a href="https://www.code-cop.org/">Peter Kofler</a>
  * @see net.sourceforge.pmd.lang.java.rule.design.AvoidDeeplyNestedIfStmtsRule
  */
 

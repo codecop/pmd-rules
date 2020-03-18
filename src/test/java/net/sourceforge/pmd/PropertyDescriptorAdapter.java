@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
  * moved to <br>
  * import net.sourceforge.pmd.properties.PropertyDescriptor; <br>
  * 
- * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
+ * @author <a href="https://www.code-cop.org/">Peter Kofler</a>
  */
 public class PropertyDescriptorAdapter {
 

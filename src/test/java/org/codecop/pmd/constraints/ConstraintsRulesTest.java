@@ -7,7 +7,7 @@ import org.junit.Before;
 /**
  * Test the rules in the <code>constraints</code> ruleset.
  * 
- * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
+ * @author <a href="https://www.code-cop.org/">Peter Kofler</a>
  */
 public class ConstraintsRulesTest extends SimpleAggregatorTst {
 

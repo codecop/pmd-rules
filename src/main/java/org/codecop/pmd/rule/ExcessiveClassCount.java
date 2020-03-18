@@ -12,7 +12,7 @@ import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 /**
  * Look for number of classes per package.
  * 
- * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
+ * @author <a href="https://www.code-cop.org/">Peter Kofler</a>
  */
 public class ExcessiveClassCount extends AbstractJavaRule {
 

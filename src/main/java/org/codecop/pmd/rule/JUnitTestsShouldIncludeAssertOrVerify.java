@@ -20,7 +20,7 @@ import net.sourceforge.pmd.lang.java.rule.AbstractJUnitRule;
  * @author PMD 4.1 - Copied from PMD 4.1 Source Edition.
  * @author PMD 4.3 - updated
  * @author PMD 5.1 - updated
- * @see net.sourceforge.pmd.lang.java.rule.junit.JUnitTestsShouldIncludeAssertRule
+ * @see net.sourceforge.pmd.lang.java.rule.bestpractices.JUnitTestsShouldIncludeAssertRule
  */
 public class JUnitTestsShouldIncludeAssertOrVerify extends AbstractJUnitRule {
 

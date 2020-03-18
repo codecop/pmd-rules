@@ -9,8 +9,8 @@ import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
  * Changed Class name rule to allow underscore before _Stub and _Core (RMI). Added some additional tests.
  * @author PMD 3.1 - Copied from PMD 3.1 Source Edition.
  * @author PMD 3.7 - updated
- * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
- * @see net.sourceforge.pmd.lang.java.rule.naming.ClassNamingConventionsRule
+ * @author <a href="https://www.code-cop.org/">Peter Kofler</a>
+ * @see net.sourceforge.pmd.lang.java.rule.codestyle.ClassNamingConventionsRule
  */
 public class ClassNamingConventions extends AbstractJavaRule {
 

@@ -19,7 +19,7 @@ import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 /**
  * Look for usages of primitives other than in value object/wrappers.
  * 
- * @author <a href="http://www.code-cop.org/">Peter Kofler</a>
+ * @author <a href="https://www.code-cop.org/">Peter Kofler</a>
  */
 public class PrimitiveObsession extends AbstractJavaRule {
 
