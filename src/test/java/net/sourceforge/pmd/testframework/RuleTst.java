@@ -42,7 +42,7 @@ import net.sourceforge.pmd.RuleSets;
 import net.sourceforge.pmd.RuleViolation;
 //PK import net.sourceforge.pmd.lang.LanguageRegistry;
 import net.sourceforge.pmd.lang.LanguageVersion;
-import net.sourceforge.pmd.properties.PropertyDescriptor;
+//PK net.sourceforge.pmd.properties.PropertyDescriptor;
 import net.sourceforge.pmd.renderers.TextRenderer;
 /**
  * Advanced methods for test cases
@@ -113,7 +113,7 @@ public abstract class RuleTst {
             //Restore old properties
             // TODO Tried to use generics here, but there's a compiler bug doing so in a finally block.
             // Neither 1.5.0_16-b02 or 1.6.0_07-b06 works, but 1.7.0-ea-b34 seems to work.   
-            for (Map.Entry entry: oldProperties.entrySet()) {
+            for (Map.Entry<?, Object> entry: oldProperties.entrySet()) {
                 PropertyDescriptorAdapter.setProperty(rule, entry.getKey(), entry.getValue());
             }
         }
@@ -313,7 +313,7 @@ public abstract class RuleTst {
             int expectedProblems = Integer.parseInt(getNodeValue(testCode, "expected-problems", true));
 
             NodeList expectedMessagesNodes = testCode.getElementsByTagName("expected-messages");
-            List<String> messages = new ArrayList<String>();
+            List<String> messages = new ArrayList<>();
             if (expectedMessagesNodes != null && expectedMessagesNodes.getLength() > 0) {
                 Element item = (Element)expectedMessagesNodes.item(0);
                 NodeList messagesNodes = item.getElementsByTagName("message");
@@ -323,7 +323,7 @@ public abstract class RuleTst {
             }
 
             NodeList expectedLineNumbersNodes = testCode.getElementsByTagName("expected-linenumbers");
-            List<Integer> expectedLineNumbers = new ArrayList<Integer>();
+            List<Integer> expectedLineNumbers = new ArrayList<>();
             if (expectedLineNumbersNodes != null && expectedLineNumbersNodes.getLength() > 0) {
                 Element item = (Element)expectedLineNumbersNodes.item(0);
                 String numbers = item.getTextContent();
