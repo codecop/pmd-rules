@@ -11,7 +11,7 @@
     <artifactId>pmd-rules</artifactId>
     <packaging>jar</packaging>
     <name>PMD Rules</name>
-    <version>1.2.4-pmd5</version>
+    <version>1.3.0-SNAPSHOT</version>
     <description>A mixed set of PMD rules created since 2004 regarding basic bugs, design principles, JUnit test, naming and other things.</description>
     <url>https://github.com/codecop/${project.artifactId}/</url>
     <inceptionYear>2004</inceptionYear>
