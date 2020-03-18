@@ -60,7 +60,7 @@ public class ExcessiveClassCount extends AbstractJavaRule {
 
 class GlobalCounter {
 
-    private final ConcurrentHashMap<String, Integer> countByPackage = new ConcurrentHashMap<String, Integer>();
+    private final ConcurrentHashMap<String, Integer> countByPackage = new ConcurrentHashMap<>();
 
     public void add(String key, int count) {
         countByPackage.putIfAbsent(key, 0);

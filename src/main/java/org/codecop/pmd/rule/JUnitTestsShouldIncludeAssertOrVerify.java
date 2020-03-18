@@ -63,7 +63,7 @@ public class JUnitTestsShouldIncludeAssertOrVerify extends AbstractJUnitRule {
         for (ASTNormalAnnotation annotation : annotations) {
             ASTName name = annotation.getFirstChildOfType(ASTName.class);
             if (name != null && ("Test".equals(name.getImage())
-                    || (name.getType() != null && name.getType().equals(JUNIT4_CLASS_NAME)))) {
+                    || (name.getType() != null && name.getType().getName().equals(JUNIT4_CLASS_NAME)))) {
                 List<ASTMemberValuePair> memberValues = annotation.findDescendantsOfType(ASTMemberValuePair.class);
                 
                 for (ASTMemberValuePair pair : memberValues) {
