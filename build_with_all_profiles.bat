@@ -9,9 +9,17 @@ rem mvn site
 rem @start target\site\index.html
 @pause
 
+@echo running with PMD 6.6
+call mvn clean test -Dpmd.version=6.6.0
+@pause
+
 @rem 6.11.0 ... 2019
 @echo running with PMD 6.11
 call mvn clean test -Dpmd.version=6.11.0
+@pause
+
+@echo running with PMD 6.17
+call mvn clean test -Dpmd.version=6.17.0
 @pause
 
 @rem 6.21.0 ... 2020
