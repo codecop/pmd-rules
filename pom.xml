@@ -71,9 +71,11 @@
         <tag>HEAD</tag>
     </scm>
 
+    <!--
     <build>
         <finalName>codecop-${project.artifactId}-${project.version}</finalName>
     </build>
+    -->
 
     <profiles>
         <!-- These basic rules will work since PMD 6.0.1 -->
@@ -81,14 +83,9 @@
             <id>pmd-60-compatibility</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
-                <property>
-                    <name>pmd</name>
-                    <value>6.0</value>
-                </property>
             </activation>
             <properties>
                 <pmd.version>6.0.1</pmd.version>
-                <pmd.dependency>pmd-java</pmd.dependency>
             </properties>
         </profile>
     </profiles>
@@ -96,7 +93,7 @@
     <dependencies>
         <dependency>
             <groupId>net.sourceforge.pmd</groupId>
-            <artifactId>${pmd.dependency}</artifactId>
+            <artifactId>pmd-java</artifactId>
             <version>${pmd.version}</version>
             <scope>provided</scope>
         </dependency>
