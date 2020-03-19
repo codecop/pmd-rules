@@ -11,7 +11,7 @@
     <artifactId>pmd-rules</artifactId>
     <packaging>jar</packaging>
     <name>PMD Rules</name>
-    <version>1.3.0-SNAPSHOT</version>
+    <version>1.2.4-pmd6-SNAPSHOT</version>
     <description>A mixed set of PMD rules created since 2004 regarding basic bugs, design principles, JUnit test, naming and other things.</description>
     <url>https://github.com/codecop/${project.artifactId}/</url>
     <inceptionYear>2004</inceptionYear>
@@ -78,7 +78,7 @@
     <profiles>
         <!-- These basic rules will work since PMD 6.0.1 -->
         <profile>
-            <id>pmd-60-compatibility</id> 
+            <id>pmd-60-compatibility</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
                 <property>
