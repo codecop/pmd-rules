@@ -1,4 +1,7 @@
 target
+pom.xml.releaseBackup
+release-pom.xml
+release.properties
 
 # Eclipse
 .classpath
