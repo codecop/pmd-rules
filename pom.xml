@@ -71,11 +71,22 @@
         <tag>HEAD</tag>
     </scm>
 
-    <!--
     <build>
         <finalName>codecop-${project.artifactId}-${project.version}</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.2</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.scm</groupId>
+                        <artifactId>maven-scm-provider-gitexe</artifactId>
+                        <version>1.8.1</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
     </build>
-    -->
 
     <profiles>
         <!-- These basic rules will work since PMD 6.0.1 -->
