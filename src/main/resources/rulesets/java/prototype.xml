@@ -300,7 +300,7 @@ class Foo {
          <property name="xpath">
             <value>
 <![CDATA[
-//FieldDeclaration[@Final='false' and ../../..[ends-with(@Image,$suffix)]]
+//FieldDeclaration[@Final='false' and ../../..[ends-with(@SimpleName,$suffix)]]
 ]]>
             </value>
          </property>
@@ -377,8 +377,8 @@ class MyClass extends OtherClass {
             <value>
 <![CDATA[
 //ClassOrInterfaceDeclaration[
-  ends-with(@Image, $suffix) and
-  not (ends-with(@Image,'HelperAction')) and
+  ends-with(@SimpleName, $suffix) and
+  not (ends-with(@SimpleName,'HelperAction')) and
   @Abstract='false' and
   count(//MethodDeclarator[@Image=$method])=0
 ]
@@ -416,9 +416,9 @@ public class FooAction {
             <value>
 <![CDATA[
 //ClassOrInterfaceDeclaration[
-   not (ends-with(@Image, $suffix)) and
-   not (ends-with(@Image, 'TestManuell')) and
-   not (@Image='TCInit') and
+   not (ends-with(@SimpleName, $suffix)) and
+   not (ends-with(@SimpleName, 'TestManuell')) and
+   not (@SimpleName='TCInit') and
    @Abstract='false' and
    //PackageDeclaration[Name[ ends-with(@Image, $package) ]]
 ]
@@ -464,7 +464,7 @@ class GoodTest {
 //AllocationExpression[
    ends-with(ClassOrInterfaceType/@Image, $suffix) and
    (count(ArrayDimsAndInits)=0) and
-   not (//ClassOrInterfaceDeclaration/@Image=ClassOrInterfaceType/@Image)
+   not (//ClassOrInterfaceDeclaration/@SimpleName=ClassOrInterfaceType/@Image)
 ]
 ]]>
             </value>

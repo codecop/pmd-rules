@@ -255,10 +255,10 @@ class AvoidGetterAndSetterExample {
             <value>
 <![CDATA[
 //MethodDeclaration[ @Static='false' and
-        not(@MethodName='hashCode' or @MethodName='equals'    or
-            @MethodName='toString' or @MethodName='clone'     or
-            @MethodName='compare'  or @MethodName='compareTo' or
-            @MethodName='run')
+        not(@Name='hashCode' or @Name='equals'    or
+            @Name='toString' or @Name='clone'     or
+            @Name='compare'  or @Name='compareTo' or
+            @Name='run')
     ]
 ]]>
             </value>
@@ -450,7 +450,7 @@ public class Foo {
 //ConstructorDeclaration[
     @Public='true' and
     (
-        FormalParameters[@ParameterCount > 1]  |
+        FormalParameters[@Size > 1]  |
         FormalParameters/FormalParameter/Type/PrimitiveType  |
         FormalParameters/FormalParameter/Type/ReferenceType/ClassOrInterfaceType[ not (@Image=$paramType) ]
     )
@@ -460,7 +460,7 @@ public class Foo {
     @Public='true' and
     not(@MethodName='equals' or @MethodName='compare' or @MethodName='compareTo' ) and
     (
-        MethodDeclarator/FormalParameters[@ParameterCount > 1]  |
+        MethodDeclarator/FormalParameters[@Size > 1]  |
         MethodDeclarator/FormalParameters/FormalParameter/Type/PrimitiveType  |
         MethodDeclarator/FormalParameters/FormalParameter/Type/ReferenceType/ClassOrInterfaceType[ not (@Image=$paramType) ]
     )

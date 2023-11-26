@@ -31,7 +31,7 @@
   ( ends-with(Expression//Name/@Image, '.hasNext') or
     ends-with(Expression//Name/@Image, '.hasMoreElements')
   ) and not (
-    starts-with(Expression//Name/@Image, concat(ForInit//VariableDeclaratorId/@Image, '.'))
+    starts-with(Expression//Name/@Image, concat(ForInit//VariableDeclaratorId/@Name, '.'))
   )
 ]
 ]]>
@@ -72,8 +72,8 @@ public class JumbledIteratorExample {
             <value>
 <![CDATA[
 //FormalParameters/FormalParameter/VariableDeclaratorId[
-  (not (starts-with(@Image, $prefix))) or
-  (not (substring(@Image, 2, 1)=upper-case(substring(@Image, 2, 1))) )
+  (not (starts-with(@Name, $prefix))) or
+  (not (substring(@Name, 2, 1)=upper-case(substring(@Name, 2, 1))) )
 ]
 ]]>
             </value>
@@ -201,7 +201,7 @@ class BadTestCase extends TestCase {
             <value>
 <![CDATA[
 //ClassOrInterfaceDeclaration[@Interface='true' and
-                              not (ends-with(@Image, $suffix))]
+                              not (ends-with(@SimpleName, $suffix))]
 ]]>
             </value>
          </property>
@@ -232,7 +232,7 @@ public class SomeClass { }             // ok
          <property name="xpath">
             <value>
 <![CDATA[
-//ClassOrInterfaceDeclaration[@Interface='true' and not (starts-with(@Image, $prefix))]
+//ClassOrInterfaceDeclaration[@Interface='true' and not (starts-with(@SimpleName, $prefix))]
 ]]>
             </value>
          </property>
@@ -347,7 +347,7 @@ public class CharInstantiationExample {
             <value>
 <![CDATA[
 //FieldDeclaration[ @Final='false' and
-                    ../../../../ClassOrInterfaceDeclaration[ends-with(@Image, $suffix)] ]
+                    ../../../../ClassOrInterfaceDeclaration[ends-with(@SimpleName, $suffix)] ]
 ]]>
             </value>
          </property>
@@ -536,7 +536,7 @@ public class Foo_Core {} // ok - Generation Gap Pattern
 //PrimaryExpression
 [
   (PrimaryPrefix/Name/@Image=$logFactory) and
-  (not (PrimarySuffix//ClassOrInterfaceType/@Image=ancestor::ClassOrInterfaceDeclaration/@Image))
+  (not (PrimarySuffix//ClassOrInterfaceType/@Image=ancestor::ClassOrInterfaceDeclaration/@SimpleName))
 ]
 ]]>
             </value>
@@ -594,7 +594,7 @@ public class Foo {
            <property name="xpath">
                <value>
 <![CDATA[
-//VariableDeclaratorId[string-length(@Image) < $minLen]
+//VariableDeclaratorId[string-length(@Name) < $minLen]
   [not(ancestor::ForInit)]
   [not((ancestor::FormalParameter) and (ancestor::TryStatement))]
 ]]>
@@ -748,7 +748,7 @@ class BadObject {
             <value>
 <![CDATA[
 //FieldDeclaration[@Final='false' and
-                   ../../..[ends-with(@Image, $suffix) or ends-with(@Image, 'Error')]]
+                   ../../..[ends-with(@SimpleName, $suffix) or ends-with(@SimpleName, 'Error')]]
 ]]>
             </value>
          </property>
@@ -942,7 +942,7 @@ public class Mixup {
          <property name="xpath">
             <value>
 <![CDATA[
-//ClassOrInterfaceDeclaration[ends-with(@Image, $suffix)]
+//ClassOrInterfaceDeclaration[ends-with(@SimpleName, $suffix)]
 ]]>
             </value>
          </property>
@@ -1016,7 +1016,7 @@ public class BadNamedTest {
             <value>
 <![CDATA[
 //CastExpression/Type/ReferenceType[
-  not (ancestor::MethodDeclaration/@MethodName='equals')
+  not (ancestor::MethodDeclaration/@Name='equals')
 ]
 ]]>
             </value>
