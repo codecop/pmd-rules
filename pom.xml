@@ -131,7 +131,7 @@
             </snapshots>
             <id>ccc-releases</id>
             <name>Code Cop Code Releases</name>
-            <url>http://www.code-cop.org/mvn2repo/releases</url>
+            <url>https://www.code-cop.org/mvn2repo/releases</url>
         </repository>
         <repository>
             <releases>
@@ -142,7 +142,7 @@
             </snapshots>
             <id>ccc-snapshots</id>
             <name>Code Cop Code Snapshots</name>
-            <url>http://www.code-cop.org/mvn2repo/snapshots</url>
+            <url>https://www.code-cop.org/mvn2repo/snapshots</url>
         </repository>
     </repositories>
 
