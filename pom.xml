@@ -120,4 +120,30 @@
         <project.build.java.target>1.8</project.build.java.target>
     </properties>
 
+    <repositories>
+        <repository>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>ccc-releases</id>
+            <name>Code Cop Code Releases</name>
+            <url>http://www.code-cop.org/mvn2repo/releases</url>
+        </repository>
+        <repository>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <id>ccc-snapshots</id>
+            <name>Code Cop Code Snapshots</name>
+            <url>http://www.code-cop.org/mvn2repo/snapshots</url>
+        </repository>
+    </repositories>
+
 </project>
