@@ -24,8 +24,8 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/.m2
-        key: ${{ runner.os }}-${{ pmd-version }}-m2-${{ hashFiles('pom.xml') }}
-        restore-keys: ${{ runner.os }}-${{ pmd-version }}-m2
+        key: ${{ runner.os }}-${{ matrix.pmd-version }}-m2-${{ hashFiles('pom.xml') }}
+        restore-keys: ${{ runner.os }}-${{ matrix.pmd-version }}-m2
 
     - name: Build and test
-      run: mvn -B test -Dpmd.version=${{ pmd-version }}
+      run: mvn -B test -Dpmd.version=${{ matrix.pmd-version }}
