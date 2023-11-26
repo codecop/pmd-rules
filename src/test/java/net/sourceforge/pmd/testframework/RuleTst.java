@@ -207,7 +207,7 @@ public abstract class RuleTst {
         p.getConfiguration().setDefaultLanguageVersion(languageVersion);
         RuleContext ctx = new RuleContext();
         ctx.setReport(report);
-        ctx.setSourceCodeFilename("n/a");
+        //PK ctx.setSourceCodeFilename("n/a"); deprecated in 6.55
         ctx.setLanguageVersion(languageVersion);
         //PK ctx.setIgnoreExceptions(false);
         RuleSet rules = RuleSetVersionAdapter.create(rule);

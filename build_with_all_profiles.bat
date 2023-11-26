@@ -27,4 +27,9 @@ call mvn clean test -Dpmd.version=6.17.0
 call mvn clean test -Dpmd.version=6.21.0
 @pause
 
+@rem 6.55.0 ... 2023
+@echo running with PMD 6.55
+call mvn clean test -Dpmd.version=6.55.0
+@pause
+
 @endlocal
