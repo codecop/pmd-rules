@@ -10,6 +10,7 @@ jobs:
     strategy:
       matrix:
         pmd-version: [6.0.1, 6.11.0, 6.21.0, 6.31.0, 6.42.0, 6.55.0]
+        java: [8, 11, 17, 21] 
 
     steps:
     - name: Check out the repo
@@ -19,7 +20,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         distribution: 'adopt'
-        java-version: 8
+        java-version: ${{ matrix.java }}
     - name: Cache Maven packages
       uses: actions/cache@v3
       with:
