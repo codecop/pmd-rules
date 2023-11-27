@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+    <test-code>
+        <description><![CDATA[
+example from documentation has two violations
+     ]]></description>
+        <expected-problems>2</expected-problems>
+        <expected-messages>
+            <message>Potential violation of Law of Demeter (object not created locally)</message>
+            <message>Potential violation of Law of Demeter (method chain calls)</message></expected-messages>
+        <code><![CDATA[
+public class Foo {
+    /**
+     * This example will result in two violations.
+     */
+    public void example(Bar b) {
+        // this method call is ok, as b is a parameter of "example"
+        C c = b.getC();
+
+        // this method call is a violation, as we are using c, which we got from B.
+        // We should ask b directly instead, e.g. "b.doItOnC();"
+        c.doIt();
+
+        // this is also a violation, just expressed differently as a method chain without temporary variables.
+        b.getC().doIt();
+
+        // a constructor call, not a method call.
+        D d = new D();
+        // this method call is ok, because we have create the new instance of D locally.
+        d.doSomethingElse(); 
+    }
+}
+     ]]></code>
+    </test-code>
+</test-data>

@@ -41,7 +41,7 @@
     <!-- Design OO -->
 
     <!-- Law of Demeter -->
-    <rule ref="rulesets/java/coupling.xml/LawOfDemeter" />
+    <rule ref="rulesets/java/codecop.xml/LawOfDemeter" />
 
     <!-- No naked primitives -->
     <rule ref="rulesets/java/codecop.xml/PrimitiveObsession">

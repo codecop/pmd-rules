@@ -31,7 +31,7 @@
     <rule ref="rulesets/java/codecop.xml/PrimitiveObsession" />
 
     <!-- One dot per line (rule 4 of Object Calisthenics) -->
-    <rule ref="rulesets/java/coupling.xml/LawOfDemeter" />
+    <rule ref="rulesets/java/codecop.xml/LawOfDemeter" />
 
     <!-- Don’t abbreviate - can't check (rule 5 of Object Calisthenics) -->
     <rule ref="rulesets/java/codecop.xml/ShortVariableCustom">
